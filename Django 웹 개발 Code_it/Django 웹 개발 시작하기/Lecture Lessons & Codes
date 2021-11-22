@@ -20,3 +20,15 @@ Django 개발 환경
 -> WSL 환경을 구축하게 되면 무거운 다른 가상환경을 제공하는 프로그램 없이 윈도우에서 맥처럼 리눅스를 이용해 개발할 수 있다
 * Homebrew -> macOS의 패키지 관리 프로그램 (pyenv와 pyenv-virtualenv 모두 homebrew로 설치가능), 패키지 설치부터 제거까지 간편하다
 * 이 수업에서는 Django 2.2 가 사용된다 -> 2022년까지 꾸준히 업데이트 및 버그 수정이 되는 버전이다
+
+Django 개발 환경 구성하기
+
+1. VSCode 텍스트 에디터
+2. Homebrew 프로그램 설치/관리
+* pyenv 파이썬 설치/관리  -> 파이썬 설치 3.7.7 버전
+* pyenv-virtualenv 파이썬 가상환경 관리 -> 가상환경 만든 후 pyenv로 설치한 파이썬을 적용하고 쟝고를 설치한다 (python 3.7.7 / django 2.2 )
+
+VSCode
+* 내가 원하는 경로에서 바로 VSCode를 열 수 있도록 설정 -> command + shift + p (명령 팔레트) -> 검색창에 shell command 입력 -> install -> 이제 터미널을 열고 디렉토리를 만들어보자
+->
+
