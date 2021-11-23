@@ -32,3 +32,31 @@ VSCode
 * 내가 원하는 경로에서 바로 VSCode를 열 수 있도록 설정 -> command + shift + p (명령 팔레트) -> 검색창에 shell command 입력 -> install -> 이제 터미널을 열고 디렉토리를 만들어보자
 -> mkdir code_it_django -> cs code_it_django -> 해당 디렉토리로 갔으면 code . 을 입력한다 -> code_it_django 위치에서 VSCode가 실행된다 이렇게 하지 않으면 매번 코드를 편집할 디렉토리를 지정해주어야한다
 
+Homebrew
+-> 다운 받는 법은 Linux 수업 참조
+brew --version -> 현재 버전 알려준다
+brew install pyenv -> pyenv 설치
+brew install pyenv-virtualenv -> virtualenv 설피
+-> 설치가 다 되었다면 시스템 환경설정(System Preference)으로 들어간 후 Users & Groups -> 자물쇠를 풀어준다 -> 현재 사용자로 가서 고급옵션(Advanced Options) -> login shell을 확인한다
+-> login shell 은 터미널에서 기본적으로 어떤 쉘을 사용하는지 보여준다
+
+-> bash일 경우와 zsh 일 경우 나눠서 다음과 같이 해준다
+
+| 홈 디렉토리로 이동하기
+
+아래 명령어는 홈 디렉토리(~)에서 실행해야 합니다.
+
+cd ~
+
+| pyenv 설정하기 for bash
+
+echo 'eval export PATH="$HOME/.pyenv/bin:$PATH"' >> .bash_profile
+echo 'eval "$(pyenv init -)"' >> .bash_profile
+echo 'eval "$(pyenv virtualenv-init -)"' >> .bash_profile
+
+| pyenv 설정하기 for zsh
+
+echo 'eval export PATH="$HOME/.pyenv/bin:$PATH"' >> .zshrc
+echo 'eval "$(pyenv init -)"' >> .zshrc
+echo 'eval "$(pyenv virtualenv-init  -)"' >> .zshrc
+
