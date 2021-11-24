@@ -60,3 +60,11 @@ echo 'eval export PATH="$HOME/.pyenv/bin:$PATH"' >> .zshrc
 echo 'eval "$(pyenv init -)"' >> .zshrc
 echo 'eval "$(pyenv virtualenv-init  -)"' >> .zshrc
 
+
+가상 환경 구성 & 쟝고 설치하기
+
+pyenv 이용해서 파이썬 설치
+-> pyenv install --list -> 설치가능한 파이썬 버전 리스트가 엄청 많이 나온다 꼭 하나면 다운 받을 필요는 없고 여러개 다운 받아서 마음대로 바꿔 쓸 수 있다 
+-> 3.7.7 버전과 3.8.2 둘 다 설치해보자 
+-> pyenv install 3.7.7 -> 3.7.7 버전 설치
+-> pyenv install 3.8.2 -> 3.8.2 버전 설치
