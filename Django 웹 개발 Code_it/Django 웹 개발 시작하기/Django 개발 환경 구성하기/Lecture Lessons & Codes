@@ -79,6 +79,16 @@ pyenv 이용해서 파이썬 설치
 가상환경 삭제
 -> pyenv uninstall django-envs (virtualenv 안써도 되넹)
 
+Global 가상 환경 vs Local 가상 환경
 
+Global 가상환경
+- 시스템 전역에 적용하는 환경
+- global 가상환경을 적용하면 따로 지정하지 않아도 기본적으로 global 환경 사용
+
+Local 가상환경
+- 특정 디렉토리 내부에서만 적용되는 환경
+- global 환경이 지정되어 있더라도 local 환경이 적용됨 (해당 디렉토리의 하위 디렉토리에도 자동으로 local 환경이 적용된다)
+
+pyenv global 3.8.8 -> 컴퓨터 전역에 파이썬 3.8.8 적용
 
 
