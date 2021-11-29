@@ -75,6 +75,11 @@ pyenv 이용해서 파이썬 설치
 가상환경 생성
 -> pyenv virtualenv 3.7.7 django-envs (버전과 가상 환경의 이름)
 -> pyenv versions -> 생성된 가상 환경을 볼 수 있다
+* system (set by /Users/jutlo/.pyenv/version)
+  3.8.8
+  3.8.8/envs/django-envs (추가됨)
+  3.9.0
+  django-envs (추가됨)
 
 가상환경 삭제
 -> pyenv uninstall django-envs (virtualenv 안써도 되넹)
@@ -90,5 +95,11 @@ Local 가상환경
 - global 환경이 지정되어 있더라도 local 환경이 적용됨 (해당 디렉토리의 하위 디렉토리에도 자동으로 local 환경이 적용된다)
 
 pyenv global 3.8.8 -> 컴퓨터 전역에 파이썬 3.8.8 적용
+-> pyenv versions
+  system
+* 3.8.8 (set by /Users/jutlo/.pyenv/version)  -> global로 지정된 파이썬 버전
+  3.8.8/envs/django-envs
+  3.9.0
+  django-envs
 
 
