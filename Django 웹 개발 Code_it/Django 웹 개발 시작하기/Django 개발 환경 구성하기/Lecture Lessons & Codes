@@ -21,7 +21,7 @@ Django 개발 환경
 * Homebrew -> macOS의 패키지 관리 프로그램 (pyenv와 pyenv-virtualenv 모두 homebrew로 설치가능), 패키지 설치부터 제거까지 간편하다
 * 이 수업에서는 Django 2.2 가 사용된다 -> 2022년까지 꾸준히 업데이트 및 버그 수정이 되는 버전이다
 
-Django 개발 환경 구성하기
+Django 개발 환경 구성하기 (MaxOS)
 
 1. VSCode 텍스트 에디터
 2. Homebrew 프로그램 설치/관리
@@ -36,7 +36,7 @@ Homebrew
 -> 다운 받는 법은 Linux 수업 참조
 brew --version -> 현재 버전 알려준다
 brew install pyenv -> pyenv 설치
-brew install pyenv-virtualenv -> virtualenv 설피
+brew install pyenv-virtualenv -> virtualenv 설치
 -> 설치가 다 되었다면 시스템 환경설정(System Preference)으로 들어간 후 Users & Groups -> 자물쇠를 풀어준다 -> 현재 사용자로 가서 고급옵션(Advanced Options) -> login shell을 확인한다
 -> login shell 은 터미널에서 기본적으로 어떤 쉘을 사용하는지 보여준다
 
@@ -68,3 +68,17 @@ pyenv 이용해서 파이썬 설치
 -> 3.7.7 버전과 3.8.2 둘 다 설치해보자 
 -> pyenv install 3.7.7 -> 3.7.7 버전 설치
 -> pyenv install 3.8.2 -> 3.8.2 버전 설치
+-> pyenv versions -> 설치되 있는 버전들 보여준다 
+
+*내가 할 때는 Big Sur 를 써서 그런지 해당버전들 설치가 안되서 3.8.8 과 3.9.0 으로 하겠다
+
+가상환경 생성
+-> pyenv virtualenv 3.7.7 django-envs (버전과 가상 환경의 이름)
+-> pyenv versions -> 생성된 가상 환경을 볼 수 있다
+
+가상환경 삭제
+-> pyenv uninstall django-envs (virtualenv 안써도 되넹)
+
+
+
+
