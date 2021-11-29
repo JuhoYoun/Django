@@ -94,12 +94,20 @@ Local 가상환경
 - 특정 디렉토리 내부에서만 적용되는 환경
 - global 환경이 지정되어 있더라도 local 환경이 적용됨 (해당 디렉토리의 하위 디렉토리에도 자동으로 local 환경이 적용된다)
 
-pyenv global 3.8.8 -> 컴퓨터 전역에 파이썬 3.8.8 적용
+global 가상환경 설정
+-> pyenv global 3.8.8 -> 컴퓨터 전역에 파이썬 3.8.8 적용
 -> pyenv versions
   system
 * 3.8.8 (set by /Users/jutlo/.pyenv/version)  -> global로 지정된 파이썬 버전
   3.8.8/envs/django-envs
   3.9.0
   django-envs
+  
+local 가상환경 설정
+-> 가상환경을 설정하고 싶은 디렉토리로 이동
+-> pyenv version -> 현재 적용되있는 환경만 따로 볼 수 있다 -> 따로 지정해두지 않아도 global 환경에 적용된 것이 보인다
+-> pyenv local django-envs (local 환경 설정)
+-> pyenv version -> 적용되어 있는 환경이 바뀌었다 
+-> 상위 디렉터리로 이동 -> 해당 디렉토리의 환경은 여전히 global 이다
 
 
