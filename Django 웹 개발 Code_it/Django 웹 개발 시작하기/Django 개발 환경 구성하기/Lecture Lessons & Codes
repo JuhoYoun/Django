@@ -131,3 +131,5 @@ Package    Version
 pip        21.2.3
 setuptools 57.4.0
 -> global 환경 이기 때문에 이렇게 나와야한다
+
+# pip은 안되지만 pip3은 된다? https://apple.stackexchange.com/questions/371929/why-do-i-only-have-pip3-but-no-pip
