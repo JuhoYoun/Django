@@ -110,4 +110,18 @@ local 가상환경 설정
 -> pyenv version -> 적용되어 있는 환경이 바뀌었다 
 -> 상위 디렉터리로 이동 -> 해당 디렉토리의 환경은 여전히 global 이다
 
+Django 설치
+* code_it_django 디렉토리 안에 설치하는 것이 아니라 가상 환경 안에 설치한다 -> django-envs
+* pip 설치하는 법 : https://howchoo.com/python/install-pip-python#install-pip-on-macos  (내 컴퓨터에는 pip이 설치되어 있지 않았다 아마 homebrew로 파이썬을 설치하지 않아서일까)
+-> code_it_django 디렉토리로 이동 -> pip3 install django==2.2 (강의에서는 pip을 썼는데 나는 pip이 안되서 pip3을 썼다) -> 가상 환경에 쟝고 설치
+-> django-admin --version -> 2.2 (2.2 버전이 설치된것이 보인다
+-> pip list (나는 pip 이 안되서 pip3로 했다) -> 설치되 있는 파이썬 패키지와 버전을 볼 수 있다 
+Package    Version
+---------- -------
+Django     2.2
+pip        21.2.3
+pytz       2021.3
+setuptools 57.4.0
+sqlparse   0.4.2
+0> 
 
