@@ -30,7 +30,7 @@ Django 개발 환경 구성하기 (MaxOS)
 
 VSCode
 * 내가 원하는 경로에서 바로 VSCode를 열 수 있도록 설정 -> command + shift + p (명령 팔레트) -> 검색창에 shell command 입력 -> install -> 이제 터미널을 열고 디렉토리를 만들어보자
--> mkdir code_it_django -> cs code_it_django -> 해당 디렉토리로 갔으면 code . 을 입력한다 -> code_it_django 위치에서 VSCode가 실행된다 이렇게 하지 않으면 매번 코드를 편집할 디렉토리를 지정해주어야한다
+-> mkdir code_it_django -> cd code_it_django -> 해당 디렉토리로 갔으면 code . 을 입력한다 -> code_it_django 위치에서 VSCode가 실행된다 이렇게 하지 않으면 매번 코드를 편집할 디렉토리를 지정해주어야한다
 
 Homebrew
 -> 다운 받는 법은 Linux 수업 참조
@@ -112,7 +112,7 @@ local 가상환경 설정
 
 Django 설치
 * code_it_django 디렉토리 안에 설치하는 것이 아니라 가상 환경 안에 설치한다 -> django-envs
-* pip 설치하는 법 : https://howchoo.com/python/install-pip-python#install-pip-on-macos  (내 컴퓨터에는 pip이 설치되어 있지 않았다 아마 homebrew로 파이썬을 설치하지 않아서일까)
+* pip 설치하는 법 : https://howchoo.com/python/install-pip-python#install-pip-on-macos  (내 컴퓨터에는 pip이 설치되어 있지 않은거 같다 아마 homebrew로 파이썬을 설치하지 않아서일까)
 -> code_it_django 디렉토리로 이동 -> pip3 install django==2.2 (강의에서는 pip을 썼는데 나는 pip이 안되서 pip3을 썼다) -> 가상 환경에 쟝고 설치
 -> django-admin --version -> 2.2 (2.2 버전이 설치된것이 보인다)
 -> pip list (나는 pip 이 안되서 pip3로 했다) -> 설치되 있는 파이썬 패키지와 버전을 볼 수 있다 
@@ -130,6 +130,6 @@ Package    Version
 ---------- -------
 pip        21.2.3
 setuptools 57.4.0
--> global 환경 이기 때문에 이렇게 나와야한다
+-> global 환경 이기 때문에 이렇게 나와야한다 근데 내가 해보니 상위 폴더에도 django 랑 기타 패키지가 설치되있네?
 
 # pip은 안되지만 pip3은 된다? https://apple.stackexchange.com/questions/371929/why-do-i-only-have-pip3-but-no-pip
