@@ -249,7 +249,9 @@ echo $SHELL
 
 앞서 환경 설정 할때 homebrew를 이용했었죠? zsh도 homebrew를 이용해서 쉽게 설치할 수 있습니다.
 
-brew install zsh
+brew install zsh   
+-> The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.  -> now shell is changed to zsh!
 
 
 02. Oh-My-Zsh
