@@ -24,6 +24,18 @@ Django는 파이썬 같은 언어가 아니라 웹 개발을 위해 만들어진
 
 Start a Django Project
 
-django-admin startproject costaurant(project name) -> costaurant project created
+django-admin startproject costaurant(project name) -> costaurant project directory created
 
-ls -> can see costaurant project file in the code_it_django
+ls -> can see costaurant project directory in the code_it_django
+
+이제 django 개살 서버를 실행할 수 있다 -> 명령어 하나만 썼지만 개발에 필요한 기본적인 뼈대는 django가 모두 생성해주었다!
+
+cd costautant -> 디렉토리로 들어가서~ 
+
+code . -> vscode로 이 디렉토리를 열자 -> costaurant 아래에 costaurant 디렉토리와 여러가지 파일들이 있는것이 보인다
+
+-> manage.py -> 이것을 이용해서 개발서버를 실행할 수 있다
+
+-> python manage.py runserver (그런데 나는 pip3로 django를 설치했으니 python3 manage.py runserver 를 써야한다)
+
+-> 나오는 주소 복사 후 웹브라우저에 붙여놓기 -> django로 만든 웹사이트에 접근한다!
