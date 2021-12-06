@@ -21,3 +21,9 @@ Django는 파이썬 같은 언어가 아니라 웹 개발을 위해 만들어진
 너무 걱정하지는 마세요. 가벼운 개념부터 차근차근 알려드릴게요 :)
 자, 준비가 되었다면 바로 다음 강의로 넘어가 봅시다.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Start a Django Project
+
+django-admin startproject costaurant(project name) -> costaurant project created
+
+ls -> can see costaurant project file in the code_it_django
