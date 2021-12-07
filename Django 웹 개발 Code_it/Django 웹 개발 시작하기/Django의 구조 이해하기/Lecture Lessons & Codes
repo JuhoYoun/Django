@@ -401,3 +401,22 @@ Reusable한 앱을 만드는 방법?
 
 Reusable App에 대해 더 궁금하다면 다음의 영상을 참고해보세요!
 DjangoCon: Reusable App 영상 바로가기 https://www.youtube.com/watch?v=A-S0tqpPga4&feature=youtu.be
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Hello Django!
+
+일단 VSCode를 이용해서 프로젝트 루트 디렉토리 안에 있는 urls.py를 열자 -> 유저가 브라우저에 url을 입력하면 쟝고는 urls.py 에 적혀있는 것을 보고 어떻게 처리할지를 결정한다
+
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+
+-> urlpatters가 url을 어떻게 처리할지 써놓는 곳이다 우리가 건드린게 없어도 프로젝트를 생성하면 기본적으로 하나가 들어가있다
+-> path('admin/', admin.site.urls) 뜻은 우리 사이트 주소 뒤에 /admin 이라고 되어있으면 admin.site.urls 로 가라는 뜻이다
+-> 실재로 admin으로 접근해보자 -> 터미널로 가서 python3 manage.py runserver 해서 개발 서버를 연다 -> 주소로 간다 -> http://127.0.0.1:8000/ 이게 우리 사이트의 주소다
+-> http://127.0.0.1:8000/admin 을 브라우저에 입력 -> 그러면 이런식으로 우리가 만들어준적은 없지만 쟝고에서 미리 제공해주는 관리자 페이지로 간다 관리자 페이지에 대해서는 뒤애서 공부하자
+
