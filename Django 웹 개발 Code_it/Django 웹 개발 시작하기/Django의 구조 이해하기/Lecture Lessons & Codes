@@ -315,9 +315,67 @@ Django 앱의 데이터 구조에 대한 변경 사항인 migration 파일이 �
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
+실습과제
+100XP
+코스토랑 프로젝트 #01
+실습 문제
+
+이제 여러분의 코스토랑 프로젝트를 시작 해봅시다. 아래를 참고해서 각각의 기능을 구현해주세요. 지금까지 강의에서 함께 만들었던 코스토랑 프로젝트는 그대로 두고 새로운 위치에서 프로젝트를 생성해주세요.
+앞으로 지금 생성한 코스토랑 프로젝트를 계속 이어서 완성해 나갈 거니까, 기억할 수 있는 위치에서 작업해주세요.
+
+1. 프로젝트 생성하기
+
+costaurant 라는 이름의 Django 프로젝트를 생성해 주세요.
+
+2. 앱 생성하기
+
+menus 라는 이름의 앱을 생성해 주세요.
+
+3. 앱 등록하기
+
+settings.py로 가서 menus 앱을 등록해 주세요.
+
+4. 서버 실행하기
+
+서버를 켜고 아래 처럼 정상적으로 접속 되는지 확인하세요.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3568&directory=Untitled.png&name=Untitled.png
 
 
+실습 정답
 
+[1] django 프로젝트는 django-admin을 통해서 생성할 수 있습니다.
+
+django-admin startproject costaurant
+
+[2] django 앱은 manage.py를 이용해서 생성할 수 있습니다.
+
+#costaurant 디렉토리로 이동한 뒤
+python manage.py startapp menus
+
+[3] 앱을 생성하면 settings.py에 등록해주어야 합니다.
+
+#costaurant/settings.py
+...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'menus', # App 등록
+]
+...
+
+# 만약 코드잇 실행기에서 실행을 하고 있다면 settings.py의 ALLOWED_HOSTS에
+# 아래와 같이 추가해주어야 합니다.
+ALLOWED_HOSTS = ['*']
+
+[4] manage.py의 runserver를 통해 개발 서버를 실행할 수 있습니다.
+
+python manage.py runserver
+python manage.py runserver 0.0.0.0:8000 #코드잇 실행기에서 실행 할 
 
 
 
