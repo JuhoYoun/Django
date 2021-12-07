@@ -144,11 +144,15 @@ django가 자동으로 생성해주는 프로젝트의 구조
 
 costaurant 의 구조 :
 
-costaurant
+costaurant (Project Root)
 -> manage.py
 -> db.sqlite3
--> costaurant
+-> costaurant (Project App)
    -> __init__.py
    -> settings.py
    -> urls.py
    -> wsgi.py
+   
+* Project Root : 쟝고 프로젝트의 모든 파일이 담겨있는 최상위 디렉토리
+* Project App : 하나의 쟝고 프로젝트는 여러개의 앱으로 구성되어있다 프로젝트 앱은 그 중 가장 중심이 되는 앱이다
+
