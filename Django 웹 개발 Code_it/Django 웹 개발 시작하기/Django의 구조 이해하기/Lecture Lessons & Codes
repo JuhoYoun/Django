@@ -139,3 +139,16 @@ django-admin과 manage.py 에 대해 더 자세하게 알고 싶다면 아래 Dj
 
 https://docs.djangoproject.com/en/2.2/ref/django-admin/
 ---------------------------------------------------------------------------------------------------------------------------
+
+django가 자동으로 생성해주는 프로젝트의 구조
+
+costaurant 의 구조 :
+
+costaurant
+-> manage.py
+-> db.sqlite3
+-> costaurant
+   -> __init__.py
+   -> settings.py
+   -> urls.py
+   -> wsgi.py
