@@ -227,3 +227,20 @@ https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface
 
 Django App - 새로운 쟝고 앱을 만들어보자
 
+Project vs App
+* Project는 웻 서비스 전체이고 App은 그 안에서 하나하나의 기능을 나타내는 단위
+ex) 인터넷 쇼핑물을 만든다고 한다면 그 안에 회원 가입 기능 장바구니 기능 결제 기능 등등이 있다 쟝고애서는 이 하나하나의 단위를 각각의 독립적인 앱 단위로 개발할 수 있다 이런 앱들을 모두 합친것이 하나의 프로젝트이다
+
+앱 생성하기
+
+
+
+
+
+
+
+
+
+
+
+
