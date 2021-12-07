@@ -421,5 +421,15 @@ urlpatterns = [
 -> http://127.0.0.1:8000/admin 을 브라우저에 입력 -> 그러면 이런식으로 우리가 만들어준적은 없지만 쟝고에서 미리 제공해주는 관리자 페이지로 간다 관리자 페이지에 대해서는 뒤애서 공부하자
 -> urls.py로 돌아가서 우리가 직접 url 처리를 해보자 -> path('foods/', include('foods.urls')) 를 추가한다 자세한 설명은 다음 렉처에... 그런데 include 함수를 쓰기 위해서는 
 django.urls 로부터 include 함수를 가져와야한다 from django.urls import path 여기에 from django.urls import path, include 이렇게 추가해준다
--> 주소가 우리웹사이트주소/foods 면은 foods 앱 안의 urls.py 파일을 살펴보라는 의미이다 그런데 지금 foods 앱 안에 urls.py 파일이 없다 -> 만든다
+-> 주소가 우리웹사이트주소/foods 면은 foods 앱 안의 urls.py 파일을 살펴보라는 의미이다 그런데 지금 foods 앱 안에 urls.py 파일이 없다 -> 만든다 -> VSCode로 foods 앱 안에 urls.py 를 생성한다
+-> 프로젝트 루트 안의 urls.py 에서 
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('foods/', include('foods.urls'))
+]
+이 부분을 복사해서 새로은 urls.py 파일 안에 붙여넣는다 
+-> 필요없는 첫번째 admin 관련 줄을지운다 그리고 path만 필요하기 때문에 include 도 지운다 foods 관련 줄도 지우고 다시 써준다 -> path('index/', views.index) 
 -> 
