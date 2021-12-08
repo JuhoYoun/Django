@@ -598,6 +598,24 @@ Django Template & Rendering
 ttpResponse('''<h1>Hello, Django!</h1>
                <h2>Hello, URL!</h2>
                <p>Let's Code</p>''')
+-> 그런데 멋이 없고 깔끔하지도 않다 그리고 모든 html 코드를 넣는것은 views.py 파일을 더럽히는것 같다 그리고 사실 html 코드는 html 파일에 딱 넣어야 정리가 된다 그래서 '''  ''' 부분을 따로 파일로 빼는 작업을 해보자
+쟝고에서는 html 같이 화면 구성을 담당하는 부분을 template 이라고 한다 지금은 foods 앱을 개발할고 있으니까 foods 앱 안에 template 들을 담을 디렉토리를 하나 만들자 -> foods 앱 디렉토리 안에 templates라는 디렉토리를 만든다
+-> 생성한 templates 폴더 안에 새로운 디렉토리를 생성한다 -> 이번엔 앱이름을 그대로 사용해서 foods라고 짓는다 -> 이제 이 디렉토리 안에 html 파일을 생성해주면 된다 -> index.html 이라고 짓자
+-> 이걸 다른 말로는 index template 이라고 할 수 있다 -> 그다음 원하는 html 코드는 마음껏 써라 -> 이제 이 템플릿을 유저에게 보여주면 된다 -> 템플릿을 유저에게 보여줄 수 있도록 변환 하는 것을 다은 표현으로 템플릿을 렌더한다고 한다 
+-> views로 가서 html 코드를적었던 부분을 지우고 -> 그대신 render 함수를 써주고 첫번째 파라미터로 request 를 넘긴다 그리고 두번째 파라미터로는 우리가 원하는 템플릿의 경로를 써주어야한다
+-> 방금 만든 index.html의 경로를 적는다 ->
+
+def index(request):
+   return render(request, 'foods/index.html')
+
+-> 이 render 함수는 우리가 넘겨준 정보와 템플릿을 토대로 하나의 응답 즉 하나의 HttpResponse 객체를 만들어서 리턴해준다 -> 아까의 HttpResponse 대신 render 를 썼지만 결국에는 HttpResponse 객체를 리턴해준다
+-> 서버를 다시 켜고 url를 쳐서 확인해보자
+
+
+
+
+
+
 
 
 
