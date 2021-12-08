@@ -541,4 +541,52 @@ codeit.kr/food/banana/ 로 이동하게 되는거죠.
 
 자, 앞으로 우리는 점점 더 많은 페이지들을 연결하는 작업을 하게 될 텐데요, 이번 노트에서 설명한 내용들을 참고해서 작성하면 조금 더 명확하게 여러분이 원하는 URL 구조를 작성할 수 있겠죠?
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
+메인 페이지
+
+지금 우리 서버를 실행하고 처음 들어가면 아래와 같은 페이지가 보이는데요, 마치 에러 페이지처럼 보이지만 사실 이 페이지가 에러가 난 것은 아닙니다. 지금 우리가 접속한 주소는 만약 여러분이 로컬 환경이라면 127.0.0.1:8000 , 코드잇 실행기에서 실행했다면 ip:port  주소로 접속했을 텐데요, 한 번 천천히 살펴보겠습니다.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4566&directory=error_page.png&name=error_page.png
+
+"Using the URLconf defined in costaurant.urls" 라고 보이죠? 그러니까 지금 보고 있는 이 페이지는 costaurant.urls에 명시 되어 있는 것을 보고 보여준 페이지 인데, "Django tried these URL patterns, in this order: 1. admin/  2. foods/ "  그리고 "The empty path didn't maych any of these".
+
+Django가 열심히 찾아 봤는데 admin/ 과 foods/ 라는 URL은 찾을 수 있었지만 "The empty path"에 대해서는 매칭되는 URL 패턴을 찾을 수 없다고 하네요.
+
+실제 costaurant 디렉토리 안의 urls.py 파일을 보면 이렇게 되어있습니다.
+
+# costaurant/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('foods/', include('foods.urls')),
+]
+
+admin/ 으로 들어오면 admin.site.urls를 보면 되고, foods/ 로 들어오면 foods 앱 안의 urls.py를 보도록 되어있는거죠. 그러면 우리가 지금 접속한 URL의 패턴은 무엇일까요? 바로 '' 즉 아무것도 없는 경로로 이 경로를 urlpatterns에 작성하면 이렇게 됩니다.
+
+urlpatterns = [
+        path('', include(' ... '),
+    ...
+]
+
+지금 우리의 urls.py에는 이  '' 패턴에 대한 처리가 안되어 있기 때문에 'Page not found' 즉 해당 하는 웹 페이지를 찾을 수 없다라는 화면을 보여주는거죠. 그러니까 여기서 만약 아래처럼 적게되면
+
+# costaurant/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('foods.urls')),
+]
+
+그냥 ip와 port만 입력하고 들어갔을때 매칭되는 ''  패턴이 이제 foods앱의 urls.py를 보게됩니다.
+
+자, 그럼 왜 이러한 '' 패턴, 그러니까 메인 페이지에 해당하는 경로를 적어주지 않았냐구요? 우리는 아직 이러한 Django의 URL 구조에 대해 익숙하지 않은 상태이기 때문에 각각의 앱 이름으로 된 URL 구조를 만들고 다시 그 아래에 하위 URL 구조를 계층적으로 작성하면서 구조적으로 URL 패턴을 작성하는 법을 학습하기 위함입니다.
+
+만약 '' 경로에 대해 다른 페이지를 할당하고 싶다면 프로젝트 앱 아래의 urls.py에 이번 노트에서 배운 '' 경로를 추가해보세요.
+------------------------------------------------------------------------------------------------------------------------------------------------------------
