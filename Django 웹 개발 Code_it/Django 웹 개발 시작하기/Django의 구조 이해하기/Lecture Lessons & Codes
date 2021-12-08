@@ -496,7 +496,7 @@ def index(request):
     
 -> index라는 함수가 있다 domain/foods/index 는 결국 이 함수를 향해 간다 이 index 함수가 하는 일은 무엇일까?
 파라미터로 request 즉 요청을 받고 HttpResponse 즉 응답을 리턴한다 지금은 h2 태그를 응답으로 주고 있다 그래서 브라우저에 이 주소를 치면 h2태그가 뜬다
-
+해당 url로 가서 개발자 도구로 들어가 보면 실재로 h2 태그가 들어가는 것을 볼 수 있다
 
 
 
