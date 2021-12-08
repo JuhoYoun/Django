@@ -485,3 +485,19 @@ ex) bakey.codeit.kr/foods/index
 이 부분에 대해서 처리를 해주기 위해서 그 다음의 foods 앱 안에 있는 urs.py를 봐달라는 의미이다 즉 foods가 매칭이 되었으면 그 다음부터는 foods안의 urls.py를 봐달라는 것이다
 -> foods 안의 urls.py로 가보자
 
+urlpatterns = [
+    path('index/', views.index)
+]
+
+-> 지금 넘어온 나머지 경로는 index인데 보면 'index/'라는 패턴이 있다 -> 딱 이곳에 매칭된다 그러면 여기서 시키는대로 하면 된다 -> views 모듈의 index를 가리키고 있다 -> views로 가보자
+
+def index(request):
+    return HttpResponse("<h2>Hello, Django!</h2>")
+    
+->
+
+
+
+
+
+
