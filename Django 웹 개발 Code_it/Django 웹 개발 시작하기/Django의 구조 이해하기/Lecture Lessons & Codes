@@ -481,5 +481,7 @@ ex) bakey.codeit.kr/foods/index
 이제 프로젝트 앱 안의 urls.py를 보자 바로 여기서 입력된 url의 경로와 매치되는 패턴이 있는지 본다
     path('admin/', admin.site.urls),
     path('foods/', include('foods.urls'))
-일단 url의 경로와 foods 부분이 매칭된다 거기서 시키는대로 동작된다 -> include('foods.urls') 이건 무슨 의미일까?
+일단 url의 경로와 foods 부분이 매칭된다 거기서 시키는대로 동작된다 -> include('foods.urls') 이건 무슨 의미일까? 우리 전체 url의 경로 중에 foods 까지만 매칭되고 그 뒤에 index는 아직 그대로 남아있다
+이 부분에 대해서 처리를 해주기 위해서 그 다음의 foods 앱 안에 있는 urs.py를 봐달라는 의미이다 즉 foods가 매칭이 되었으면 그 다음부터는 foods안의 urls.py를 봐달라는 것이다
+-> foods 안의 urls.py로 가보자
 
