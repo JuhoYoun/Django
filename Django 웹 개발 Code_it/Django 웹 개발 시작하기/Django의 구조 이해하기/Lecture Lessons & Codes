@@ -442,6 +442,7 @@ HttpResponse 함수를 쓰기위해서는 불러와야한다 -> from django.http
 -> 이제 다시 개발서버를 켠다 -> 우리 웹사이트/foods/index 를 브라우저에 입력한다 -> 짜잔
 
 
-
+만약 파이썬의 '모듈과 패키지'에 대해 궁금하다면 아래의 코드잇 강의를 참고해주세요.
+코드잇의 '모듈과 패키지' 강의 바로가기  https://www.codeit.kr/courses/python-intermediate/topics/python-module-and-package
 
 
