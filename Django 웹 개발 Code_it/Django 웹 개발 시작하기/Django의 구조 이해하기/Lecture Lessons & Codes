@@ -432,4 +432,16 @@ urlpatterns = [
 ]
 이 부분을 복사해서 새로은 urls.py 파일 안에 붙여넣는다 
 -> 필요없는 첫번째 admin 관련 줄을지운다 그리고 path만 필요하기 때문에 include 도 지운다 foods 관련 줄도 지우고 다시 써준다 -> path('index/', views.index) 
--> 
+-> views.index 의 의미는 foods 앱 안의 views.py 를 봐라이다 이러한 views 모듈을 쓰기 위해서는 일단 불러와야한다 -> from . import views 를 추가해준다 여기서 .은 현재와 같은 디렉토리를 의미한다 (현재 foods 디렉토리 안에서 views를 가져와라)
+-> views.index의 의미는 또 views 모듈에서 index 함수를 가져오라는 의미이다 -> 실재로 views.py 를 열어보면 index 함수를 정의해준적이 없다 -> 우리가 만들어준다 
+
+def index(request):
+   return HttpResponse("<h2>Hello, Django!</h2>")
+
+HttpResponse 함수를 쓰기위해서는 불러와야한다 -> from django.http import HttpResponse
+-> 이제 다시 개발서버를 켠다 -> 우리 웹사이트/foods/index 를 브라우저에 입력한다 -> 짜잔
+
+
+
+
+
