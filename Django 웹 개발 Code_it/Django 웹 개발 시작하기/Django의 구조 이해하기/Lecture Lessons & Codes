@@ -477,7 +477,9 @@ ex) bakey.codeit.kr/foods/index
 -> 터미널에서 costaurant 프로젝트로 이동 -> VSCode 실행
 우리 장고 프로젝트에 웹 브라우저로부터 요청이 들어오면 구체적으로 어떤 응답을 해야할지 결정해야한다 url의 경로 항목에 어떤 url를 입력하든 장고가 가장 먼저 보는 파일은 프로젝트앱
 디렉토리 안에 있는 urls.py이다 왜 그런지 settings.py을 보면 알 수 있는데 ROOT_URLCONF 항목은 장고가 url을 보고 가장 먼저 어떤 파일을 봐야하는지 설정하는 부분이다 보면은 
-'costaurant.urls' 라고 되어있다
-
-
+'costaurant.urls' 라고 되어있다 -> costaurant 프로젝트앱 안에 있는 urs.py를 봐라! 우리가 따로 설정해주지 않아도 프로젝트를 생성하면 장고가 이렇게 설정해준다
+이제 프로젝트 앱 안의 urls.py를 보자 바로 여기서 입력된 url의 경로와 매치되는 패턴이 있는지 본다
+    path('admin/', admin.site.urls),
+    path('foods/', include('foods.urls'))
+일단 url의 경로와 foods 부분이 매칭된다 거기서 시키는대로 동작된다 -> include('foods.urls') 이건 무슨 의미일까?
 
