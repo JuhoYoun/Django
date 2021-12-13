@@ -444,6 +444,28 @@ HttpResponse 함수를 쓰기위해서는 불러와야한다 -> from django.http
 
 만약 파이썬의 '모듈과 패키지'에 대해 궁금하다면 아래의 코드잇 강의를 참고해주세요.
 코드잇의 '모듈과 패키지' 강의 바로가기  https://www.codeit.kr/courses/python-intermediate/topics/python-module-and-package
+--------------------------------------------------------------------------------------------------------------------------------------
+def index(request):
+
+   return HttpResponse("<h2>Hello, Django!</h2>")
+
+index 함수의 패러미터인 request은 어디서 받아오나요?
+
+views.index 에는 패러미터가 포함되어 있지 않은데 index 함수가 패러미터를 어디서 받아오는지 궁금합니다
+
+좋은 질문이라 생각합니당!
+
+  
+
+어떤 URL 을 통해 HTTP 요청이 들어가게 될거에용.
+
+이 때 django 는 이 HTTP 요청에 대한 metadata (content-type 이라든지, post 요청인지 get 요청인지 등등)를 포함한 HttpRequest 객체를 만든다고 합니당.
+
+이 HttpRequest 객체가 뷰에 넘어가게 되는거죵.
+
+  
+
+https://docs.djangoproject.com/en/3.2/ref/request-response/ 도 한번 참고해보세용~!
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
