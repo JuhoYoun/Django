@@ -60,6 +60,39 @@ echo 'eval export PATH="$HOME/.pyenv/bin:$PATH"' >> .zshrc
 echo 'eval "$(pyenv init -)"' >> .zshrc
 echo 'eval "$(pyenv virtualenv-init  -)"' >> .zshrc
 
+-------------------------------------------------------------------------------------------------------
+움.. 이건 django 에서 다룰 내용이 아니긴한데, 나중에 쉘 명령어 같은 걸 공부하실 기회가 있다면
+
+배우셔도 좋을 거에용^^
+
+  
+
+간단하게만 설명드리면,
+
+echo 는 쉘에서 출력하기 위함인데 >> file 명을 쓰게 되면 그 출력이 파일에 추가가 됩니다.
+
+eval 은 뒤에 어떤 인자를 쉘 명령어로 쓰기 위해 사용합니다. eval 뒤에 인자들이 실행할 문자열로 결합되서 쉘에서 실행되는거죵.
+
+$(pyenv init -) 이나 $(pyenv virtualenv-init -) 같은건 pyenv 와 virtualenv 를 초기화하는 과정입니다.
+
+  
+
+$(command)
+
+  
+
+요거는 command substitution 이라고 하는데 command 실행 결과를 문자열로 대체시켜 줍니당
+
+나중에 관심있으시면 https://wiki.kldp.org/HOWTO/html/Adv-Bash-Scr-HOWTO/commandsub.html 를 아주 가볍게만 참고해주세용. 
+
+  
+
+마지막으로 export PATH 는 환경변수를 등록하는 과정입니다. 
+
+http://jinyongjeong.github.io/2016/06/06/bash_shell_environment_variable/ 를 같이 참고해보세용~!
+
+------------------------------------------------------------------------------------------------------------------
+
 
 가상 환경 구성 & 쟝고 설치하기
 
