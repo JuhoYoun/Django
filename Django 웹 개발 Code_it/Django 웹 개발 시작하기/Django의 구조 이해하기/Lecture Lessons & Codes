@@ -753,3 +753,93 @@ Controller  ->    View
 
 덕분에 개발자는 서비스에 중요한 Model, View, Template에 집중하고 나머지 모든 부분은 Django 프레임워크에 맡겨서 훨씬 편리하고 빠르게 개발할 수 있습니다. 이와 같은 개발의 간편함이 Django 프레임워크가 MVT 아키텍처를 통해 추구하고자 하는 것입니다.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+코스토랑 프로젝트 #02 URL 연결하기
+실습 문제
+
+아래를 참고해서 costaurant 프로젝트에 URL을 연결하고 알맞은 view를 호출하도록 작성해주세요. 
+단순히 코딩만 하는 것이 아닌 흐름을 이해하면서 각 단계가 무엇을 의미하는지 생각해 보세요.
+
+    프로젝트 앱의 urls.py에 'menus/' 라는 URL 패턴과 매칭이 되면 menus 앱의 urls.py를 보도록 작성해 주세요.
+
+    # costaurant/costaurant/urls.py
+    from django.contrib import admin
+    from django.urls import path
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+            # 이곳에 작성해주세요.
+    ]
+
+    menus 앱에는 urls.py가 아직 없습니다. 새로 생성해 주세요.
+
+    menus 앱의 urls.py에 ' ' (아무것도 없는 빈 문자열) URL 패턴과 매칭이 되면 menus 앱의 views.py 안에 있는 index_view를 호출 하도록 작성해 주세요.
+
+    # costaurant/menus/urls.py
+    from django.urls import path
+    # view를 import 해야합니다.
+
+    urlpatterns = [
+        # path('URL 패턴', view 함수)
+    ]
+
+    아래를 참고해서 menus 앱의 views에 <h1>코스토랑 오픈!</h1> 을 결과로 돌려주는  index_view 함수를 작성해 주세요.
+
+    # costaurant/menus/views.py
+    from django.http import HttpResponse
+
+    # index view함수를 작성해주세요.
+    # index view함수는 HttpResponse('Response')를 return 하는 함수입니다.
+
+    개발 서버를 실행하고 /menus 로 접속해서 아래와 같은 화면이 나오는지 확인해 주세요.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3687&directory=Untitled.png&name=Untitled.png
+
+
+
+실습 정답
+
+    앞에서 계속 연습 했던 부분이죠? 프로젝트 앱의 urls.py에서 'menus/'와 매칭이 되면
+     menus 앱의 urls.py을 보라고 적어 주도록 하겠습니다.
+
+    # costaurant/costaurant/urls.py
+
+    from django.contrib import admin
+    from django.urls import path
+    from django.urls import include
+
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('menus/',include('menus.urls'))
+    ]
+
+    다음으로 menus 앱의 urls.py에서 ' '(빈 문자열)과 매칭이 되면 index view를 호출 하도록 적어줍니다.
+     이렇게 하면 /menus/로 요청이 들어올 때 index view를 호출하게 됩니다.
+
+    # costaurant/menus/urls.py
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+     path('', views.index)
+    ]
+
+    마지막으로 index view를 작성해 줍니다. view 함수는 request를 전달 인자로 받고 응답으로는 보기에서 제시 한대로  HttpResponse 객체를 반환하도록 해주면 됩니다.
+
+    # costaurant/menus/views.py
+    from django.http import HttpResponse
+
+    # Create your views here.
+    def index(request):
+      return HttpResponse('<h1>코스토랑 오픈!</h1>')
+
+    웹 터미널에서 개발 서버를 실행하고 /menus/로 접근해서 
+     결과 화면을 확인 합니다.
+
+    python manage.py runserver 0.0.0.0:8000
+
+
+
+
+
+
