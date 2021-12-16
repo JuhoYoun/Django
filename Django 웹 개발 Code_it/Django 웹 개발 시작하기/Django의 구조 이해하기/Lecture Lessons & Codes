@@ -466,6 +466,67 @@ views.index 에는 패러미터가 포함되어 있지 않은데 index 함수가
   
 
 https://docs.djangoproject.com/en/3.2/ref/request-response/ 도 한번 참고해보세용~!
+------------------------------------------------------------------------------------------------------------------------------------------
+foods앱 안의 urls.py에서는 views를 import해야만 (from . import views) 
+
+urlpatterns 안의 다음의 코드를 사용할 수 있는데 path('index/', views.index)
+
+프로젝트 앱 안의 urls.py 에서는 foods 를 import 하지 않아도 바로 include('foods.urls')를 사용할 수 있는 이유가 무엇인가요?
+
+-------------------------------------------------------------------------------------------------------------
+
+ProjectRoot . ProjectApp . urls
+
+from django.contrib import admin
+
+from django.urls import path, include
+
+urlpatterns = [
+
+    path('admin/', admin.site.urls),
+
+    path('foods/', include('foods.urls')),
+
+    path('greetings/', include('greetings.urls'))
+
+]
+
+ProjectRoot . foods . urls
+
+from django.contrib import admin
+
+from django.urls import path
+
+from . import views
+
+urlpatterns = [
+
+    path('index/', views.index)
+
+]
+
+
+https://docs.djangoproject.com/en/4.0/topics/http/urls/#including-other-urlconfs
+
+  
+
+settings.py 에 보시면 ROOT_URLCONF = '프로젝트명.urls' 와 같이 되어있을 겁니당.
+
+다시 말해 이 레슨에서는 costaurant 디렉토리의 urls.py 를 말하는거죵.
+
+  
+
+HTTP 요청이 들어가게 되면 이 urls.py 에 쓰인 URLPATTERNS 의 URL 요소들을 차례대로 검색하며(리스트니까 순서대로 검색하게 되겠죵?)
+
+일치했을 경우 그에 해당하는 뷰 등을 실행하게 되는거죵.
+
+  
+
+이 과정에서 include() 는 해당 모듈, 즉 위의 경우엔 foods.urls 와 같이 있다면 foods 의 urls.py 에 있는 URLPATTERN 을 불러오게 됩니당.
+
+말씀하신 것 처럼 별도 import 를 하지 않았음에도 위처럼 가져올 수 있는 건 include() 내부에 쓰인 import_module() 덕분인 것으로 보입니당.
+
+import_module() 의 로직에 따라 패키지 경로를 가져오는 것으로 보이는데 얽혀있는 코드들이 많아서 저도 끝까지 확인하기는 좀 어렵네용 ㅠ
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
