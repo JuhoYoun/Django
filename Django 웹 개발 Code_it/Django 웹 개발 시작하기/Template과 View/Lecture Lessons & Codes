@@ -11,7 +11,9 @@ food class 태그를 새로 작성하고 음식 사진을 이미지 폴더에 �
 
 실습파일
 
-templates_03_01
+templates_03_01 (css, fonts, images, html 파일)
 
 코드잇 실행기에는 foods/templates/foods 디렉토리 안에 css, fonts, images 디렉토리가 미리 생성되어 있습니다.
 바로 서버를 실행해서 결과를 확인해보세요.
+
+이 템플릿 파일을 장고 프로젝트에 옮긴다
