@@ -680,7 +680,56 @@ Django를 배우다 보면 정말 많은 함수가 나오죠? 앞으로 지금�
 
 * 템플릿 언어란? https://dalpaeng00.tistory.com/32
 
+------------------------------------------------------------------------------------------------------------------------------------------
 
+def index(request): 
+
+	return render(request, 'foods/index.html')
+
+템플릿의 경로가 ProjectRoot/foods/templates/foods/index.html인데 반해 
+
+render 함수의 템플릿 경로에는 food/index.html 이라고만 되어있는데
+
+render 함수 인자로 템플릿 경로를 써줄 땐 해당  views가 있는 app 디렉토리의 templates 디렉토리가 자동으로 시작 경로가 되는건가요?
+
+
+
+제가 아는대로 말씀드리면, 템플릿을 찾아주는건 template loader 라는 녀석이 해줍니당. 
+
+서버가 시작되면 이 loader 라는 녀석이 템플릿 경로를 리스트 형태로 만들고 템플릿을 찾게 될 때 이 리스트를 통해 찾게 됩니당. 
+
+  
+
+# settings.py
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+
+  
+
+위를 보시면  'APP_DIRS' 가 True 값이 되어 있는데 이렇게 True 가 되어 있으면 app directories loader 라는게 동작하게 됩니당
+
+뭔가 이름에서도 유추할 수 있듯이 INSTALLED_APPS 에 등록된 앱이름 기반으로 템플릿 경로를 추가하는데
+
+스샷을 예로 들자면 foods 라는 앱이 INSTALLED_APPS 에 등록되었다는 가정하에 foods/teamplates/ 와 같은 경로가 리스트에 추가됩니다.
+
+이 app 디렉토리명 하위에 templates 라는 디렉토리명은 loader 설정상 고정으로 경로에 추가된다고 생각하시면 될거에용
+
+  
+
+render(request, 'foods/idnex.html')
+
+  
+
+예를 들어 위와 같이 render 함수를 호출하면 loader 가 템플릿을 찾아주게 됩니당.  
+
+'foods/index.html' 과 같이 입력하게 되면 이미 만들어진 템플릿 경로를 기반으로 해당 경로가 실제 있는지 확인하게 되는 거죵.
+
+즉 foods/templates 경로가 먼저 언급드린 서버 시작시 생성된 템플릿 경로 리스트에 추가되었기 때문에 
+
+이 템플릿 경로인 foods/teamplates 경로에 foods/index.html 가 있는지 확인하고 그에 따른 동작을 하게 될 거에용
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 Django의 MVT 구조
