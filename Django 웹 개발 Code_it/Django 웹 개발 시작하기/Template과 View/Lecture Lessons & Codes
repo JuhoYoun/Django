@@ -1,4 +1,8 @@
 Tmeplate 적용하기
 
 html/css 웹 퍼블리싱 강의에서도 html과 css를 이용해 웹페이지를 만들었는데 django를 사용하면 뭐가 달라지는가?
-이전에 만들었던 방식의 웹사이트는 HTML CSS 폰트 그리고 이미지로 이루어져있다
+이전에 만들었던 방식의 웹사이트는 HTML CSS 폰트 그리고 이미지로 이루어져있다 (template 적용하기 lecture example 파일 참조)
+만약 여기에 음식 하나를 추가하고 싶다면? index.html (lecture example 프로젝트의 costaurant/foods/templates/foods/index.html)을 열고 아래로 내려가서
+food class 태그를 새로 작성하고 음식 사진을 이미지 폴더에 놓고 이미지 경로를 다시 적어줘야한다 음식 설명도 하나하나 바꿔줘야한다 
+게다가 이 html 코드에서 날짜 부분은 매일 바꿔줘야되게 디자인되어있다 -> 정적으로 내용이 고정되어 있는것이 불편하다
+
