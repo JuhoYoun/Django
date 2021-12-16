@@ -694,7 +694,7 @@ render 함수 인자로 템플릿 경로를 써줄 땐 해당  views가 있는 a
 
 
 
-제가 아는대로 말씀드리면, 템플릿을 찾아주는건 template loader 라는 녀석이 해줍니당. 
+제가 아는대로 말씀드리면, 템플릿을 찾아주는건 template loader 라는 녀석이 해줍니당.   https://docs.djangoproject.com/en/2.2/ref/templates/api/#loader-types
 
 서버가 시작되면 이 loader 라는 녀석이 템플릿 경로를 리스트 형태로 만들고 템플릿을 찾게 될 때 이 리스트를 통해 찾게 됩니당. 
 
