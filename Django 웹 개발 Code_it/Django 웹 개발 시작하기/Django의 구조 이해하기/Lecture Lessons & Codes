@@ -743,6 +743,14 @@ ttpResponse('''<h1>Hello, Django!</h1>
 def index(request):
    return render(request, 'foods/index.html')   #경로는 어떻게 설정된거지? templates 디렉토리는 생략하나?
 
+-> full code 
+
+from django.shortcuts import render
+from django.http import HttpResponse # 이건 render만 쓸 땐 필요 없을듯?
+
+def index(request):
+    return render(request, 'foods/index.html')
+
 -> 이 render 함수는 우리가 넘겨준 정보와 템플릿을 토대로 하나의 응답 즉 하나의 HttpResponse 객체를 만들어서 리턴해준다 -> 아까의 HttpResponse 대신 render 를 썼지만 결국에는 HttpResponse 객체를 리턴해준다
 -> 서버를 다시 켜고 url를 쳐서 확인해보자
 
