@@ -38,6 +38,12 @@ Template과 Static의 폴더 구조
 하나의 프로젝트 디렉토리에 여러개의 앱이 있고 그 앱 안에 templates 디렉토리가 있다 이 때 templates 디렉토리 안에 앱이름으로 된 디렉토리를 추가하지 않고 바로 html파일을 넣으면 어떻게 될까?
 하나의 프로젝트에 A와 B라는 두개의 앱이 있고 그 안에 templates 폴더 그리고 templates 폴더 안에 바로 html 파일이 있다고 해보자 
 -> 우리가 했던 예제와 같이 url 설정 끝낸 후 브라우저에 domain/A/index 를 열자 -> A 템플릿이 렌더링 되서 나온다 그럼 이번엔 domain/B/index를 열자 -> 근데 이번에도 A 템플릿이 렌더링되서 나온다 왜일까?
+-> 프로젝트 앱의 settings.py로 가보자 -> TEMPLATES 로 가자 -> 'APP_DIRS': True, 이부분을 주목 -> 이 라인은 각각의 앱에 templates 디렉토리가 있으니까 템플릿 찾을 때 거기서 찾으라는 의미이다
+-> 우리는 A,B 두개의 앱이 있으니까 이 상태로 index.html을 찾으려하면 settings.py의 INSTALLED_APPS에 등록된 순서대로 index 템플릿을 찾게된다 (이 경우 A가 먼저 등록되어있다) 그런데 index.html은 A에도
+있고 B에도 있다 이 때 장고는 앱이 등록된 순서대로 templates 디렉토리를 뒤지다 먼저 등록된 A의 templates 디렉토리에서 index.html을 찾는다 -> 이렇게 겹치는 일이 없게 하기 위해 샌드위치 구조로 만든다
+
+이미지와 같은 정적 파일 (static file)도 샌드위치 구조로 구성하는 이유는?
+
 
 
 
