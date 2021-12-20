@@ -645,10 +645,30 @@ def index(request):
     return render(request, 'foods/index.html')
     
 자 그럼 이 today 변수를 어떻게 템플릿에 넣을까?
+뷰에서 템플릿으로 데이터를 넘길 때 이용하는 것이 바로 render 함수의 세번째 parameter다!
+그리고 이 때 넘겨주는 데이터는 사전형에 담아서 넘겨줘야한다 (dictionary)
 
+def index(request):
+    today = datetime.today().date() 
+    context = {'date' : today}
+    return render(request, 'foods/index.html', context = context) #세번째 파라미터에 우리가 만든 context 변수를 매칭시킨다
+    
+이제 index 템플릿으로 가자
+뷰에서 넘겨주는 context에 접근해서 데이터를 가져온 후 
 
+{% block date-block %}
+  <div> </div>
+{% endblock date-block %}
 
+이 안에 넣으면 된다
 
+템플릿 언어중에서 뷰에서 템플릿으로 넘긴 데이터로 변환되는 것은? 템플릿 변수 ( {{ 템플릿 변수 }} )
+이 중괄호 안에 context의 key를 넣어주자 이 key로 context의 value인 today에 접근하게된다
 
+{% block date-block %}
+  <div>{{date}}</div>
+{% endblock date-block %}
 
+다됬다! 개발서버 열고 확인해보자
+----------------------------------------------------------------------------------------------------------------------
 
