@@ -600,7 +600,51 @@ URL -> View -> 함수 호출 -> Model -> 데이터베이스 -> [View -> Template
 
 위의 MVT 구조에서 지금 뷰에서 데이터를 가공한 다음 템플릿에 보내 화면을 자동으로 만드는 과정을 해보자
 
+costuarant 프로젝트의 foods 앱의 index 템플릿을 보면 
 
+{% block date-block %}
+  <div> July 16, 2020 </div>
+{% endblock date-block %}
+
+날짜 부분이 정적으로 구현화되어있다 이 부분을 바꾸어보자 
+MVT 에서 로직을 담당하는 부분은? View 
+views.py 로 가서 오늘의 날짜를 가져오는 로직을 만들자 -> 파이썬에서 날짜와 시간을 다룰 때 사용하는 모듈인 datetime을 이용하자
+
+먼저 import 부터 해주자
+from datetime import datetime
+
+이 datetime 모듈로 현재 시간과 날짜를 구하는 방법 -> datetime.today()
+
+views.py 의 index 함수를 보자
+
+def index(request):
+    return render(request, 'foods/index.html')
+
+today란 변수를 만들어주자
+
+def index(request):
+    today = datetime.today()
+    return render(request, 'foods/index.html')
+    
+시험 삼아 출력도 해볼까?
+
+def index(request):
+    today = datetime.today()
+    print(today)
+    return render(request, 'foods/index.html')
+
+여기서 출력되는 값은 개발서버의 콘솔에만 출력된다
+
+개발서버를 켜고 foods/index로 가보자 날짜는 정적 날짜를 입력한 그대로다 today 변수의 값은 개발서버를 열 때 터미널 콘솔에 출력되었다
+
+코드를 바꿔주자
+
+def index(request):
+    today = datetime.today().date() #우리는 시간은 안쓸거니 이렇게 해주자
+    print(today)
+    return render(request, 'foods/index.html')
+    
+자 그럼 이 today 변수를 어떻게 템플릿에 넣을까?
 
 
 
