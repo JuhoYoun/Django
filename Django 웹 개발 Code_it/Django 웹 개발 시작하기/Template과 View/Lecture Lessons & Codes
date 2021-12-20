@@ -406,4 +406,152 @@ food-container 안쪽 음식들은 계속해서 업데이트되며 바뀌는 부
 </body>
 </html>
 
+이제 자식 템플릿인 index에서 부모 템플릿인 base를 상속받아 사용하면 된다
+index 템플릿으로 가서 부모 템플릿에 있는 내용은 모두 지워준다
 
+    <div class="food">
+      <img src={% static "foods/images/chicken.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>코딩에 빠진 닭</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+    
+    <div class="food">
+      <img src={% static "foods/images/sushi.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>코코스시</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+    
+    <div class="food">
+      <img src={% static "foods/images/burger.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>코데리아</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+    
+    <div class="food">
+      <img src={% static "foods/images/bibimbap.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>코가네</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+
+    <div class="food">
+      <img src={% static "foods/images/banana.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>나에게 뭘 바나나</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+
+    <div class="food">
+      <img src={% static "foods/images/croquette.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>귀여운 고로케</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+
+    <div class="food">
+      <img src={% static "foods/images/pumpkin_soup.jpg"%} width="300px" height="200px"/>
+      <div class="info">
+        <h3>단호박 단호박죽</h3>
+        <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+        <a href="#">메뉴 보기</a>
+      </div>
+    </div>
+    
+    
+이제 이 템플릿이 자식 템플릿으로서 어떤 부모 템플릿을 사용할 것인지 명시해줘야한다
+-> 
+{% extends './base.html' %}
+{% load static %}
+
+주의할 점은 extends 템플릿 태그는 항상 템플릿의 가장 첫줄에 나와야한다
+load static 태그를 남겨둔 이유는 자식 템플릿에서도 정적파일에 접근하기 때문이다
+이제 부모 태그에서 블록처리했던 부분들을 채워보자
+
+{% extends './base.html' %}
+{% load static %}
+
+{% block date-block %}
+  <div> July 16, 2020 </div>
+{% endblock date-block %}
+
+{% block food-container %}
+  <div class="food">
+    <img src={% static "foods/images/chicken.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>코딩에 빠진 닭</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/sushi.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>코코스시</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/burger.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>코데리아</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/bibimbap.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>코가네</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/banana.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>나에게 뭘 바나나</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/croquette.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>귀여운 고로케</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+
+  <div class="food">
+    <img src={% static "foods/images/pumpkin_soup.jpg"%} width="300px" height="200px"/>
+    <div class="info">
+      <h3>단호박 단호박죽</h3>
+      <P>주머니가 가벼운 당신의 마음까지 생각한 가격!</p>
+      <a href="#">메뉴 보기</a>
+    </div>
+  </div>
+{% endblock food-container %}
+
+블록을 먼저 명시하고 블록 안에 우리가 채울 내용을 넣으면 된다
