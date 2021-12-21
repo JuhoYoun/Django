@@ -859,3 +859,11 @@ urls.py 에 url을 설정해줘야 된다 근데 음식이 100개면 100개 설�
 foods 앱의 urls.py에서 만들었던 chicken url을 지워준다  -> delete  path('chicken/', views.chicken),
 
 그리고 다음과 같은 라인을 입력하라 -> path('menu/<str:food>/', views.food_detail)
+<str:food> -> 이 부분이 동적으로 바뀌는 url을 변수를 이용해 처리할 수 있게 해준다
+menu/<str:food>/ 이 부분을 쉽게 설명하면 url에서 menu 다음에 / 즉 경로 구분 기호를 제외한 모든 url을 문자열로 보고 food애 담아서 food_detail 함수를 호출할 때 인수로 넣어준다
+그리고 str 대신 0 또는 양의 정수와 일치하는지 체크하는 int, 하이픈 또는 언더바로 연결된 문자열과 일치하는지 체크하는 slug 등이 있다 
+
+
+
+
+
