@@ -1034,3 +1034,23 @@ def food_detail(request, food):
 다음과 같이 고쳐주고 개발서버 켜고 다시 /foods/menu/chicken에 접근 -> 잘만나옴
 아직까진 pasta 같이 url을 아무거나 해도 페이지가 다 나오는데 이건 다음에 고쳐보자
 ---------------------------------------------------------------------------------------------------
+
+실습과제
+코스토랑 프로젝트 #05 상세 메뉴 화면 추가하기
+실습 문제
+
+이번에는 코스토랑의 메뉴에 상세 정보를 볼 수 있는 화면을 만들어 봅시다. 각 단계가 무엇을 의미하는지 생각하면서 작성해주세요.
+
+    menus앱의 urls.py에 새로운 URL 패턴을 정의해주세요. 'food/' 다음 문자열과 매칭이 되면 해당 문자열을 menu라는 변수에 넣어서 detail view를 호출하도록 작성해주세요. Django는 이러한 URL처리를 우아하게 할 수 있습니다!
+    views.py에 detail view 함수를 새로 정의해 주세요. detail view는 첫 번째 매개 변수로 request를 두 번째 매개 변수로는 menu를 갖습니다. 그리고 결과로는 detail.html 템플릿을 랜더 해서 돌려줍니다.
+    detail.html 템플릿을 열고 [A]~[C]를 작성해 주세요.
+    index.html 템플릿을 열고 [A], [B] 두 개의 URL을 작성해 주세요. 어떤 URL을 적어야 할까요?
+    개발 서버를 켜고 /menus로 가서 '코딩에 빠진 닭'의 '상세 보기'를 클릭하고 상세 페이지가 모두 잘 나오는지 확인합니다.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3596&directory=Untitled.png&name=Untitled.png
+
+
+
+
+
+
