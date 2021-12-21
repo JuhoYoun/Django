@@ -885,7 +885,13 @@ def food_detail(request, food):
     context = {'name' = food}
     return render(request, 'foods/detail.html', context = context)
 
+자 이제 남은것은 detail 템플릿을 만드는것
 
+templates 안에 detail.html 을 만든다 여기선 간단하게 h2 태그 안에 음식 이름만 출력해보도록 하자
+->
+<h2>{{name}}</h2>
+
+개발 서버를 켜고 domain/foods/menu/chicken 해보자 -> chicken 나옴, pasta로 해보자 -> pasta 나옴 헐 파스타는 메뉴에 없는건뎅?
 
 
 
