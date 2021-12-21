@@ -848,7 +848,14 @@ def chicken(request):
 
 이제 chicken 템플릿을 만들어줘야한다 -> templates/foods 디렉토리 안에 만들고 코드를 대충 좀 써준다 -> 개발서버 실행후 foods/chicken 페이지가 잘 나오는지 확인 
 
-다시 돌아와서 index 템플릿으로 가자 그리고 메뉴 보기에 우리가 만들어준 url을 넣자 -> # 대신 /foods/chicken 으로 바꾸자!! 여기서 잠깐!! foods 앞에 /을 절대 빼먹어선 안된다!!!
+다시 돌아와서 index 템플릿으로 가자 그리고 메뉴 보기에 우리가 만들어준 url을 넣자 -> # 대신 /foods/chicken 으로 바꾸자!! 여기서 잠깐!! foods 앞에 /을 절대 빼먹어선 안된다!!! 아니면 아예 ../chicken 으로 경로를 써라
+
+chicken 템플릿에 돌아가기 버튼 추가 -> <a href = '/foods/index'>돌아 가기</a>
+
+자 이제 치킨은 됬고 모든 음식에 대해서 상세 페이지를 만들려면? 
+urls.py 에 url을 설정해줘야 된다 근데 음식이 100개면 100개 설정해줘야하는데 이러한 url을 이쁘게 정리하는 방법이 있다
+장고에서는 음식처럼 일정한 패턴을 가지고 입력하게 되는 url에 대해 경로 변수 (path variable)을 이용한 Dynamic URL(동적 url)을 지원합니다 그리고 이러한 장고의 url 처리 방식을 장고의 우아한 url이라 한다
+
 
 
 
