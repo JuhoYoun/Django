@@ -1017,7 +1017,19 @@ def food_detail(request, food):
 <h2>{{name}}</h2>
 <div>{{description}}</div>
 <p>{{price}} 원</p>
-<img src={% static {{ima_path}} %}  #과연 이게 맞을까?
+<img src={% static {{ima_path}} %}/>  #과연 이게 맞을까?
 
-이제 개발서버 켜고 /foods/menu/chicken 로 접근하면 변한 템플릿으로 잘 나온다
+이제 개발서버 켜고 /foods/menu/chicken 으로 접근해보면 맨 마지막 줄이 템플릿 문법 에러가 나온다
+-> 장고에서는 템플릿 태그 안에 템플릿 변수를 중첩해서 사용할 수 없다!
+
+지금과 같이 정적 경로를 세밀하게 컨트롤하고 싶을 때 사용하는 템플릿 태그가 있다
+-> {% get_static_prefix %}{{img_path}}   -> static 정적경로를 사용하는 앞부분을 붙이고 우리가 원하는 경로를 템플릿 변수로 넣어준것이다
+
+{% load static %}   #밑에 정적파일인 이미지를 사용하기 때문에 써줘야한다
+<h2>{{name}}</h2>
+<div>{{description}}</div>
+<p>{{price}} 원</p>
+<img src={% get_static_prefix %}{{ima_path}}/> 
+
+다음과 같이 고쳐주고 개발서버 켜고 다시 /foods/menu/chicken에 접근 -> 잘만나옴
 
