@@ -1017,7 +1017,7 @@ def food_detail(request, food):
 <h2>{{name}}</h2>
 <div>{{description}}</div>
 <p>{{price}} 원</p>
-<img src={% static {{ima_path}} %}/>  #과연 이게 맞을까?
+<img src={% static {{img_path}} %}/>  #과연 이게 맞을까?
 
 이제 개발서버 켜고 /foods/menu/chicken 으로 접근해보면 맨 마지막 줄이 템플릿 문법 에러가 나온다
 -> 장고에서는 템플릿 태그 안에 템플릿 변수를 중첩해서 사용할 수 없다!
@@ -1029,7 +1029,7 @@ def food_detail(request, food):
 <h2>{{name}}</h2>
 <div>{{description}}</div>
 <p>{{price}} 원</p>
-<img src={% get_static_prefix %}{{ima_path}}/> 
+<img src={% get_static_prefix %}{{img_path}}/> 
 
 다음과 같이 고쳐주고 개발서버 켜고 다시 /foods/menu/chicken에 접근 -> 잘만나옴
 아직까진 pasta 같이 url을 아무거나 해도 페이지가 다 나오는데 이건 다음에 고쳐보자
