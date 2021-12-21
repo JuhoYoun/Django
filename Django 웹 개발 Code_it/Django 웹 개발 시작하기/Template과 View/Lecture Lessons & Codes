@@ -1049,8 +1049,37 @@ def food_detail(request, food):
 
 https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3596&directory=Untitled.png&name=Untitled.png
 
+과제 해설close solution tab
+1. 우아한URL
 
+/menus면 (1)번과 매칭이 되고
+/menus/food/chicken이면 (2)번과 매칭이 됩니다.
 
+urlpatterns = [
+    path('', views.index), # ... (1)
+    path('food/<str:menu>/', views.detail) # ... (2)
+]
+
+2. detail view 작성하기
+
+def detail(request, menu):
+    return render(request, 'menus/detail.html')
+
+3. detail.html 작성하기
+
+[A] 이제 슬슬 외울수도 있겠어요!
+
+{% load static %}
+
+[B], [C] 메인 화면으로 가는 URL 주소는 아래와 같습니다.
+
+href="/menus/"
+
+4. index.html 작성하기
+
+[A] 메인 화면으로 가는 링크입니다. 
+[B] 상세 페이지 즉 detail view를 호출하는 URL Pattern을 적어주면 되는데 우리의 경우 /menus/food/ 다음에 어떠한 문자열이 와도 괜찮습니다. 지금은 food/chicken으로 적어줍시다.
+-----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
