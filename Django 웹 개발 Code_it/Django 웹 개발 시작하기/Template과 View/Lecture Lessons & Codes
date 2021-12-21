@@ -1008,9 +1008,16 @@ def food_detail(request, food):
         context['name'] = '코딩에 빠진 닭'
         context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
         context['price'] = 10000
+        context['img_path'] = 'foods/images/chicken.jpg'
     return render(request, 'foods/detail.html', context = context)
     
 디테일 템플릿도 다음과 같이 고쳐주자
 
+{% load static %}   #밑에 정적파일인 이미지를 사용하기 때문에 써줘야한다
+<h2>{{name}}</h2>
+<div>{{description}}</div>
+<p>{{price}} 원</p>
+<img src={% static {{ima_path}} %}  #과연 이게 맞을까?
 
+이제 개발서버 켜고 /foods/menu/chicken 로 접근하면 변한 템플릿으로 잘 나온다
 
