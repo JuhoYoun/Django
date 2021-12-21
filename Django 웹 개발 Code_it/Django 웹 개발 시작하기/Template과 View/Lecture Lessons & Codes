@@ -983,14 +983,34 @@ kwargs와 name 전달 인자는 Django가 더 익숙해진 다음에 뒤에서 �
 Django의 URL 구조에 대해 더 알고 싶다면 공식 문서를 참고하세요.
 https://docs.djangoproject.com/en/2.2/topics/http/urls/
 --------------------------------------------------------------------------------------------------------------------------------
+템플릿 뷰 더 연습하기 
 
 URL - 경로 변수 이용
 View - 데이터 가공 후 템플릿으로 전달
 Template - 템플릿 언어를 이용해서 데이터를 사용
 
+다시 costaurant의 foods 앱으로 가보자 
+ path('menu/<str:food>/', views.food_detail) -> 여기서 menu의 뒤에 경로를 구분하는 /가 나오니 않는 모든 url을 문자열로 처리해서 food변수에 담는다
+위의 pasta 처럼 아무 글자나 입력해도 같은 템플릿 형식으로 페이지에 나타나게 된다 이 부분을 개선하면서 음식 이름 뿐만 아니라 세부사항까지 나오도록 해보자
 
+views.py 로 가자
 
+def food_detail(request, food):
+    context = {'name' : food}
+    return render(request, 'foods/detail.html', context = context)
 
+여기서 food에 담겨오는 내용이 우리가 원하는 음식에 대해서만 동작해야한다 -> 조건문 if!
+디테일 함수를 다음과 같이 고쳐주자
+
+def food_detail(request, food):
+    context = dict() #빈 사전형 생성
+    if food == 'chicken':
+        context['name'] = '코딩에 빠진 닭'
+        context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
+        context['price'] = 10000
+    return render(request, 'foods/detail.html', context = context)
+    
+디테일 템플릿도 다음과 같이 고쳐주자
 
 
 
