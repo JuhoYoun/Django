@@ -846,8 +846,8 @@ def chicken(request):
     return render(request, 'foods/chicken.html')
 -> chicken 함수
 
-이제 chicken 템플릿을 만들어줘야한다
+이제 chicken 템플릿을 만들어줘야한다 -> templates/foods 디렉토리 안에 만들고 코드를 대충 좀 써준다 -> 개발서버 실행후 foods/chicken 페이지가 잘 나오는지 확인 
 
-
+다시 돌아와서 index 템플릿으로 가자 그리고 메뉴 보기에 우리가 만들어준 url을 넣자 -> # 대신 /foods/chicken 으로 바꾸자
 
 
