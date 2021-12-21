@@ -827,3 +827,27 @@ calc(a=1, b=2, c=3)
 장고 프로젝트 설정시 settings.py 에 타임존이 UTC로 설정되어있다 -> 웹페이지를 만들고 datetime 모듈을 이용해 오늘 날짜 시간을 동적으로 출력하면 UTC 시간이 나온다
 UTC 세팅을 US/Pacific로 바꿔  LA 시간으로 바꾸긴 했는데 전세계에서 접속하는 사람마다 다른 시간을 보게할 수 있을까?
 -----------------------------------------------------------------------------------------------------------------
+
+장고의 우아한 URL 
+장고에서 url을 처리하면 우리가 원하는데로 쉽게 url을 설계할 수 있고 직관적으로 이해할 수 있다 이번 레슨이 끝나면 url을 좀 더 체계적으로 관리할 수 있게된다
+
+이번에는 각각의 음식에 대한 상세 페이지를 만들어보자
+먼저 치킨에 해당하는 페이지를 만들어볼까나
+
+foods 앱 안의 urls.py로 가서 치킨에 대한 url을 만들어준 후 views로 가서 chicken 함수를 만들고 간단하게 chicken template을 렌더해서 돌려주게 만들자
+
+urlpatterns = [
+    path('index/', views.index)
+    path('chicken/', views.chicken)
+]
+-> urls.py에 chicken 추가
+
+def chicken(request):
+    return render(request, 'foods/chicken.html')
+-> chicken 함수
+
+이제 chicken 템플릿을 만들어줘야한다
+
+
+
+
