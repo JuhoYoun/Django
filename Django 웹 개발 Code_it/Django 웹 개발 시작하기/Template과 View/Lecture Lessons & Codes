@@ -1116,4 +1116,40 @@ ex)
 500 : 서버 내부 에러
 
 
+costaurant 프로젝트로 가서 개발서버를 켜고 /foods/menu/pasta 같이 메뉴에도 없는 url을 쳐도 페이지가 나온다
+
+def food_detail(request, food):
+    context = dict() #빈 사전형 생성
+    if food == 'chicken':
+        context['name'] = '코딩에 빠진 닭'
+        context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
+        context['price'] = 10000
+        context['img_path'] = 'foods/images/chicken.jpg'
+    return render(request, 'foods/detail.html', context = context)
+
+-> pasta 가 chicken 과 같지 않지만 빈 context 사전형이 render할 때 들어가게 되고 디테일 템플릿으로 넘어가게 된다
+
+그럼 의도하지 않은 url일 때 404 에러를 내도록 해보자
+먼저 장고에서 제공해주는 404 에러를 가져오자 -> from django.http import Http404 추가
+그리고 우리가 의도하지 않은 url일 경우의 동작도 추가해준다
+
+def food_detail(request, food):
+    context = dict() #빈 사전형 생성
+    if food == 'chicken':
+        context['name'] = '코딩에 빠진 닭'
+        context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
+        context['price'] = 10000
+        context['img_path'] = 'foods/images/chicken.jpg'
+    else:
+        raise Http404('이런 음식은 없습니다')
+        
+    return render(request, 'foods/detail.html', context = context)
+ 
+ raise는 파이썬에서 에러를 강제로 발생시킬 때 사용하는 문법이다 (파이썬에서 지정한 에러 강제 발생)
+ Http404() 안에 인수로 문자열을 넣을 수 있다
+
+
+
+
+
 
