@@ -317,7 +317,33 @@ def __str__(self):
 python manage.py makemigrations
 python manage.py migrate
 
+과제 해설close solution tab
+모델 정의하기
 
+실습 문제에서 제시한 데이터의 구조에 맞추어 models.py에 모델을 정의합니다.
+
+class Menu(models.Model):
+    name = models.CharField(max_length=80)
+    name_eng = models.CharField(max_length=80)
+    description = models.CharField(max_length=120)
+    price = models.IntegerField()
+    img_path = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+데이터베이스에 모델 반영하기
+
+모델의 변경사항에 대한 migration을 만듭니다.
+menus/migrations 디렉토리안에 새로운 migraion이 생성됩니다.
+
+python manage.py makemigrations
+
+생성은 되었지만 아직 반영되지 않은 migration을 데이터베이스에 반영합니다.
+
+python manage.py migrate
+
+------------------------------------------------------------------------------------------------------------------------------
 
 
 
