@@ -56,3 +56,24 @@ class Menu models.Model:
     description = models.CharField(max_length=100)
     price = models.IntegerField()
     img_path = models.CharField(max_length=255)
+
+그 다음 함수를 하나 정의해준다
+
+class Menu models.Model:
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
+    price = models.IntegerField()
+    img_path = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+
+이 __str__ 함수는 이 Menu 클래스는 하나의 문자열로 표현하는 것을 지정해주는 함수이다 print(Menu)를 썼을 떄 결과로 나오는 문자열을 넣어주는 것이다
+그리고 여기 return 뒤에 결과로 돌려줄 문자를 적게 되는데 우리는 가각의 음식의 이름을 결과값으로 돌려주도록 하자
+자 이렇게 하면 모델작성이 끝났다 생각보다 간단하져? 그리고 이렇게 모델을 새로 작성했거나 중간에 수정했다면 장고에게 사용하는 모델이 바뀌었다고 알려줘야한다
+터미널에로 가서 현재 위치를 프로젝트 루트로 바꾼다 그리고 다음의 명령어를 쓴다
+python3 manage.py makemigrations (나는 python3로)
+
+
+
+
