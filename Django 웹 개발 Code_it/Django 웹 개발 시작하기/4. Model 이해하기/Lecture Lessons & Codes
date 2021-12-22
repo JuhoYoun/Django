@@ -243,4 +243,19 @@ SQL로 변환되었는지 보려면 터미널에 다음과 같이 입력해라
 
 python3 manage.py sqlmigrate foods 000l      (마지막에 앱과 마이그레이션 넘버)
 
+->
+BEGIN;
+--
+-- Create model Menu
+--
+CREATE TABLE "foods_menu" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(50) NOT NULL, "description" varchar(100) NOT NULL, "price" integer NOT NULL, "img_path" varchar(255) NOT NULL);
+COMMIT;
+
+짜잔 SQL 코드가 나온다
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
