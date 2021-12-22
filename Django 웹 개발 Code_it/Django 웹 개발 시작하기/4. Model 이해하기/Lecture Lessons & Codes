@@ -202,6 +202,37 @@ python3 manage.py migrate
 이 두가지에 대해 자세히 살펴보자 
 마이그레이션은 장고의 데이터베이스 변경 사항에 대한 버전 컨트롤 시스템인데 쉽게 말하면 변경 사항을 저장해둔 목록이다
 개발자가 모델을 생성하거나 변경했을 때 마이그레이션을 하나씩 만드는거다 그리고 만든 이 마이그레이션을 실재 데이터베이스에 적용하는것이 바로 migrate 명령어이다
-조금 더 자세히 봐보자
+조금 더 자세히 봐보자 migration은 각 앱의 migrations 디렉토리에 저장되어있는데 여기를 열여보자 -> 바로 전 강의에 makemigrations 명령어로 만든 0001_inital.py 마이그레이션 파일이 보인다 눌러 보자
+
+from django.db import migrations, models
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Menu',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=50)),
+                ('description', models.CharField(max_length=100)),
+                ('price', models.IntegerField()),
+                ('img_path', models.CharField(max_length=255)),
+            ],
+        ),
+    ]
+
+ 눌러보면 장고에서 제공하는 마이그레이션을 상속 받은 클래스가 있고 (Migration) 안의 내용을 보면 우리가 작성한 부분도 있고 잘 보면 작성하진 않았지만 자동으로 생성된 부분도 있다
+ 특히 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')), 여기의 id는 장고에서 자동으로 생성해주는 필드중 하나인데 각각의 메뉴를 구분하기 위한
+ 일종의 key (고유값)이다 음식이름으로 각각의 메뉴를 구분할 수 있을것도 같지만 같은 이름의 음식이 여러개 있을수도 있으니 이런 고유값이 필요하겠지~~
+ 
+이렇게 변경사항을 기록한 마이그레이션 파일을 바탕으로 현재 데이터베이스에 적용되지 않은 사항이 있다면 적용해주는 명령어가 바로 migrate 명령어이다 우리는 지금 모델의 모든 코드를 파이썬을 작성했지만 사실 데이터베이스와 
+소통하는 과정은 SQL을 사용해야한다 그런데 그런 SQL없이 파이썬 만으로 데이터베이스와 소통해주게 하는것이 뭐였더라? 바로 ORM!
+우리가 모델 객체를 파이썬으로 작성하면 장고가 그 코드를 ORM을 통해서 자동으로 SQL로 변환하고 데이터베이스와 소통하게 된다
+
 
 
