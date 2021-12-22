@@ -18,9 +18,37 @@ ORM (Object-Relational Mapper)
 그에 맞는 sql 코드를 자동으로 생성해서 실행하고 우리가 정의해준 형태에 맞게 데이터베이스에 저장된다 그리고 만약 이런 코드를 쓰면 적절한 sql 코드를 자동으로 생성한 다음 실행해서 원하는 데이터를 데이터베이스로부터 
 읽어오게 된다 
 
+Model 작성하기
+이제 데이터를 웹페이지 파일 자체에 코딩해놓는게 아니라 모델을 이용해서 데이터베이스에 저장해 놓고 필요할 때 꺼내서 사용하자
+일단 코스토랑은 음식에 대한 모델 객체가 필요하다 데이터 구조를 어떻게 잡아야할지 데이터 모델링부터 해보자 foods앱의 views.py를 가서 food_detail 함수를 보면 
 
+def food_detail(request, food):
+    context = dict() #빈 사전형 생성
+    if food == 'chicken':
+        context['name'] = '코딩에 빠진 닭'
+        context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
+        context['price'] = 10000
+        context['img_path'] = 'foods/images/chicken.jpg'
+    else:
+        raise Http404('이런 음식은 없습니다')
+    return render(request, 'foods/detail.html', context = context)
 
+하나의 메뉴는 이름과 설명 가격 그리고 이미지로 이루어져있다
+그러면 이름과 설명 그리고 이미지 경로는 문자열로 저장하고 음식 가격은 숫자로 저장하면 되겠다
+그럼 바로 모델을 작성해보자 foods 앱 안의 models.py 로 가자 모든 모델은 클래스로 구성된다 클래스를 쓰고 이름은 menu라고 하자 
 
+class Menu models.Model:
 
+그리고 모델 클래스는 장고의 models.Model을 상속받아 구현한다
+앞에서 배운 템플릿 상속이 기억나는가? 상속은 공통되는 부분을 모아 부모 객체로 만들고 자식 객체에서는 공통 기능은 부모객체로부터 상속 받아 사용하고 각각 달라지는 부분만 작성한다
+
+맨 처음은 음식 이름을 저장할 구조를 만든다 각각의 데이터에 대한 형식을 필드라고 한다 음식에 대한 name 은 장고에서 제공하는 models를 이용해서 CharField 로 하면 된는데 이 CharField는 저장할 최대 길이를
+필수 인수로 넘겨줘야한다 음식 이름 최대 길이를 50으로 하자
+
+class Menu models.Model:
+    name = models.CharField(max_length=50)
+  
+이렇게 장고에서 제공하는 Field가 여러개가 있는데 지금 다 알아볼 수 없으니 나올때 마다 하나씩 알아보자 다음으로 음식 설명을 위해서 description 변수에 똑같이 CharField 를 만들어주는데 설명이 기니까 100자로 하자
+그리고 가격은 숫자니까 IntegerField로 하자 이미지 경로는 문자열이므로 CharField를 쓰고 경로가 길어질 수 있으니 255로 하자
 
 
