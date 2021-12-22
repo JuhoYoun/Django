@@ -37,7 +37,7 @@ def food_detail(request, food):
 그러면 이름과 설명 그리고 이미지 경로는 문자열로 저장하고 음식 가격은 숫자로 저장하면 되겠다
 그럼 바로 모델을 작성해보자 foods 앱 안의 models.py 로 가자 모든 모델은 클래스로 구성된다 클래스를 쓰고 이름은 menu라고 하자 
 
-class Menu models.Model:
+class Menu(models.Model):
 
 그리고 모델 클래스는 장고의 models.Model을 상속받아 구현한다
 앞에서 배운 템플릿 상속이 기억나는가? 상속은 공통되는 부분을 모아 부모 객체로 만들고 자식 객체에서는 공통 기능은 부모객체로부터 상속 받아 사용하고 각각 달라지는 부분만 작성한다
@@ -45,13 +45,13 @@ class Menu models.Model:
 맨 처음은 음식 이름을 저장할 구조를 만든다 각각의 데이터에 대한 형식을 필드라고 한다 음식에 대한 name 은 장고에서 제공하는 models를 이용해서 CharField 로 하면 된는데 이 CharField는 저장할 최대 길이를
 필수 인수로 넘겨줘야한다 음식 이름 최대 길이를 50으로 하자
 
-class Menu models.Model:
+class Menu(models.Model):
     name = models.CharField(max_length=50)
   
 이렇게 장고에서 제공하는 Field가 여러개가 있는데 지금 다 알아볼 수 없으니 나올때 마다 하나씩 알아보자 다음으로 음식 설명을 위해서 description 변수에 똑같이 CharField 를 만들어주는데 설명이 기니까 100자로 하자
 그리고 가격은 숫자니까 IntegerField로 하자 이미지 경로는 문자열이므로 CharField를 쓰고 경로가 길어질 수 있으니 255로 하자
 
-class Menu models.Model:
+class Menu(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     price = models.IntegerField()
@@ -59,7 +59,7 @@ class Menu models.Model:
 
 그 다음 함수를 하나 정의해준다
 
-class Menu models.Model:
+class Menu(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     price = models.IntegerField()
@@ -72,8 +72,19 @@ class Menu models.Model:
 그리고 여기 return 뒤에 결과로 돌려줄 문자를 적게 되는데 우리는 가각의 음식의 이름을 결과값으로 돌려주도록 하자
 자 이렇게 하면 모델작성이 끝났다 생각보다 간단하져? 그리고 이렇게 모델을 새로 작성했거나 중간에 수정했다면 장고에게 사용하는 모델이 바뀌었다고 알려줘야한다
 터미널에로 가서 현재 위치를 프로젝트 루트로 바꾼다 그리고 다음의 명령어를 쓴다
+
 python3 manage.py makemigrations (나는 python3로)
 
+콘솔에 다음과 같이 출력된다
 
+Migrations for 'foods':
+  foods/migrations/0001_initial.py
+    - Create model Menu
+
+모델이 만들어졌다 그 다음에 또 따라서 입력해보자
+
+python3 manage.py migrate
+
+그러면 우리가 만들어준 foods 앱과 더불어 장고에서 미리 만들어주는 여러 데이터 구조들이 함께 반영된다
 
 
