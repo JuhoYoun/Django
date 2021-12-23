@@ -367,4 +367,16 @@ Menu.objects.all()
 -> 결과는
 <QuerySet []>
 
+QuerySet 이라는게 나오는데 비어있다 당연하다 아무 데이터도 저장 안해줬거든 그럼 한번 데이터를 저장해보자 데이터를 저장할 때는 불러온 모델을 이용해서
+objects.create을 입력한 다음에 필드(name, price.. etc)에 접근해서 데이터를 넣어주면 된다
+->
+Menu.objects.create(name='코딩에 빠진 닭', decription='주머니가 가벼운 당신의 마음까지 생각한 가격', price = 10000, img_path = 'foods/images/chicken.jpg')
+
+
+
+
+
+
+
+
 
