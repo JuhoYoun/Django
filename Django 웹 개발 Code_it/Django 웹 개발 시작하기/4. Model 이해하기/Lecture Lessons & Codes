@@ -386,9 +386,21 @@ Menu.objects.all()
 Menu.objects.create(name='너는 내게 빠나나', description='바나나 안바나나 바나나', price=2000, img_path='foods/images/banana.jpg')
 Menu.objects.create(name='코데리아', description='참깨빵 위에 순쇠고기 패티 세장', price=8000, img_path='foods/images/burger.jpg')
 
+Menu.objects.all()
+->
+<QuerySet [<Menu: 코딩에 빠진 닭>, <Menu: 너는 내게 빠나나>, <Menu: 코데리아>]>
 
+짜잔
+그러면 메뉴 이름뿐만 아니라 모든 데이터를 다 보려면?
+->
+Menu.objects.all().values()
 
+모든 데이터가 다 나온다
 
+마지막으로 지금 쓰고 있는 쉘을 종료하려면?
+->
+exit()
+----------------------------------------------------------------------------------------------------------------------------------------
 
 
 
