@@ -712,3 +712,16 @@ QuerySet[]
 데이터베이스에서 가져온 결과가 항상 쿼리셋이라는 리스트 안에 담겨 있다 쿼리셋은 장고의 ORM을 이용해 데이터베이스와 소통할 때 발생하는 자료형으로 리스트와 매우 유사하다
 데이터 조회를 해서 가져온 데이터는 쿼리셋에 들어가게 되고 우리는 이 퀘리셋을 리스트처럼 이용해서 데이터를 가공할 수 있다 
 앞서 모델을 데이터베이스에 반영할 때 어떻게 SQL로 변환되었는지 봤는데 이번에는 CRUD가 어떤 SQL로 변환되는지 보자 
+
+python3 manage.py shell 쉘을 켠다 
+from foods.models import Menu 데이터베이스는 모델을 통해 조작하니까 모델도 불러온다 
+data = Menu.objects.filter(name__contains="코") 코가 들어간 모든 메뉴
+data 데이터 출력
+
+이제 우리가 작성한 이 파이썬 코드가 어떤 SQL로 변환되었는지 함 보자 
+->
+print(data.query)  지금 퀘리셋인 data 에 .query 를 입력하라 
+->
+SELECT "foods_menu"."id", "foods_menu"."name", "foods_menu"."description", "foods_menu"."price", "foods_menu"."img_path" FROM "foods_menu" WHERE "foods_menu"."name" LIKE %코% ESCAPE '\'
+-> 그럼 SELECT FROM WHERE 절로 조회했다는 것을 알 수 있다 SQL 문법 ~
+------------------------------------------------------------------------------------------------------------------------------------------------
