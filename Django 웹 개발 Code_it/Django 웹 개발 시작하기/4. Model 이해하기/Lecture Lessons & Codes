@@ -735,6 +735,27 @@ SELECT "foods_menu"."id", "foods_menu"."name", "foods_menu"."description", "food
 
 자 이제 개발 서버 켜고 domain/admin 으로 접속해보자 -> 방금 만든 관리자 계정으로 로그인 -> 장고에서 기본적으로 생성한 모델이 나온다 Groups와 Users 모델이 있다 그런데 우리가 만든 Menu 모델은 없네?
 관리자 페이지에서 작업할 수 있도록 모델을 추가해주는 작업이 필요하다 VSCode 로 가서 foods 앱 안의 admin.py로 가보자
+->
+from django.contrib import admin
+
+# Register your models here.
+
+여기에 모델을 추가하라고 친절하게 나와있다 추가해주자
+
+from django.contrib import admin
+from foods.models import Menu
+# Register your models here.
+admin.site.register(Menu)
+
+이렇게 등록해주자 다 등록했으면 관리자 페이지 새로고침 해보자 foods 카테고리 안에 Menus라는 항목이 생겼다 열어보자 우리가 데이터 베이스에 넣어주었던 데이터들이 보인다 각각의 항목을 또 눌러보면 모든 데이터들을 볼 수 있다
+데이터를 수정할 때도 여기서 바꾸고 세이브 누르면 된다 새로 데이터 추가? Add Menu 라고 써 있는거 누르고 각각의 필드를 입력해준 뒤 세이브를 누르면 데이터가 저장된다 
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
 
