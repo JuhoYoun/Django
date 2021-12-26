@@ -733,6 +733,8 @@ SELECT "foods_menu"."id", "foods_menu"."name", "foods_menu"."description", "food
 먼저 관리자 계정을 생성해야한다 
 터미널-> 프로젝트 루트 -> python3 manage.py createsuperuser -> 순차적으로 id, email, password 입력해서 관리자 계정을 생성하자
 
+자 이제 개발 서버 켜고 domain/admin 으로 접속해보자 -> 방금 만든 관리자 계정으로 로그인 -> 장고에서 기본적으로 생성한 모델이 나온다 Groups와 Users 모델이 있다 그런데 우리가 만든 Menu 모델은 없네?
+관리자 페이지에서 작업할 수 있도록 모델을 추가해주는 작업이 필요하다 VSCode 로 가서 foods 앱 안의 admin.py로 가보자
 
 
 
