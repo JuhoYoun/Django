@@ -477,3 +477,7 @@ ex) 어떤 문자열이 포함되어 있는 데이터를 조회할 때
 Menu.objects.filter(name__contains="코")
 -> <QuerySet [<Menu: 코딩에 빠진 닭>, <Menu: 코데리아>]>
 
+ex) 범위 내에 있는 자료를 조회할 떄 -> 필드명__range(시작, 끝)
+Menu.objects.filter(price__range=(2000,10000))
+-> <QuerySet [<Menu: 코딩에 빠진 닭>, <Menu: 너는 내게 빠나나>, <Menu: 코데리아>]>
+
