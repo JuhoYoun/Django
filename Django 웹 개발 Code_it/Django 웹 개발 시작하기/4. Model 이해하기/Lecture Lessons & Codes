@@ -481,3 +481,18 @@ ex) 범위 내에 있는 자료를 조회할 떄 -> 필드명__range(시작, 끝
 Menu.objects.filter(price__range=(2000,10000))
 -> <QuerySet [<Menu: 코딩에 빠진 닭>, <Menu: 너는 내게 빠나나>, <Menu: 코데리아>]>
 
+filter는 여러개의 데이터를 조회할 때 쓰고 get은 하나의 데이터를 조회할 때 쓴다 만약 get를 썼을 때 조회 결과가 두개 이상히면 에러가 난다
+
+ex)
+Menu.objects.get(name__contains="코")
+-> 에러가 난다
+
+그럼 get은 언제 사용할까? -> 하나만 있는 데이터를 조회할 때 예를들면 id!
+-> Menu.objects.get(id=1)
+
+id는 1부터 순차적으로 매겨지는거 같다
+
+
+
+
+
