@@ -725,3 +725,14 @@ print(data.query)  지금 퀘리셋인 data 에 .query 를 입력하라
 SELECT "foods_menu"."id", "foods_menu"."name", "foods_menu"."description", "foods_menu"."price", "foods_menu"."img_path" FROM "foods_menu" WHERE "foods_menu"."name" LIKE %코% ESCAPE '\'
 -> 그럼 SELECT FROM WHERE 절로 조회했다는 것을 알 수 있다 SQL 문법 ~
 ------------------------------------------------------------------------------------------------------------------------------------------------
+
+관리자 도구 (admin) 사용하기
+
+장고는 많은 기능을 제공해주지만 그 중에서도 관리자 도구를 제공하는것이 큰 장점 앞에서 shell을 이용해 데이터를 다뤘던 과정을 관리자 도구를 이용하면 조금 더 쉽게 할 수 있다
+
+먼저 관리자 계정을 생성해야한다 
+터미널-> 프로젝트 루트 -> python3 manage.py createsuperuser -> 순차적으로 id, email, password 입력해서 관리자 계정을 생성하자
+
+
+
+
