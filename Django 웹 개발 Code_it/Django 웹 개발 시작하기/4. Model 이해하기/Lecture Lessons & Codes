@@ -877,6 +877,156 @@ def index(request):
 자 이렇게 해서 MVT를 다 함께 써 봤다 
 --------------------------------------------------------------------------------------------------------------------------------
 
+실습과제
+21SS Collection
+
+여러분은 쇼핑몰 웹 개발자입니다. 출근해서 메일함을 열어보니 고객으로부터 메일이 와있네요. 21SS에 발맞춰 새로운 상품 컬렉션을 업데이트 해달라는 요청 메일입니다. 업무시간 내로 메인 페이지에 상품 업데이트가 이뤄졌으면 한다고 하니 서둘러서 새 상품들을 추가해주세요.
+실습 문제
+
+이번 실습은 MVT를 모두 사용하는 실습으로 조금 복잡하다고 생각할지도 모르겠네요. 하지만 어려운 것은 하나도 없습니다. 결국 우리가 배운 것들을 같이 사용하는 것 뿐이거든요. 하나하나의 과정들을 따라가면서 이것이 왜 필요한지 생각해 보면서 아래 과정을 구현해 주세요.
+
+    models.py에 아래를 참고하여 Product 모델을 작성해주세요.
+
+#상품이름
+필드명:name / 필드형식:문자열, 80자 제한
+
+#상품가격
+필드명:price / 필드형식:숫자
+
+#이미지경로
+필드명:img_path / 필드형식:문자열 255자 제한 
+
+    아래를 참고해서 데이터베이스에 상품 데이터를 추가 해주세요. Shell을 이용해도 좋고 관리자 도구를 사용해도 좋습니다. 상품 이름과 가격은 여러분이 원하는 대로 입력해주세요. 새로운 상품들의 사진 파일은 goods/static/goods/images안에 있으며 사진 파일들의 이름은 아래와 같습니다. 꼭 모든 데이터를 추가하지 않아도 괜찮습니다. 3개 이상 추가 해주세요.
+
+beige_bag.jpg
+classic_loafer.jpg
+fedora_hat.jpg
+pink_bag.jpg
+slippers.jpg
+sneakers.jpg
+sunglasses.jpg
+tassel_loafer.jpg
+wrist_watch.jpg
+
+    views.py로 가서 index View를 아래를 참고하여 작성해주세요.
+
+    index 뷰는 'goods/index.html'을 렌더해서 돌려주는 함수입니다.
+    모든 상품 데이터를 조회해서 goods라는 변수에 담아주세요.
+    'goods'를 key로 해서 모든 데이터가 들어있는 goods를 템플릿으로 전달해주세요.
+
+    base.html 파일을 열고 [A] - [C]를 완성해주세요.
+
+    index.html 파일을 열고 아래를 참고하여 완성해주세요.
+
+    base.html을 상속받습니다.
+    index.html에서도 정적파일 경로를 사용하므로 static을 사용할 수 있도록 load 해주어야 합니다.
+    product-list block안에는 index.html 파일 안에있는 개별 상품에 대한 HTML이 들어가는데 각각의 상품마다 반복하며 작성됩니다. view에서 넘겨준 goods 데이터와 템플릿 태그 for를 사용해서 작성해주세요.
+    상품 이미지 경로에는 템플릿 태그 static 안에 템플릿 변수를 쓰는 형태이므로 get_static_prefix 템플릿 태그가 필요합니다.
+
+    개발 서버를 켜고 /goods로 들어가면 아래와 같이 모든 상품의 목록이 나와야합니다.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3608&directory=simpleshop.png&name=simpleshop.png
+
+
+과제 해설close solution tab
+1. 모델 작성하기
+
+하나의 Model은 데이터 구조에 맞는 여러개의 model field로 이루어져 있습니다.
+
+from django.db import models
+
+
+# Create your models here.
+class Product(models.Model):
+    name = models.CharField(max_length=80)
+    price = models.IntegerField()
+    img_path = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+3. View 작성하기
+
+모든 데이터를 조회하기 위해 먼저 Product model을 가져온 후 objects.all()을 이용합니다. 그 후 'goods'를 Key로 해서 데이터를 template으로 넘겨줍니다.
+
+from django.shortcuts import render
+from .models import Product
+
+
+# Create your views here.
+def index(request):
+    goods = Product.objects.all()
+    return render(request, 'goods/index.html', {'goods': goods})
+
+4. base.html 작성하기
+
+각각의 정적파일 경로는 static을 이용해서 처리하고 자식 템플릿에서 구현 할 부분을 block으로 처리합니다.
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SimpleShop</title>
+    <meta charset="utf-8" />
+    <link href={% static 'goods/css/styles.css' %} rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="#" id="logo">
+        <img src={% static 'goods/images/logo.png' %} width="149px"/>
+      </a>
+      <ul id="menu">
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </div>
+    <div class="hero-header"></div>
+
+    <div class="products">
+      <h3>Our New Products</h3>
+      <div class="product-list">
+        {% block product-list %}
+        {% endblock product-list %}
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="http://facebook.com">
+        <img src="{% static 'goods/images/facebook.png' %}" height="20px">
+      </a>
+      <a href="http://instagram.com">
+        <img src="{% static 'goods/images/instagram.png' %}" height="20px">
+      </a>
+      <a href="http://twitter.com">
+        <img src="{% static 'goods/images/twitter.png' %}" height="20px">
+      </a>
+    </div>
+  </body>
+</html>
+
+5. index.html 작성하기
+
+extends를 이용해서 부모 템플릿을 상속하고 자식 템플릿에서 구현할 부분을 block안에 작성합니다. 만약 정적파일을 사용하는곳에 템플릿 변수 형태가 필요하다면 get_static_prefix를 이용합니다.
+
+{% extends './base.html' %}
+{% load static %}
+
+{% block product-list %}
+  {% for each in goods %}
+    <a class="product" href="#">
+    <img src={%get_static_prefix%}{{each.img_path}} width="225px">
+    <div class="product-name">{{each.name}}</div>
+    <div class="product-price">{{each.price}}원</div>
+    </a> 
+  {% endfor %}
+
+{% endblock product-list %}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
