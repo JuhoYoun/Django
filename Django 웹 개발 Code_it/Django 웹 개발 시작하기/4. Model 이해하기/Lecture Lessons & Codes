@@ -1028,6 +1028,18 @@ extends를 이용해서 부모 템플릿을 상속하고 자식 템플릿에서 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+자 이제 프로젝트를 완성해보자 foods 앱의 views.py를 보자
 
+def food_detail(request, food):
+    context = dict() #빈 사전형 생성
+    if food == 'chicken':
+        context['name'] = '코딩에 빠진 닭'
+        context['description'] = '주머니가 가벼운 당신의 마음까지 생각한 가격 !'
+        context['price'] = 10000
+        context['img_path'] = 'foods/images/chicken.jpg'
+    else:
+        raise Http404('이런 음식은 없습니다')
+    return render(request, 'foods/detail.html', context = context)
 
+아직도 이 디테일 뷰는 하드코딩 되어있다
 
