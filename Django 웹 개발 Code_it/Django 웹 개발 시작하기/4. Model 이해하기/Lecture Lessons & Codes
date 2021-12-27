@@ -766,9 +766,23 @@ def index(request):
     return render(request, 'foods/index.html', context = context)
 
 일단 모든 메뉴 데이터를 데이터베이스로부터 가져오자 -> 모델을 import 하자 -> from foods.models import Menu  이걸 위에 추가
-그리고 context 변수에는 많은 데이터가 들어가니까 context = {} 이렇게 비어있는 사전형 변수로 나누어주자 
+그리고 context 변수에는 많은 데이터가 들어가니까 context = dict() 이렇게 비어있는 사전형 변수로 나누어주자 
 일단 모든 데이터를 가져와서 menus 변수를 만들어 거기다 너준다 -> menus = Menus.objects.all() 
-그리고 이 menus를 그대로 템플릿으로 넘겨주도록 하겠다
+그리고 이 menus를 키로 해서 context를 이용해 그대로 템플릿으로 넘겨주도록 하겠다 -> context["menus"] = menus
+
+from foods.models import Menu
+
+def index(request):
+    context = dict()
+    today = datetime.today().date()
+    menus = Menus.objects.all() 
+    context = {'date' : today}
+    context["menus"] = menus
+    
+    return render(request, 'foods/index.html', context = context)
+
+
+이러면 뷰는 끝 이제 index 템플릿을 수정하자
 
 
 
