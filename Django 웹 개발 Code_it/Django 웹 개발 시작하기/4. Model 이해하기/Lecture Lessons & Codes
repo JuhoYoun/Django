@@ -1041,5 +1041,16 @@ def food_detail(request, food):
         raise Http404('이런 음식은 없습니다')
     return render(request, 'foods/detail.html', context = context)
 
-아직도 이 디테일 뷰는 하드코딩 되어있다
+아직도 이 디테일 뷰는 하드코딩 되어있다 이 부분을 개선하고 urls.py 에서 각 음식마다 상세페이지로 가게 하자 
+
+from django.contrib import admin
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('index/', views.index),
+    path('menu/<str:food>/', views.food_detail),
+]
+
+일단 여기 urls.py 에서 index/ 를 menu/ 로 바꿔주자 그리고 <str:food>를 <int:pk> 로 바꿔주자 이제 food/menu/ 뒤에 숫자가 나오면 그 값을 int인 pk 로 받아서 디테일 뷰를 호출한다
 
