@@ -1092,3 +1092,6 @@ def food_detail(request, pk):
 <p>{{menu.price}} 원</p>
 <img src={% get_static_prefix %}{{menu.img_path}}/> 
 <a href="/foods/menu/">돌아가기</a>
+
+자 다됬다 이제 css만 적용하자 다운 받은 css 파일을 정적 파일 경로에 넣자 그리고 base 템플릿으로 가서 기본 틀을 그대로 복사한다 그리고 디테일 템플릿에 붙여놓기 한다음 body 안쪽 내용 싹 다 지워주자
+그리고 원래 디테일 템플릿에 있던 코드를 body 안에 넣어준다 그리고 사용할 css 파일 경로를 바꿔준다 그리고 마지막으로 원래 디테일에 있던 음식 정보들을 div 태그로 묶고 food-detail 이란 클래스로 만들자
