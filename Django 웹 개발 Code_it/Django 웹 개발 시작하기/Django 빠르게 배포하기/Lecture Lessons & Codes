@@ -45,4 +45,12 @@ API KEY PASS SECRET SIGNATURE TOKEN
 id.pythonanywhere.com으로 접속하기 때문이다
 
 마지막 세번째로 할 일은 정적파일을 한곳에 모아주는 것이다 배포서버에서는 웹사이트에 필요한 모든 정적 파일을 하나의 위치에서 찾게되기 때문이다
-샌드위치 구조가 기억나나? 배포시 하나로 모을 때 파일 이름이 중복되지 않게하기 위함이다 자 이제 정적파일들을 한곳에 모아보자 settings.py 맨 아래쪽을 보면 STATIC_URL 이라는것이 있다
+샌드위치 구조가 기억나나? 배포시 하나로 모을 때 파일 이름이 중복되지 않게하기 위함이다 자 이제 정적파일들을 한곳에 모아보자 settings.py 맨 아래쪽을 보면 STATIC_URL 이라는것이 있다 그 아래 쪽에 배포 서버가
+정적 파일을 찾을 수 있도록 경로를 적어줘야한다
+(STATIC_URL은 웹에서 정적파일에 대한 URL을 할당할 떄 사용할 최상위 URL이며 실재로 존재하는 디렉토리가 아닌 URL을 만들기 위한 부분이다)
+
+따라 적어보자 STATIC_URL = '/static/' 아래에 적는다 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+
