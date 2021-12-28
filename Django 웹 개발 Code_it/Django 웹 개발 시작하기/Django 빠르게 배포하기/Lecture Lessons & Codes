@@ -63,5 +63,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')   -> STATIC_ROOT는 실재 정적
 
 자 이제 모든 준비가 끝났다
 -----------------------------------------------------------------------------------------------------------------------------
+PythonAnywhere로 배포하기
+
+가장 먼저 우리 프로젝트 디렉토리를 압축해야한다 프로젝트 루트 디렉토리를 zip 파일로 압축하면 된다 그리고 바탕화면으로 빼두고 그리고 pythonanywhere 홈페이지로 접속하자 https://www.pythonanywhere.com/
+그리고 상단의 sign up 을 누르고 create a beginner account 를 누른다 그리고 계정을 만들어주자
 
 
