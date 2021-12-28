@@ -66,6 +66,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')   -> STATIC_ROOT는 실재 정적
 PythonAnywhere로 배포하기
 
 가장 먼저 우리 프로젝트 디렉토리를 압축해야한다 프로젝트 루트 디렉토리를 zip 파일로 압축하면 된다 그리고 바탕화면으로 빼두고 그리고 pythonanywhere 홈페이지로 접속하자 https://www.pythonanywhere.com/
-그리고 상단의 sign up 을 누르고 create a beginner account 를 누른다 그리고 계정을 만들어주자
+그리고 상단의 sign up 을 누르고 create a beginner account 를 누른다 그리고 계정을 만들어주자 다 끝내면 Dashboard가 나온다
+자 그러면 오른쪽 상단의 Files를 누르고 Upload를 선택해서 압축해논 파일을 올린다 업로드가 끝났다면 Open Bash console here 을 눌러 콘솔창을 열어준다
+ls를 입력해준다 업로드한 파일이 보인다 이제 이 파일을 압축해제하자 -> unzip costaurant.zip  을 입력해주자 -> 압축해제 완료! 다시 ls를 하면 프로젝트 디렉토리가 보인다
+
+그럼 이제 이 서버에서도 파이썬 가장 환경을 만들어주자 자 입력해라 -> virtualenv --python=python3.8.8 django-envs   (나는 로컬에서 작업할 떄 파이썬 3.8.8을 사용했었다)
 
 
