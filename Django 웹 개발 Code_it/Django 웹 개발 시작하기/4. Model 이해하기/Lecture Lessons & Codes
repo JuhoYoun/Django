@@ -1112,3 +1112,130 @@ def food_detail(request, pk):
 (https://docs.djangoproject.com/en/dev/ref/settings/#append-slash)  
 
 -----------------------------------------------------------------------------------------------
+실습과제
+코스토랑 프로젝트 #08 모델 적용하기
+
+이제 코스토랑 프로젝트를 마무리 해보도록 합시다. 지금 index 템플릿을 보면 '코딩에 빠진 닭' 이 하나의 데이터가 템플릿에 직접 코딩되어 있습니다. 아래를 참고해서 이 부분을 개선하고 프로젝트를 완성해주세요.
+실습 문제
+
+데이터베이스에서 모든 데이터를 가져와서 데이터의 개수에 맞게 자동으로 화면을 만들어서 보여 주고, 각 메뉴의 상세보기를 누르면  알맞은 페이지로 가도록 작성해주세요.
+
+    맨 처음 해야할 일은 index 템플릿에서 음식들이 들어갈 부분을 확인하는 것 입니다. 아래와 같이 food_container div태그 부분에 여러가지 음식이 들어가면 되겠죠?
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3618&directory=01.png&name=01.png
+
+    view에서 Menu model을 통해 모든 Menu 데이터를 가져와서 'menus' 를 key로 index 템플릿에 전달해 주세요.
+
+    index 템플릿으로 가서 food_container div 안에 모든 Menu 데이터를 출력하도록 작성해주세요. 템플릿 태그 for를 이용하면 되겠죠?
+
+    이미지 주소는 템플릿 태그 static과 템플릿 변수를 함께 사용해야하므로{% get_static_prefix %}를 사용해야 합니다.
+    상세 메뉴로 이동하는 URL은 아래에서 처리하도록 하겠습니다. 지금은 "#"으로 작성해 주세요.
+
+    개발 서버를 켜고 '/menus'로 이동해서 아래처럼 데이터베이스에 있는 모든 음식 데이터가 잘 나오는지 확인합니다.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=3618&directory=02.png&name=02.png
+
+    이제 상세 페이지에 대한 URL을 작성할 차례 입니다. 지금은 상세 페이지로 URL이 food/ 다음에 문자열과 일치하면 해당 문자열을 menu로 인식해서 detail view를 호출하게 되는데 이 부분을 food/ 다음에 정수형과 일치하면 해당 정수를 pk라는 변수로 인식해서 detail view로 전달하도록 바꿔주세요.
+
+    views.py로 가서 매개 변수가 pk로 바뀌었으므로 menu대신 pk로 수정하고 이 id 값과 일치하는 Menu 데이터를 데이터베이스에서 조회 해주세요.
+
+    조회한 데이터를 'menu'라는 key로 detail 템플릿에 전달해 주세요.
+
+    detail 템플릿로 이동해서 넘어온 데이터를 이용해 템플릿을 작성해 주세요.
+
+<div class="menu_img">
+    <img src={{알맞은 값을 넣어주세요.}}>
+</div>
+<div class="menu_info">
+    <h3>{{알맞은 값을 넣어주세요.}}</h3>
+    <h4>{{알맞은 값을 넣어주세요.}}</h4>
+    <p class="menu-desc">{{알맞은 값을 넣어주세요.}}</p>
+    <p class="price">&#8361;{{알맞은 값을 넣어주세요.}}</p>
+</div>
+
+    index.html로 가서 '메뉴보기'에 해당하는 <a>태그의 href 속성값을 알맞은 URL로 변경해주세요. 각각의 메뉴의 상세 페이지로 이동하려면 어떤 URL로 이동해야 할지 생각해보세요.
+
+    개발 서버를 켜고 /menus로 이동한 다음 모든 메뉴와 상세 보기가 잘 나오는지 확인해 주세요.
+
+과제 해설close solution tab
+index view 수정하기
+
+먼저 index 템플릿으로 전달할 모든 Menu 데이터를 가져오고 context에 "menus"를 key로 해서 가져온 데이터를 넣습니다.
+
+from django.shortcuts import render
+from datetime import datetime
+from .models import Menu
+
+
+# Create your views here.
+def index(request):
+    today = datetime.now().date()
+    context = {'today': today}
+    menus = Menu.objects.all()
+    context['menus'] = menus
+    return render(request, 'menus/index.html', context)
+
+index.html 수정하기
+
+menus는 리스트처럼 반복 가능한 객체이므로 템플릿 태그 for를 이용해 반복하며 내부 데이터에 접근할 수 있습니다.
+메뉴 보기는 아래에서 구현하도록 하고 여기서는 #으로 처리할게요.
+
+<div class="food_container">
+   {% for menu in menus %}
+      <div class="food">
+         <img src={%get_static_prefix%}{{menu.img_path}}>
+         <div class="info">
+             <h3>{{menu.name}}</h3>
+             <p>{{menu.description}}</p>
+             <a href="#">메뉴 보기</a>
+          </div>
+        </div>
+   {% endfor %}
+</div>
+
+menus 앱의 urls.py 수정하기
+
+기존의 문자열 형식 아닌 Menu 모델의 id값 즉 정수형 값을 사용해서 URL을 매칭할 수 있도록 작성하는 것입니다. 여기서 기억해야할 것은 메인 페이지를 제외한 모든 url 패턴은 / (경로 구분 기호)로 끝나야 한다는 것입니다.
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('food/<int:pk>/', views.detail)
+]
+
+detail view 수정하기
+
+매개 변수를 pk로 수정하고 pk값는 각 Menu 데이터의 id값 이므로 이 pk를 이용해 알맞은 Menu 데이터를 조회할 수 있습니다.
+
+...
+def detail(request, pk):
+    menu = Menu.objects.get(id=pk)
+    return render(request, 'menus/detail.html', {'menu': menu})
+
+detail.html 수정하기
+
+템플릿 변수를 이용해서 detail view에서 넘어온 데이터 객체를 템플릿에 사용할 수 있습니다. 이미지 태그는 템플릿 변수와 함께 사용해야 하므로 get_static_prefix를 함께 사용합니다.
+
+<div class="menu_img">
+   <img src={%get_static_prefix%}{{menu.img_path}}>
+</div>
+<div class="menu_info">
+   <h3>{{menu.name}}</h3>
+   <h4>{{menu.name_eng}}</h4>
+   <p class="menu-desc">{{menu.description}}</p>
+   <p class="price">&#8361;{{menu.price}}</p>
+</div>
+<div class="back-main">
+   <a href="/menus">돌아가기</a>
+</div>
+
+index 템플릿의 '메뉴보기' 수정하기
+
+index 템플릿의 '메뉴보기'에 대한 URL을 수정해야 하는데 메뉴 보기를 누르면 각각의 Menu에 대한 상세페이지로 이동해야합니다. 현재 우리의 detail view를 호출하는 URL을 보면 food/<int:pk> 즉 food/ 다음에 각 Menu 모델 데이터의 id 값을 URL로 넘겨주도록 했습니다. 그러면 detail view에서는 URL을 보고 pk 값을 id로 사용해서 데이터를 조회 한 다음 detail 템플릿에 데이터를 넘겨주게 되고 우리가 원하는 메뉴에 대한 상세페이지를 보여주게 되는겁니다.
+
+...
+<a href="food/{{menu.id}}">메뉴 보기</a>
+...
+
