@@ -94,3 +94,59 @@ ls를 입력해준다 업로드한 파일이 보인다 이제 이 파일을 압�
 자 이제 가상환경이 적용되었으니 장고를 깔아보자 -> pip install django==2.2
 자 이제 설치가 되었다면 오른쪽 상단을 눌러 Web으로 가자 -> Add a new web app 클릭 -> next -> Select a Python Web Framework 에는 Manual Configuration 선택 -> 3.8 선택 내가 3.8로 했으니까~
 -> 그리고 next -> 생성되었다면 이제 내려가서 Code: 부분을 수정하자 이 소스코드 부분을 보면 우리 코드가 있는 경로를 입력하라고 되어있다 home/id/프로젝트명 이렇게 입력하라 되있는데 그래서 나는 home/jutlo/costaurant 이라고 입력
+-> 다 됬으면 이제 WSGI 를 설정해주자 WSGI 는 파이썬이 웹서버와 통신하기 위한 일종의 약속이다 여길 클릭하면 나오는 코드에서 19줄 부터 47번 줄 까지 드래그해서 코멘트 처리하자
+
+# HELLO_WORLD = """<html>
+# <head>
+#     <title>PythonAnywhere hosted web application</title>
+# </head>
+# <body>
+# <h1>Hello, World!</h1>
+# <p>
+#     This is the default welcome page for a
+#     <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>
+#     hosted web application.
+# </p>
+# <p>
+#     Find out more about how to configure your own web application
+#     by visiting the <a href="https://www.pythonanywhere.com/web_app_setup/">web app setup</a> page
+# </p>
+# </body>
+# </html>"""
+
+
+# def application(environ, start_response):
+#     if environ.get('PATH_INFO') == '/':
+#         status = '200 OK'
+#         content = HELLO_WORLD
+#     else:
+#         status = '404 NOT FOUND'
+#         content = 'Page not found.'
+#     response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(content)))]
+#     start_response(status, response_headers)
+#     yield content.encode('utf8')
+
+-> 그 다음 밑으로 내리면 장고 부분이 있다 76번 줄 부터 89번 줄 까지 코멘트 해제한다
+
+import os
+import sys
+
+# assuming your django settings file is at '/home/jutlo/mysite/mysite/settings.py'
+# and your manage.py is is at '/home/jutlo/mysite/manage.py'
+path = '/home/jutlo/mysite'
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+# then:
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+-> 그리고  path = '/home/jutlo/mysite'  이 부분에서 mysite를 우리 프로젝트인 costaurant 으로 바꾸자
+-> os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings' 여기도 mysite를 costaurant 으로 바꾼다
+-> 모두 끝났으면 save를 누르고 오른쪽 상단을 눌러 다시 Web으로 가자 -> 스크롤을 내려서 이번엔 Virtualenv 부분을 설정하자 우리가 만들어준 디렉토리를 넣으면 된다
+-> /home/jutlo/django-envs 를 입력 -> 그리고 밑으로 내려가 Static으로 가자 정적 파일의 경로를 적어줘야한다 URL 밑에는 /static/을 Directory 밑에는 실재 경로를 적어주자
+-> /home/jutlo/costaurant/static 입력 -> 이렇게하면 모든 설정이 끝났다 맨 위로 올라가서 reload를 누른다 -> jutlo.pythonanywhere.com  이부분 복사해서 /foods/menu 에서 브라우저에 처보저 -> 배포완료!
+
+
