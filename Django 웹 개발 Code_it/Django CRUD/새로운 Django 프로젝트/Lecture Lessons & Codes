@@ -115,3 +115,20 @@ auto_now와 auto_now_add 가 둘 다 True이면 에러가 나는데 생각해보
 
 그리고 마지막으로 def __str__(self): 함수도 써준다 
 
+->
+
+from django.db import models
+
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    dt_created = models.DateTimeField(verbose_name="Date Created", auto_now_add = True)
+    dt_modified = models.DateTimeField(verbose_name="Date Modified", auto_now = True)
+
+    def __str__(self):
+        return self.title
+
+이제 마이그레이션을 생성하고 반영하면 된다
+python3 manage.py makemigrations
+python3 manage.py migrate
+----------------------------------------------------------------------------------------------------------------------
