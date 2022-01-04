@@ -506,3 +506,5 @@ Traceback (most recent call last):
 ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
 
 이렇게 뜬다 가상환경에 장고를 설치할 필요가 있어보인다
+
+code_it_django 디렉토리에서 pip3 install django==2.2 했더니 다시 개발서버 실행 가능해졌다
