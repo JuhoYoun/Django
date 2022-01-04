@@ -487,4 +487,22 @@ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 
 그전에 쓰지 않는 python interpreter 는 pyenv uninstall 로 삭제하셔도 좋습니당
 
-그랬더니 질문자는 장고가 깔렸고 나는 맨 왼쪽에 (가상환경) 이렇게 뜸 가상환경 안에만 장고가 설치되는지는 장고 삭제후 다시 해봐야될거 같다 
+그랬더니 질문자는 장고가 깔렸고 나는 맨 왼쪽에 (가상환경) 이렇게 뜸 그리고 기존의 프로젝트 개발서버를 실행했더니
+
+(django-envs) jutlo@Jutloui-MBP code_it_django % cd costaurant    
+(django-envs) jutlo@Jutloui-MBP costaurant % python3 manage.py runserver
+Traceback (most recent call last):
+  File "manage.py", line 10, in main
+    from django.core.management import execute_from_command_line
+ModuleNotFoundError: No module named 'django'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "manage.py", line 21, in <module>
+    main()
+  File "manage.py", line 12, in main
+    raise ImportError(
+ImportError: Couldn't import Django. Are you sure it's installed and available on your PYTHONPATH environment variable? Did you forget to activate a virtual environment?
+
+이렇게 뜬다 가상환경에 장고를 설치할 필요가 있어보인다
