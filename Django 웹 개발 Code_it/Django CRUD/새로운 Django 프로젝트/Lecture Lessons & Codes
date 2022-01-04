@@ -8,4 +8,7 @@ code .
 
 초기 설정을 해보자 
 
-settings.py 가서 Time Zone을 보자 TIME_ZONE 은 장고 프로젝트가 동작할 때 기준으로 삼을 시간대를 설정해준다
+settings.py 가서 Time Zone을 보자 TIME_ZONE 은 장고 프로젝트가 동작할 때 기준으로 삼을 시간대를 설정해준다 장고가 기본적으로 설정하는 시간대는 UTC이다
+시간 설정을 한국으로 하려면 'Asia/Seoul' 이라고 하면 된다
+
+Time Zone : https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
