@@ -103,7 +103,8 @@ Model 만들기
 장고에서 모델을 정의할때는 models.Model을 상속받아 정의한다 -> class Post(models.Model) 그리고 아래에 모델 필드를 작성해야한다 필요한 필드는 글의 제목, 내용, 작성일, 마지막 수정일
 글의 제목 -> title = models.CharField(max_length=50)
 글의 내용 -> content = models.TextField()  -> TextField와 CharField의 다른점은 TextField는 최대 길이의 대한 정의가 필요 없다 내용같은 긴 문자열은 항상 TextField를 쓰고 제목 같은 짧은 문자열은 CharField를 쓰자
-
+작성일 -> dt_created = models.DateTimeField(verbose_name="Date Created", auto_now_add = True) -> DateTimeField는 날짜와 시간을 함께 담을 수 있다 인자로 verbose_add이 있는데 이는 사람이 읽기
+좋은 필드명을 지정해준다 즉 지금은 DateTime을 편하게 부르기 위해 dt로 줄였지만 나중에 이 필드를 볼 때 알아보기 편하도록 별명을 지어주는것이다 auto_now_add 는 True로 해준다
 
 
 
