@@ -50,3 +50,6 @@ url	설명
 /posts/new/	포스트 작성
 /posts/<post_id>/edit/	포스트 수정
 /posts/<post_id>/delete/	포스트 삭제
+
+아무것도 없는 domain/ 으로 들어오면 바로 posts 앱의 url로 연결시키자 프로젝트 앱의 urls.py 를 열고 추가한다 일단 include를 inport 해 주고 
+path('', include('posts.urls')), 이렇게 경로를 추가해주면 이제 장고가 localhost:8000 과 localhost:8000 뒤에 붙는 추가적인 url 모두 posts 앱의 urls.py를 보고 처리하게 된다
