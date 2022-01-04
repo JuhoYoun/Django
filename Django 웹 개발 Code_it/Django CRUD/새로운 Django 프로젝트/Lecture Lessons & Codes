@@ -105,6 +105,13 @@ Model 만들기
 글의 내용 -> content = models.TextField()  -> TextField와 CharField의 다른점은 TextField는 최대 길이의 대한 정의가 필요 없다 내용같은 긴 문자열은 항상 TextField를 쓰고 제목 같은 짧은 문자열은 CharField를 쓰자
 작성일 -> dt_created = models.DateTimeField(verbose_name="Date Created", auto_now_add = True) -> DateTimeField는 날짜와 시간을 함께 담을 수 있다 인자로 verbose_add이 있는데 이는 사람이 읽기
 좋은 필드명을 지정해준다 즉 지금은 DateTime을 편하게 부르기 위해 dt로 줄였지만 나중에 이 필드를 볼 때 알아보기 편하도록 별명을 지어주는것이다 auto_now_add 는 True로 해준다
+수정일 -> dt_modified = models.DateTimeField(verbose_name="Date Modified", auto_now = True)
 
+* DateTimeField : 날짜 + 시간 형식의 필드로 auto_now와 auto_now_add를 매개변수로 가지고 있다
+auto_now가 True가 되면 이 포스트가 마지막으로 저장되었을 때의 날짜 혹은 날짜와 시간을 자동적으로 해당 필드에 저장한다 일반적으로 지금처럼 마지막 수정일을 필드로 가지고자 할 때  사용한다
+auto_now_add가 True가 되면 이 포스트가 처음 생성되었을 때의 날짜 혹은 날짜와 시간을 자동적으로 해당 필드에 저장한다 지금처럼 데이터 생성일을 필드로 가지고자 할 때 사용한다
 
+auto_now와 auto_now_add 가 둘 다 True이면 에러가 나는데 생각해보면 생성될 때 한번 날짜와 시간을 정하는것과 수정될 때 마다 매번 날짜와 시간을 다시 저장하는 두개가 공존할 수 는 없지?
+
+그리고 마지막으로 def __str__(self): 함수도 써준다 
 
