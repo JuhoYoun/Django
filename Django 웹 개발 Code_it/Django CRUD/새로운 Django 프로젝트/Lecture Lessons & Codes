@@ -30,3 +30,23 @@ Running migrations:
 
 자 이제 개발 서버 켜고 잘 되는지 들어가보자
 ----------------------------------------------------------------------------------------------------------------------------
+URL 구조 만들기
+
+Costory 웹사이트의 URL 구조를 생각해보고 전체 웹 사이트의 틀을 잡아보자 웹 사이트의 기능은 URL을 잘 정의 하는 것에서 시작한다
+
+'' (root) -> 블로그의 홈페이지
+/posts ->  전체 포스트 조회 (read)
+/posts/<post_id> -> 개별 포스트 조회 (read)
+/posts/new -> 새 포스트 작성 (create)
+/posts/<post_id>/edit -> 포스트 수정 (update)
+/posts/<post_id>/delete -> 포스트 삭제 (delete)
+
+그러면 실재로 URL을 작성해보자
+
+앞으로 사용할 URL 구조 -> 이건 강의 밑에 노트로 적혀있던건데 강의에서 URL구조랑 조금 다른데? 흠 
+url	설명
+/posts/	블로그의 홈페이지
+/posts/<post_id>/	개별 포스트 조회
+/posts/new/	포스트 작성
+/posts/<post_id>/edit/	포스트 수정
+/posts/<post_id>/delete/	포스트 삭제
