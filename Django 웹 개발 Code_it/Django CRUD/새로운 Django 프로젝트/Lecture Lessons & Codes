@@ -12,3 +12,18 @@ settings.py 가서 Time Zone을 보자 TIME_ZONE 은 장고 프로젝트가 동�
 시간 설정을 한국으로 하려면 'Asia/Seoul' 이라고 하면 된다
 
 Time Zone : https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
+
+그리고 블로그 웹사이트에서 포스트 기능을 다룰 posts라는 앱을 생성한다 VSCode 창 띄워놓고 맨 위에 보면 Terminal 탭이 있다 그 아래 보면 New Terminal이 있는데 이거 누르면
+VSCode 창에서 터미널 띄울수 있다!
+
+python3 manage.py startapp posts 
+
+그리고 settings.py의 INSTALLED_APPS애 등록해주자
+
+자 그리고 장고 기본 데이터구조를 데이터베이스에 반영하자 INSTALLED_APPS 에 보면 우리가 생성한 앱 말고도 다양한 기본 앱이 있다 migrate를 하면 이 앱들이 필요한 데이터구조가 생성된다
+-> python3 manage.py migrate
+->
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, foods, menus, sessions
+Running migrations:
+  No migrations to apply.
