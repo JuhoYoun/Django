@@ -27,3 +27,6 @@ Operations to perform:
   Apply all migrations: admin, auth, contenttypes, foods, menus, sessions
 Running migrations:
   No migrations to apply.
+
+자 이제 개발 서버 켜고 잘 되는지 들어가보자
+----------------------------------------------------------------------------------------------------------------------------
