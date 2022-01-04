@@ -53,3 +53,18 @@ url	설명
 
 아무것도 없는 domain/ 으로 들어오면 바로 posts 앱의 url로 연결시키자 프로젝트 앱의 urls.py 를 열고 추가한다 일단 include를 inport 해 주고 
 path('', include('posts.urls')), 이렇게 경로를 추가해주면 이제 장고가 localhost:8000 과 localhost:8000 뒤에 붙는 추가적인 url 모두 posts 앱의 urls.py를 보고 처리하게 된다
+근데 지금 posts 앱에 urls.py 가 없으니 urls.py 를 만들어주자 그리고 안에다 적어주자
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index),
+    path('posts/', views.post_list),
+    path('posts/new', views.post_create),
+    path('posts/<int:post_id>/', views.post_detail),
+    path('posts/<int:post_id>/edit', views.post_update),
+    path('posts/<int:post_id>/delete', views.post_delete),
+]
+
+그리고 path 들은 지금은 주석처리 해주자 아직 view를 구현 안해서 이렇게 실핼하면 에러가 난다
