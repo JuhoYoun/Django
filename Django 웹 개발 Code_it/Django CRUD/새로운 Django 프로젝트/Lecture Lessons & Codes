@@ -6,3 +6,6 @@ django-admin startproject costory   -> 새 프로젝트를 만들자
 cd costory
 code .
 
+초기 설정을 해보자 
+
+settings.py 가서 Time Zone을 보자 TIME_ZONE 은 장고 프로젝트가 동작할 때 기준으로 삼을 시간대를 설정해준다
