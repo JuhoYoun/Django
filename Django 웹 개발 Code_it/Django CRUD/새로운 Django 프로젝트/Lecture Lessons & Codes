@@ -192,4 +192,80 @@ validators	필드의 유효성 검증에 사용할 검증 목록 입니다.
 보면 우리가 배운 것들도 있고 아직 배우지 않은 것들도 있죠? 대부분은 이어지는 레슨들에서 다룰 예정이지만 만약 다루지 않은 부분이 있더라도 걱정하지 마세요. 여러분이 배운 지식을 바탕으로 공식문서를 차근히 읽어보면 나머지 부분들을 사용하는 것도 어렵지 않을거에요.
 -----------------------------------------------------------------------------------------------------------------------------
 
+실습과제
+100XP
+감정 일기 모델(Model) 작성하기
 
+이번에는 앞으로 우리가 감정 일기에서 다룰 '일기'에 대한 데이터 모델을 작성해 봅시다.
+아래를 참고해서 models.py에 모델(Model)을 작성해 주세요.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4116&directory=Untitled.png&name=Untitled.png
+
+    models.py에 'Page' 모델 클래스를 정의해주세요.
+
+    Page 클래스에는 아래와 같은 필드가 필요합니다.
+
+    제목(title), 문자열, 길이 제한 100자
+    내용(content), 문자열, 길이 제한 없음
+    감정 상태(feeling), 문자열, 길이 제한 80자
+    감정 점수(score), 정수형
+    작성일(dt_created), 날짜
+
+    Page 모델을 문자열로 표시할 때 사용되는 str 메소드를 정의해 주세요
+
+    admin.py에 방금 작성한 Page 모델을 등록해 주세요.
+
+    데이터베이스에 변경 사항을 반영해 주세요.
+
+과제 해설close solution tab
+
+    모델 클래스는 models.Model을 상속 받아서 정의할 수 있습니다.
+
+    # models.py
+    from django.db import models
+
+    # Create your models here.
+    class Page(models.Model):
+        # 모델 필드 정의
+
+    각각의 필드는 문자열은 models.CharField,길이 제한 없는 문자열은 models.TextField, 정수형은 models.IntegerField, 날짜형은 models.DateField로 정의하면 됩니다. 이 중에서 날짜형은 데이터를 생성할 때 자동으로 값이 들어가게는 'auto_now'라는 속성이 있었죠? 이번 감정 일기에서는 직접 날짜를 입력하게 만들 것이기 때문에 적어주지 않겠습니다.
+
+    from django.db import models
+
+    # Create your models here.
+    class Page(models.Model):
+        title = models.CharField(max_length=100)
+        content = models.TextField()
+        feeling = models.CharField(max_length=80)
+        score = models.IntegerField()
+        dt_created = models.DateField()
+
+    모델 클래스를 문자열로 표시하기 위해 사용하는 str 함수는 아래와 같이 작성합니다.
+
+    from django.db import models
+
+    # Create your models here.
+    class Page(models.Model):
+        title = models.CharField(max_length=100)
+        content = models.TextField()
+        feeling = models.CharField(max_length=80)
+        score = models.IntegerField()
+        dt_created = models.DateField()
+
+        def __str__(self):
+            return self.title
+
+    이렇게 작성된 모델을 Django가 제공하는 관리자 페이지에서 사용하기 위해서는 admin.py에 등록해 주어야 합니다. 먼저 작성한 모델을 import 하고 admin.site.register를 이용해 등록합니다.
+
+    from django.contrib import admin
+    from .models import Page
+
+    # Register your models here.
+    admin.site.register(Page)
+
+    작성한 모델을 데이터 베이스에 반영하기 위해서는 먼저 마이그레이션을 만들고 반영하면 됩니다.
+
+    python manage.py makemigrations
+    python manage.py migrate
+
+------------------------------------------------------------------------------------------------------------------------------
