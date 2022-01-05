@@ -288,4 +288,20 @@ diary.modes라고 하면 직관적으로 불러오는 모델의 앱이 diary라�
 프로젝트 루트로 가서 shell을 켜자 -> python3 manage.py shell
 모델을 통해 데이터 베이스와 소통하자 -> from posts.models import Post
 간단하게 모든 데이터를 불러와보자 -> Post.objects.all() -> 지금은 아무런 데이터가 없다!
-첫 데이터를 생성해보자 -> 
+첫 데이터를 생성해보자 -> Post.objects.create(title = '첫 포스팅', content = '오늘 새 맥북 프로가 왔어요!')
+그런데 지금 데이터를 생성할 때 작성일과 수정일 필드는 입력하지 않았다 -> 우리가 모델 필드를 정의할 때 이 두 값에 대해서는 자동으로 날짜 값이 채워지도록 설정했기 때문에 직접 값을 넣지 않아도 자동으로 채워진다
+-> Post.objects.all().values() -> 날짜까지 잘 나온다  
+
+그럼 이제 이 데이터를 수정해보자 Post.objects.get(id=1) 를 하면 우리가 방금 입력한 데이터를 받을 수 있다 Post.objects.get(pk=1) 해도 똑같다 pk 는 primary key(데이터를 구분해준다) 로 지금 primary key는 id이다
+
+post = Post.objects.get(pk=1)
+post.title = '맥북 프로와 함께 하는 첫 포스팅 (수정)'
+post.save()
+
+그리고 
+
+Post.objects.all().values()
+
+하면 타이틀이 수정되었고 수정일 필드도 수정된것이 보인다
+
+
