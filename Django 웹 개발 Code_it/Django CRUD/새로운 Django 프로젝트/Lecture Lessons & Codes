@@ -302,6 +302,11 @@ post.save()
 
 Post.objects.all().values()
 
-하면 타이틀이 수정되었고 수정일 필드도 수정된것이 보인다
+하면 타이틀이 수정되었고 수정일 필드도 수정된것이 보인다 이제 나머지는 관리자 페이지를 이용해서 데이터를 추가해주자
+
+일단 관리자 계정을 만들어야한다 exit() 해서 쉘에서 나와주고 프로젝트 루트에서 python3 manage.py createsuperuser 해서 관리자 계정 만들자
+지금 관리자 페이지에 들어가서 로그인해도 Post 모델은 없다 관리자 페이지에서 관리를 하기 위해서는 admin.py 에 먼저 등록을 해줘야한다
+posts 앱의 admin.py에 가서 from .models import Post 로 Post 모델을 import 하고  admin.site.register(Post)  관리자 페이지에서 쓸 수 있게 등록해준다
+관리자 페이지에 다시가서 새로고침하면 이제 Post 모델이 보인다  두번째 포스트를 아무거나 입력해주자~
 
 
