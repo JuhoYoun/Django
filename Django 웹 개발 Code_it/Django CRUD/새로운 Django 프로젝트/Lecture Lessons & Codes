@@ -475,3 +475,20 @@ def post_list(request):
 자 이게 바로 데이터를 가져와서 보여주는 READ 이다
 ----------------------------------------------------------------------------------------------------------------------------
 
+포스트 상세 페이지 (READ)
+
+상세페이지를 만들거다 자 모든 기능의 시작은 url이다 posts 앱의 urls.py를 가서 path('posts/<int:post_id>/', views.post_detail), 이 줄을 코멘트 해제한다
+그리고 views.py에 가서 post_detal 뷰를 구현하자
+
+def post_detail(request, post_id):
+    return render(request, 'posts/post_detail.html')
+
+그리고 지금 post_detail 템플릿이 없으니 만들어주자 
+
+{% extends './base.html' %}
+
+{% block post_container %}
+{% endblock post_container %}
+
+여기까지 하고 다시 뷰로 가서 로직을 마저 작성하자
+
