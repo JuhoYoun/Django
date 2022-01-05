@@ -430,9 +430,16 @@ post_list.html
 {% endblock post_container %}
 
 자 개발 서버를 켜고 해당 url로 이동하면 잘나온다 이제 데이터를 가져와서 템플릿으로 보내고 템플릿에서는 전달받은 데이터를 화면에 표시해주자
-
-
-
+post_list 뷰에 데이터를 가져오는 로직을 추가해주자 일단 views.py 에 모델을 import 하자 -> from .models import Post
+그리고 뷰 안에 추가해준다
+->
+def post_list(request):
+    posts = Post.objects.all()
+    context = dict()
+    context['posts'] = posts
+    return render(request, 'posts/post_list.html', context)
+    
+이제 post_list.html로 가서 뷰로부터 넘겨 받은 데이터를 화면에 표시한다
 
 
 
