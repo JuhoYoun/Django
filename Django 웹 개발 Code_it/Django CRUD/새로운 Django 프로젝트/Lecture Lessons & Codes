@@ -423,7 +423,7 @@ base.html
 
 post_list.html
 
-{% extends '.base.html'%}
+{% extends './base.html'%}
 
 {% block post_container %}
     <h1>글 목록 페이지에요</h1>
@@ -441,7 +441,7 @@ def post_list(request):
     
 이제 post_list.html로 가서 뷰로부터 넘겨 받은 데이터를 화면에 표시한다
 ->
-{% extends '.base.html'%}
+{% extends './base.html'%}
 
 {% block post_container %}
     <h1>글 목록 페이지에요</h1>
@@ -452,7 +452,7 @@ def post_list(request):
 
 개발서버에서 실행해보면 잘 나오기는 한데 조금 지저분하다 -> 테이블을 사용하면 깔끔하게 할 수 있다
 
-{% extends '.base.html'%}
+{% extends './base.html'%}
 
 {% block post_container %}
     <h1>글 목록 페이지에요</h1>
