@@ -440,7 +440,38 @@ def post_list(request):
     return render(request, 'posts/post_list.html', context)
     
 이제 post_list.html로 가서 뷰로부터 넘겨 받은 데이터를 화면에 표시한다
+->
+{% extends '.base.html'%}
 
+{% block post_container %}
+    <h1>글 목록 페이지에요</h1>
+    {% for post in posts %}
+        {{post.title}} {{post.dt_created}} {{dt.modified}} <br/>
+    {% endfor %}
+{% endblock post_container %}
 
+개발서버에서 실행해보면 잘 나오기는 한데 조금 지저분하다 -> 테이블을 사용하면 깔끔하게 할 수 있다
+
+{% extends '.base.html'%}
+
+{% block post_container %}
+    <h1>글 목록 페이지에요</h1>
+    <table>
+        <tr>
+            <td>제목</td>
+            <td>작성일</td>
+            <td>수정일</td>
+        </tr>
+        {% for post in posts %}
+            <tr>
+                <td>{{post.title}}</td>
+                <td>{{post.dt_created}}</td>
+                <td>{{dt.modified}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock post_container %}
+
+자 이게 바로 READ 이다
 
 
