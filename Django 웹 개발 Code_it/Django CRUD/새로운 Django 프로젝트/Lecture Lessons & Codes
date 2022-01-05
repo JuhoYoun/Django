@@ -359,10 +359,11 @@ update()	데이터를 수정할 때 사용
 수정된 데이터의 개수를 정수로 반환	Post.objects.filter('dt_created'__yeaer=2021).update(context='codeit')
 → 생성일이 2021년인 모든 포스트 데이터들의 context를 'codeit'으로 바꾸고 변경된 데이터의 개수를 리턴
 delete()	데이터를 삭제할 때 사용	post = Post.objects.get(pk=1) post.delete()
+
 필드 조건 옵션 (Field Lookups)
 
 Queryset 연산을 할 때 사용할 수 있는 여러 필드 조건 옵션입니다. 필드명 뒤에 __ 를 쓰고 사용할 옵션 인자를 적어 주면 됩니다. 아래의 조건 옵션 말고도 더 많은 옵션 들이 있습니다. 아래의 공식 문서를 참고하세요.
-필드 조건 옵션 공식문서 바로 가기
+필드 조건 옵션 공식문서 바로 가기 https://docs.djangoproject.com/en/2.2/ref/models/querysets/#field-lookups
 lookup	설명	예시
 __contains	대소문자를 구분하여 문자열 포함 여부 확인	Post.objects.get(title__contains='Codeit')
 __icontains	대소문자를 구분하여 문자열 불포함 여부 확인	Post.objects.get(title__icontains='Codeit')
