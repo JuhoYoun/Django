@@ -406,3 +406,20 @@ def post_list(request):
 -> 샌드위치 구조로 post_list.html 만들어준다
 
 그리고 html 기본 뼈대를 쓰고 base 템플릿으로 만든 후 post_list 템플릿이 상속받게 한다
+
+base.html
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta Charset="UTF-8">
+        <title>Costory :: 코스토리</title>
+    </head>
+    <body>
+        {% block post_container%}
+        {% endblock post_container%}
+    </body>
+</html>
+
+post_list.html
+
