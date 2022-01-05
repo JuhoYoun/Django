@@ -282,3 +282,10 @@ https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4116&directory=
 
 diary.modes라고 하면 직관적으로 불러오는 모델의 앱이 diary라는 것을 바로 알 수 있는 정도입니다.
 -------------------------------------------------------------------------------------------------------------------
+
+데이터 조작하기
+
+프로젝트 루트로 가서 shell을 켜자 -> python3 manage.py shell
+모델을 통해 데이터 베이스와 소통하자 -> from posts.models import Post
+간단하게 모든 데이터를 불러와보자 -> Post.objects.all() -> 지금은 아무런 데이터가 없다!
+첫 데이터를 생성해보자 -> 
