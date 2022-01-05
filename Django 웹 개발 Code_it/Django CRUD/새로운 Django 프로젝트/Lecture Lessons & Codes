@@ -423,3 +423,17 @@ base.html
 
 post_list.html
 
+{% extends '.base.html'%}
+
+{% block post_container %}
+    <h1>글 목록 페이지에요</h1>
+{% endblock post_container %}
+
+자 개발 서버를 켜고 해당 url로 이동하면 잘나온다 이제 데이터를 가져와서 템플릿으로 보내고 템플릿에서는 전달받은 데이터를 화면에 표시해주자
+
+
+
+
+
+
+
