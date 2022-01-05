@@ -401,4 +401,8 @@ post_data = post_data.last()
 ->
 def post_list(request):
     return render(request, 'posts/post_list.html')
+    
 그리고 보면 우린 아직 post_list 템플릿을 만든적이 없다 
+-> 샌드위치 구조로 post_list.html 만들어준다
+
+그리고 html 기본 뼈대를 쓰고 base 템플릿으로 만든 후 post_list 템플릿이 상속받게 한다
