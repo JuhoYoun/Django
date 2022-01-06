@@ -531,5 +531,34 @@ def post_detail(request, post_id):
 이렇게 데이터가 직접 코드에 들어가 있는것을 하드코딩이라고 하는데 만약에 우리가 urls.py 에서 여기 이 부분  path('posts/<int:post_id>/', views.post_detail),  의 posts 을 blogs 라고 바꾼다고 가정하면 
 a 태그 안의 posts도 blogs 로 하나하나 직접 바꿔줘야한다 이렇게 하면 유지보수가 힘들기 때문에 이렇게 하드코딩하지 않으려면 일단 각각의 URL 자리를 대표할 이름이 필요하다 이것이 바로 URL의 name 속성이다
 
+자 posts 앱의 urls.py로 가자
 
+urlpatterns = [
+    # path('', views.index),
+    path('posts/', views.post_list),
+    # path('posts/new', views.post_create),
+    path('posts/<int:post_id>/', views.post_detail),
+    # path('posts/<int:post_id>/edit', views.post_update),
+    # path('posts/<int:post_id>/delete', views.post_delete),
+]
 
+이 코드를 다음과 같이 바꿔주자 
+
+urlpatterns = [
+    # path('', views.index),
+    path('posts/', views.post_list, name="post-list"),
+    # path('posts/new', views.post_create),
+    path('posts/<int:post_id>/', views.post_detail, name="post-detail"),
+    # path('posts/<int:post_id>/edit', views.post_update),
+    # path('posts/<int:post_id>/delete', views.post_delete),
+]
+
+뒷 부분에 name="URL이름"  해서  URL의 이름을 정의했다 이렇게 네이밍된 URL은 템플릿 태그 URL을 이용해서 쓸 수 있다 우선 post_detail 템플릿으로 가보자
+
+<a href="/posts/">돌아가기</a> 이 부분을 <a href={% url 'post-list' %}>돌아가기</a>  이렇게 바꿔준다
+
+그리고 post_list 템플릿으로 가서 
+
+<td><a href="/posts/{{post.id}}">{{post.title}}</a></td>  이 부분을 <td><a href= {% url 'post-detail' post.id %}>{{post.title}}</a></td>  이렇게 바꿔준다
+'post-detail' 뒤에 필요한 인자로 post.id 를 넣어주는것이다
+ -----------------------------------------------------------------------------------------------------------
