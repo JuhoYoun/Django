@@ -509,7 +509,7 @@ def post_detail(request, post_id):
 <hr>
 {% endblock post_container %}
 
-<hr> 코드는 뭔지 내가 알아서 찾아보자
+<hr> 코드는 뭔지 내가 알아서 찾아보자 -> 줄이 그어진다
 
 개발 서버 켜서 잘 나오는지 보자 잘 나오면 관리자 페이지로 가서 좀 긴 글을 써보자 
 그리고 그 글에 대한 상세피이지로 가보면 분명 관리자페이지에서 포스트를 추가할 때는 line break을 했는데 웹페이지에서는 line break 이 안되있다
