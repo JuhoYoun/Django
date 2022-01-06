@@ -495,7 +495,7 @@ def post_detail(request, post_id):
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     context = {'post' : post}
-    return render(request, 'posts/post_detail.html', post)
+    return render(request, 'posts/post_detail.html', context)
 
 이제 전달 받은 데이터를 템플릿에서 잘 보여주기만 하면 된다
 
