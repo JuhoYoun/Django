@@ -524,4 +524,12 @@ def post_detail(request, post_id):
 목록 페이지와 상세 페이지를 연결하자 목록 페이지의 제목을 누르면 상세페이지로 가게 하자 -> 제목에 a 태그를 넣어준다             
 <td>{{post.title}}</td> -> <td><a href="/posts/{{post.id}}">{{post.title}}</a></td>
 
+그리고 상세페이지에 목록페이지로 다시가는 기능도 만들자 ->  <a href="/posts/">돌아가기</a>  추가
+
+그리고 하나만 더, URL의 Name 속성에 대해 배워보자 name 속성은 각각의 URL 자리에 이름을 붙여주는건데 먼저 post_list.html을 보자
+<td><a href="/posts/{{post.id}}">{{post.title}}</a></td> 이 라인을 보면 각각의 포스트로 이동하는 a 태그의 URL들의 앞부분이 /posts/ 이렇게 되어있다
+이렇게 데이터가 직접 코드에 들어가 있는것을 하드코딩이라고 하는데 만약에 우리가 urls.py 에서 여기 이 부분  path('posts/<int:post_id>/', views.post_detail),  의 posts 을 blogs 라고 바꾼다고 가정하면 
+a 태그 안의 posts도 blogs 로 하나하나 직접 바꿔줘야한다 이렇게 하면 유지보수가 힘들기 때문에 이렇게 하드코딩하지 않으려면 일단 각각의 URL 자리를 대표할 이름이 필요하다 이것이 바로 URL의 name 속성이다
+
+
 
