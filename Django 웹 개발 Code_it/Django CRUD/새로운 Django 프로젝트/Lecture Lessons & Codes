@@ -851,4 +851,9 @@ base.html을 보면
 {% block post_header %}
 {% endblock post_header %}
 이 블락은 이 포스트 상세 페이지 위에서 제목을 넣어주기 위해 만들었다
-
+{% block logo_text %}
+{% endblock logo_text %}
+로고를 넣어주기 위한 블록이고
+{% block content %}
+{% endblock content %}
+이것은 내용을 넣어주기 위한 블록이다
