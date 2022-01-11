@@ -899,5 +899,62 @@ base.html을 보면
 그 다음     <link rel="stylesheet" href="./css/post_list.css">    이 부분을 바꿔주자
 ->  <link rel="stylesheet" href="{% static 'posts/css/post_list.css' %}">
 
+드디어 content 블락을 채울건데 
+<div class="post"><a href="[A] 개별 포스트로 이동하는 URL">         
+    <h2 class="title">[B] 글 목록에서 보여질 제목</h2>
+    <p class="date">[C] 글 목록에서 보여질 작성일</p>
+    <p class="text">[D] 글 목록에서 보여질 본문 100자</p>
+</a></div>
 
+이걸 넣어주고 일단 좀 다듬어보자
+->
+{% block content %}
+    <div class="post_container">
+        <div class="post"><a href="[A] 개별 포스트로 이동하는 URL">         
+            <h2 class="title">[B] 글 목록에서 보여질 제목</h2>
+            <p class="date">[C] 글 목록에서 보여질 작성일</p>
+            <p class="text">[D] 글 목록에서 보여질 본문 100자</p>
+        </a></div>
+    </div>
+{% endblock content %}
+
+자 이 게시글 목록 같은 경우엔 views.py에서 
+def post_list(request):
+    posts = Post.objects.all()
+    context = dict()
+    context['posts'] = posts
+    return render(request, 'posts/post_list.html', context)
+
+여기서 context로 넘겨준 이 포스트 데이터를 for 문을 이용해서 모든 데이터를 반복해주면 된다
+->
+{% block content %}
+    <div class="post_container">
+        {% for post in posts %}
+            <div class="post"><a href="[A] 개별 포스트로 이동하는 URL">         
+                <h2 class="title">[B] 글 목록에서 보여질 제목</h2>
+                <p class="date">[C] 글 목록에서 보여질 작성일</p>
+                <p class="text">[D] 글 목록에서 보여질 본문 100자</p>
+            </a></div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+그리고 A 부터 D 까지 다 작성해보자
+
+{% block content %}
+    <div class="post_container">
+        {% for post in posts %}
+            <div class="post"><a href="{% url 'post-detail' post.id %}">         
+                <h2 class="title">{{post.title}}</h2>
+                <p class="date">{{post.dt_created}}</p>
+                <p class="text">{{post.content|slice:"0:100"}}</p>
+            </a></div>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+{{post.content|slice:"0:100"}} 이 부분은 내용을 100자로 끊기 위해 필터를 사용했는데 템플릿 필터 slice의 문법은 파이썬 리스트 슬라이싱과 비슷하다 -> 이렇게 하면 0번 인덱스부터 99번 인덱스를 자른다
+
+자 이제 개발서버 켜고 확인해보자
+-----------------------------------------------------------------------------------------------------------------------------------------
 
