@@ -857,3 +857,9 @@ base.html을 보면
 {% block content %}
 {% endblock content %}
 이것은 내용을 넣어주기 위한 블록이다
+
+<a href="[A]"><img src="{% static 'posts/images/logo.png' %}"></a>
+이 부분을 보자 로고를 누르면 post_list 템플릿 (donamin/posts)가 나오게 구현하는데 이 부분을 하드코딩하지 말고 템플릿 태그로 구현하자
+-><a href="{% url 'post-list' %}">
+
+자 그럼 이 base 템플릿을 상속해서 post_detail 과 post_list 템플릿을 적어보자
