@@ -894,3 +894,10 @@ base.html을 보면
                     </a></div>
                     
 이렇게 하드코딩된 스타일을 우리는 이전의 post_list 템플릿 코드를 참고하여 다르게 써보자
+일단 base.html을 상속해준다 -> {% extends './base.html' %}
+그리고 css 파일 즉 정적 파일을 써야하니까 load static 해준다 -> {% load static %}
+그 다음     <link rel="stylesheet" href="./css/post_list.css">    이 부분을 바꿔주자
+->  <link rel="stylesheet" href="{% static 'posts/css/post_list.css' %}">
+
+
+
