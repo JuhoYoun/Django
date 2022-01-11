@@ -998,5 +998,21 @@ post_detail 템플릿으로 가자 이번에는 블록 지정도 안되있다
     <link rel="stylesheet" href="{% static 'posts/css/post_detail.css' %}">
 {% endblock css %}
 
+이부분은
+{% comment %} <!-- post_detail header--> {% endcomment %}
+<div class="container">
+    <h1 class="title">[A] 글 제목</h1>
+    <p class="date">[B] 글 작성일</p>
+</div>
+이렇게 바꾼다
+{% block post_header %}
+    <div class="container">
+        <h1 class="title">{{post.title}}</h1>
+        <p class="date">{{post.dt_created}}</p>
+    </div>
+{% endblock post_header %}
+
+여기서 왜 post_header 블록만 안에 container 클래스의 div 태그를 만들어 그 안에 구현하는가하면 이유는 원래 다운받은 디자인 템플릿이 그래서 그런거다 우리는 원래 디자인을 살려 데이터면 바꿔준다
+디테일 뷰에서 context를 통해 post 를 받아온다는거 잊지말자
 
 
