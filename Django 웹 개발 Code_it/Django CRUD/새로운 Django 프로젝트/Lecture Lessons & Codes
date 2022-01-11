@@ -1015,4 +1015,23 @@ post_detail 템플릿으로 가자 이번에는 블록 지정도 안되있다
 여기서 왜 post_header 블록만 안에 container 클래스의 div 태그를 만들어 그 안에 구현하는가하면 이유는 원래 다운받은 디자인 템플릿이 그래서 그런거다 우리는 원래 디자인을 살려 데이터면 바꿔준다
 디테일 뷰에서 context를 통해 post 를 받아온다는거 잊지말자
 
+그리고 이 부분은 
+{% comment %} <!-- post_detail content--> {% endcomment %}
+<div class="content">
+    <p class="text">[C] 글 본문</p>
+    <p class="date_md">수정일 <span>[D] 최종 수정일</span></p>
+</div>
+    <div class="btn">
+    <div class="btn_list"><a href="./post-list.html">목록으로</a></div>
+</div>
+바로 이렇게 바꾼다
+{% block content %}
+    <div class="content">
+        <p class="text">{{post.content|linebreaksbr}}</p>
+        <p class="date_md">수정일 <span>{{post.dt_modified}}</span></p>
+    </div>
+    <div class="btn">
+        <div class="btn_list"><a href="{% url 'post-list' %}">목록으로</a></div>
+    </div>
+{% endblock content%}
 
