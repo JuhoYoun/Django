@@ -963,3 +963,26 @@ def post_list(request):
 디자인 입히기 2 (상세피이지)
 
 post_detail 템플릿으로 가자 이번에는 블록 지정도 안되있다
+
+
+{% comment %} <!-- post_detail css --> {% endcomment %}
+<link rel="stylesheet" href="./css/post-detail.css">
+
+
+{% comment %} <!-- post_detail header--> {% endcomment %}
+<div class="container">
+    <h1 class="title">[A] 글 제목</h1>
+    <p class="date">[B] 글 작성일</p>
+</div>
+
+
+{% comment %} <!-- post_detail content--> {% endcomment %}
+<div class="content">
+    <p class="text">[C] 글 본문</p>
+    <p class="date_md">수정일 <span>[D] 최종 수정일</span></p>
+</div>
+    <div class="btn">
+    <div class="btn_list"><a href="./post-list.html">목록으로</a></div>
+</div>
+
+({% comment %} 태그는 개발서버 실행할 때 <!-- --> 태그는 에러가 나서 내가 따로 붙여줬다)
