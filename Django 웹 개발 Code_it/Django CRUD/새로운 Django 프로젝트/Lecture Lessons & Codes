@@ -801,8 +801,53 @@ index 부터 detail delete blank posting 템플릿들을 한번 읽어봐라 이
    <div id="warp">
         <div id="nav">
 이 부분도 템플릿들에서 반복되고 있다 또한 이미지 경로나 css 경로들이 하드코딩 되어있다 자 이러한 파일들을 가져온 다음 공통부분들은 base.html에 넣어준 다음 상속받는 방식으로 코딩을 해보자
-템플릿마다 변경이 필요한 부분을 블록 처리를 해서 구현하고 이미지나 css같은 정적 파일도 장고 구조 바꿔주자 static 태그를 이용해 처리해보자
+템플릿마다 변경이 필요한 부분을 블록 처리를 해서 구현하고 이미지나 css같은 정적 파일도 장고 구조 바꿔주자 static 태그를 이용해 처리해보자 또 하드코딩 한 부분들은 데이터베이스에서 데이터를 가져와서 보여주도록 한다
+자 이제 코드를 작성하면서 디자인 폴더에 있는 템플릿을 우리 장고 프로젝트에 넣어보자
 
+먼저 수업에서 템플릿 디렉토리 안에 보면 base.html, post_list.html, post_detail.html 이 세개의 파일들은 수업에서 제공하는 코드로 업데이트 해놨다
+
+base.html을 보면
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>코스토리</title>
+    <meta charset="UTF-8">
+    {% block css %}
+    {% endblock css %}
+    <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css">
+</head>
+<body>
+   <div id="warp">
+        <div id="header">
+            <div id="nav">
+                <div class="logo">
+                    <a href="[A]"><img src="{% static 'posts/images/logo.png' %}"></a>
+                </div>
+            </div>
+            {% block post_header %}
+            {% endblock post_header %}
+        </div>
+        {% block logo_text %}
+        {% endblock logo_text %}
+        <div id="content">
+            <div class="container">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+        <div id="footer">
+            <div class="footer">
+                <p>Costory</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+공통되는 부분들은 미리 작성해놨고 변경되는 부분을 블락처리 해놓았다 4개의 블락이 있는데
 
 
 
