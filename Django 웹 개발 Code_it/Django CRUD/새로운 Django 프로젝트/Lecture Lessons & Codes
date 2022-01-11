@@ -964,7 +964,6 @@ def post_list(request):
 
 post_detail 템플릿으로 가자 이번에는 블록 지정도 안되있다
 
-
 {% comment %} <!-- post_detail css --> {% endcomment %}
 <link rel="stylesheet" href="./css/post-detail.css">
 
@@ -986,3 +985,18 @@ post_detail 템플릿으로 가자 이번에는 블록 지정도 안되있다
 </div>
 
 ({% comment %} 태그는 개발서버 실행할 때 <!-- --> 태그는 에러가 나서 내가 따로 붙여줬다)
+
+자 이걸 함께 고쳐보자 일단 이 두 라인 추가해주고
+{% extends './base.html' %}
+{% load static %}
+
+자 그리고 이 부분은 
+{% comment %} <!-- post_detail css --> {% endcomment %}
+<link rel="stylesheet" href="./css/post-detail.css">
+이렇개 바꿔주자
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/css/post_detail.css' %}">
+{% endblock css %}
+
+
+
