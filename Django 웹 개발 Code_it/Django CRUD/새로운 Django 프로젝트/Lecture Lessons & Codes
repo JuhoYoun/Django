@@ -863,3 +863,34 @@ base.html을 보면
 -><a href="{% url 'post-list' %}">
 
 자 그럼 이 base 템플릿을 상속해서 post_detail 과 post_list 템플릿을 적어보자
+먼저 post_list 템플릿으로 가자
+
+{% block css %}
+    <link rel="stylesheet" href="./css/post_list.css">
+{% endblock css %}
+
+{% block logo_text %}
+    <div id="header">
+        <div class="container">
+            <h1><img src="{% static 'posts/images/headertxt.png' %}"></h1>
+        </div>
+    </div>
+{% endblock logo_text %}
+
+
+{% block content %}
+    <div class="post_container">
+
+    </div>
+{% endblock content %}
+
+우리는 content 블록을 작성해보겠다 div 태그 안에다가 글 목록을 넣어주면 된다
+이 부분은 디자인 폴더 안의 index 템플릿의 이 부분과 일치한다
+
+                    <div class="post"><a href="./detail.html">         
+                        <h2 class="title">청춘의 청춘</h2>
+                        <p class="date">2020.11.02 22:00</p>
+                        <p class="text">노래하며 생생하며, 듣기만 무한한 맺어, 싶이 오직 풀밭에 아니다. 이상 타오르고 따뜻한 주는 밥을 끓는다. 가치를 오아이스도 청춘의 청춘의 때까지 얼마나 힘차게 약동하다. </p>
+                    </a></div>
+                    
+이렇게 하드코딩된 스타일을 우리는 이전의 post_list 템플릿 코드를 참고하여 다르게 써보자
