@@ -72,5 +72,16 @@ CRUD로 생각하면 데이터를 생성하는 것은 서버에게 데이터를 
 
 자 이 차이점을 알았다면 아까 전의 코드를 다시 한번 보자
 
+<form action="next/" method="post">
+  <label for ="name">이름</label>
+  <input type="text" id="name" name="name"/>
+  <label for="email">이메일</label>
+  <input type="email" id="email" name="email"/>
+  <label for="birth">생일</label>
+  <input type="date" id="birth" name="birth"/>
+  <input type="submit" value="전송">
+</form>
 
+여기 보면 form 태그의 속성으로 action과 method 가 있다 이 부분은 지금 폼에 입력된 데이터를 method 방식 즉 POST 요청을 통해서 action에 해당하는 URL 보내겠다는 뜻이다
+그러니까 전송 버튼을 누르면 폼의 데이터를 이 url로 post 요청으로 보낸다는 의미이다 아직 이해가 잘 되지 않을 수 있으니 폼이 처리되는 전체 과정을 한번 보자
 
