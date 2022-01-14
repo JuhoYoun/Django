@@ -294,9 +294,31 @@ class PostForm(forms.Form):
 자 그 다음에 views.py 로 가서 post_create 뷰를 작성해주자 그리고 PostForm을 import 해주고 post_form 이라는 변수에다가 PostForm을 사용해보자
 ->
 from .forms import PostForm 추가 
+
 그리고 post_create 뷰
+
 def post_create(request):
     post_form = PostForm()
+
+자 이제 폼을 넘겨주기만 하면 된다 바로 return 해주고 render 해주고 request 해주고 이번에는 posts/post_form.html로 보내주자
+대신 이번에는 context 변수를 따로 만들지 않고 form 해준 다음에 post_form 이렇게 해서 넣어주도록 하자 ( 뭐 context 만들어서 넣어줘도 상관은 없자나)
+->
+def post_create(request):
+    post_form = PostForm()
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
+    
+자 이제 뷰를 만들었으니 템플릿을 만들자 templates/posts 디렉토리에다가 post_form.html을 만들자 자 일단 디자인 요소는 배제하고 간단하게 기능 구현에 집중한다
+자 원래라면
+
+
+
+
+
+
+
+
+
 
 
 
