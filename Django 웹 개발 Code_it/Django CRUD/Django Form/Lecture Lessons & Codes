@@ -350,7 +350,126 @@ def post_create(request):
 자 그런데 지금 이 페이지에서 우리가 아무 제목 아무 내용을 넣어서 전송을 눌러도 아무런 변화가 없다 이건 폼만 작성했을 뿐 아직 다른 로직은 구현하지 않아서 그렇다
 이 부분은 다음 시간에 하자
 -----------------------------------------------------------------------------------------------------------------------------------------
+실습과제
+일기장 페이지 만들기
 
+이번에는 일기를 입력할 수 있는 폼을 만들어 보겠습니다. 아래를 참고해서 작성해 주세요.
+
+    models.py를 보면 우리가 작성해야 하는 필드는 총 5개 입니다.
+
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    feeling = models.CharField(max_length=80)
+    score = models.IntegerField()
+    dt_created = models.DateField()
+
+    diary 디렉토리에 forms.py를 생성하고 아래를 참고해서 PageForm을 작성해 주세요.
+
+    from django import forms
+
+    class PageForm(forms.Form):
+        ...
+
+    # 폼 필드 목록
+
+    # 아래를 참고해서 작성해 주세요.
+    title -> CharField, 최대 길이 100자, label='제목'
+    content -> CharField, widget=forms.Textarea, label='내용'
+    feeling -> CharField, 최대 길이 80자, label='감정 상태'
+    score -> IntegerField, label='감정 점수'
+    dt_created -> DateField, label='날짜'
+
+    urls.py로 가서 일기 작성에 해당하는 URL 패턴의 주석을 해제해 주세요.
+
+    views.py에 아래를 참고하여 page_create 뷰를 작성해 주세요.
+
+    from .forms import PageForm # 사용할 form을 가져와야 합니다.
+    form = PageForm() # 작성한 폼을 이용해서 form을 생성합니다.
+
+        page_create 뷰는 page_form.html을 랜더 해서 결과로 돌려주는데, 이때 'form'이라는 키워드로 생성한 PageForm을 context로 넘겨주도록 작성해 주세요.
+
+    page_form.html로 가서 p 태그 형식으로 form을 랜더 하도록 작성해 주세요.
+
+    base.html로 가서 일기 쓰기로 이동하는 링크에 page-create를 연결해 주세요.
+
+    개발 서버를 켜고 /diary/로 이동한 후 '일기 쓰기'를 눌러서 아래와 같이 폼이 나오는지 확인합니다. 지금은 아무런 동작을 하지 않아요 ! 입력할 수 있는 폼이 잘 나온다면 ok !
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4136&directory=Untitled%201.png&name=Untitled+1.png
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4136&directory=Untitled%202.png&name=Untitled+2.png
+
+과제 해설close solution tab
+
+    diary/forms.py 안에 PageForm 클래스를 작성합니다. Form 클래스는 Django의 forms.Form을 상속하고 각각의 폼 필드를 작성하면 됩니다. 이때 content 같은 경우 여러줄 입력이 가능한 Textarea 위젯을 파라미터로 넘겨주어 위젯을 명시해 줍니다. 명시하지 않은 다른 폼 필드들은 각 필드 타입에 따른 기본 위젯으로 설정 됩니다.
+
+    from django import forms
+
+    class PageForm(forms.Form):
+        title = forms.CharField(max_length=100, label='제목')
+        content = forms.CharField(widget=forms.Textarea, label='내용')
+        feeling = forms.CharField(max_length=80, label='감정 상태')
+        score = forms.IntegerField(label='감정 점수')
+        dt_created = forms.DateField(label='작성일')
+
+    urls.py로 가서 일기 작성에 해당 하는 URL의 주석을 해제 합니다.
+
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('diary/', views.page_list, name='page-list'),
+        path('diary/info/', views.info, name='info'),
+        path('diary/write/', views.page_create, name='page-create'), # 주석 해제
+        path('diary/page/<int:page_id>/', views.page_detail, name='page-detail'),
+        # path('diary/page/<int:page_id>/edit/', views.page_update, name='page-update'),
+        # path('diary/page/<int:page_id>/delete/', views.page_delete, name='page-delete'),
+    ]
+
+    이제 views.py로 가서 page_create 뷰를 작성하면 됩니다. page_create 뷰는 page_form 템플릿을 랜더해서 결과로 돌려주는데 이때 작성했던 PageForm을 page_form 템플릿으로 함께 넘겨주도록 작성하면 됩니다.
+
+    from django.shortcuts import render
+    from .models import Page
+    from .forms import PageForm
+
+    ... 
+
+    def page_create(request):
+        form = PageForm()
+        return render(request, 'diary/page_form.html', {'form': form})
+
+    ...
+
+    그리고 아직 page_form 템플릿을 작성한 적이 없죠? page_form 템플릿을 작성합니다. 보면 미리 form 태그와 작성하기 버튼이 작성되어 있는데 여기에 page_create 뷰에서 넘겨준 form을 이용해서 작성합니다. 각각의 입력 요소들을 p 태그로 랜더해주는 as_p를 사용하겠습니다.
+
+    <form method="post">
+        {{form.as_p}}
+        <input type="submit" value="작성하기">
+    </form>
+
+    이렇게 작성하면 forms.py에서 작성한 대로 각각의 폼 필드에 알맞은 형태로 html 태그가 생성됩니다.
+
+    마지막으로 base.html로 가서 '일기 쓰기'로 이동하는 링크에 지금 작성한 page-create를 연결해 주면 됩니다. url 템플릿 태그를 이용하면 되겠죠?
+
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    ...
+    <body>
+        <div class="menu">
+            <h1><a href="{% url 'page-list' %}"><img src="{% static 'diary/image/logo02.svg' %}"></a></h1>
+            <ul>
+                <li><a href="{% url 'page-list' %}">모아보기</a></li>
+                <li><a href="{% url 'info' %}">감정일기란</a></li>
+                <li><a href="{% url 'page-create' %}">일기쓰기</a></li>
+            </ul>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    </body>
+
+    다 되었습니다. 개발 서버를 켜고 /diary/로 이동해서 '일기 쓰기'를 눌러 일기 작성 폼이 잘 나오는지 확인합니다. 아직 폼이 입력은 되지만 동작은 하지 않습니다. 이 부분은 다음 실습에서 작성해 보도록 할게요.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
