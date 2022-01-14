@@ -266,9 +266,26 @@ http://www.codeit-django.com/register
 CRUD 중 Create 에 해당하는 블로그 글 쓰기 페이지의 폼을 만들어보자 사용자로부터 입력을 받을 수 있는 형태가 되겠죠? 관리자 페이지의 포스트 작성 페이지를 보자
 그런식으로 문자열 형식의 제목과 내용을 입력하는 곳이 있고 SAVE 즉 작성한 데이터를 서버로 전송하는 버튼도 있다 이렇게 세가지 기능을 폼으로 구현해보자
 
-먼저 posts 디렉토리 안에 new file 을 해서 forms.py를 만든다
+먼저 posts 디렉토리 안에 new file 을 해서 forms.py를 만든다 이곳에서 우리가 사용할 폼을 구현하고 템플릿과 뷰에서는 이 폼을 가져다가 사용만 하면 된다
+장고 폼은 Form 클래스는 작성하는것 부터 시작한다 하나의 Form 클래스가 하나의 폼이 되는거다 그대로 따라 적어봐라
+->
+from django import forms 
 
+class PostForm(forms.Form):
 
+자 모든 Form 클래스는 이런식으로 django forms의 Form 클래스를 상속해서 구현한다 자 그 다음에 이제 클래스 안의 input 항목들을 하나씩 만들어주면 된다
+작성하는 방식이 모델을 작성할 때와 매우 비슷하다
+->
+class PostForm(forms.Form):
+    title = forms.CharField(max_length=50, label='제목')
+    content = forms.CharField(label='내용', widget=forms.Textarea)
 
+먼저 제목은 title로 그리고 forms 안에 있는 CharField를 이용해서 작성한다 최대길이와 레이블 해준다
+그리고 내용은 content라는 변수에 역시 forms의 CharField를 이용해서 작성한다 레이블 해주고 widget 설정도 해준다
+자 앞서 보았던 HTML 폼을 떠올려보면 우리가 input 태그를 적을 때 타입 속성에 따라 위젝이 구분된다고 했었다 기본적으로 모든 폼 필드는 해당 필드에 맞는 디폴트 위젝 즉 
+기본 위젝을 가지고 있다 날짜를 입력하는 DateField라면 달력모양으로 입력을 받는 위젯 CharField라면 한 줄 입력을 위한 위젝이 기본적으로 설정되어있다
+그리고 필요하다면 폼 필드를 정의할 때 위젯을 따로 명시할 수 있다 이 CharField는 기본적으로 TextInput 위젯 즉 한 줄 입력을 위한 위젯을 가지고 있는데
+여기 내용의 경우 문자열이긴 하지만 여러 줄 입력을 해야한다 여러줄 입력을 위한 위젯은 Textarea가 있다 그래서 이런식으로 위젯을 설정한다
+자 폼에 대한 정의는 이것으로 끝인데 우리가 모델을 정의할 때와 굉장희 비슷하다
 
 
