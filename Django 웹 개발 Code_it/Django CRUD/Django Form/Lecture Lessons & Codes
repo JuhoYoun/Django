@@ -309,9 +309,23 @@ def post_create(request):
     return render(request, "posts/post_form.html", {'form' : post_form})
     
 자 이제 뷰를 만들었으니 템플릿을 만들자 templates/posts 디렉토리에다가 post_form.html을 만들자 자 일단 디자인 요소는 배제하고 간단하게 기능 구현에 집중한다
-자 원래라면
+자 원래라면 앞에서처럼 form 태그를 쓰고 각각의 입력될 컴포넌트를 모두 적어줘야하지만 django의 form 클래스가 대부분 작성해주기 때문에 우리는 form 태그와 서버로
+전송을 하기위한 버튼만 만들어주겠다 자 한번 따라 써보라
+먼저 <form></form> 이렇게 form 태그를 만들어준 다음에 imnput type="submit" 이렇게 하고 value="전송" 이렇게 적어주자
+->
+<form>
+    <input type="submit" value="전송">
+</form>
 
+자 이렇게 하면 이제 폼에서 직접 적어야 하는 부분은 다 됬다 나머지는 뷰에서 넘어온 Form 클래스를 사용한다
+->
+<form>
+    {{form}}
+    <input type="submit" value="전송">
+</form>
 
+매우 간단하지 않은가? 이렇게만 적으면 폼의 자세한 부분은 Form 클래스를 참고해서 django가 자동적으로 생성한다 한번 확인하자
+개발서버를 열고 들어가보자
 
 
 
