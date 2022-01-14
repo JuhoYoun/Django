@@ -508,7 +508,16 @@ method는 post라고 적어준다 이렇게 하면 데이터를 입력하고 전
     <input type="submit" value="전송">
 </form>
 
-자 이제 템플릿 작성은 다 끝났다
+자 이제 템플릿 작성은 다 끝났다 작성한 코드가 얼마 안되는데 이렇게 작성한 폼에 유저가 데이터를 입력하고 전송을 눌러 데이터를 서버에 보내는 것이 폼 처리의 두번째 단계이다 
+이 다음부터는 이제 서버에서 데이터를 받아서 처리해주는 단계인데 로직을 작성하는 views.py로 가보자 자 이제는 데이터를 서버에서 처리하는 과정을 작성해보자     
+
+def post_create(request):
+    post_form = PostForm()
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
+
+일단 로직에 대해 간단히 말하면 위에서 request 요청이 POST 방식으로 들어오면 그러니까 urls.py에서 post/news로 POST 방식으로 요청이 온다면 이 때는 유저가 폼의 데이터를 작성하고 전송을 눌렀을 때다 그렇기 때문에
+if request.method == "POST" 그러니까 유저가 폼에 데이터를 입력하고 전송 버튼을 눌렀을 때라면 우리는 유저가 입력한 데이터를 가져와서 모델을 이용해 데이터베이스에 저장하면 된다 그러면 POST
 
 
 
