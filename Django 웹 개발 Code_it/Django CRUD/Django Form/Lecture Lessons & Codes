@@ -288,4 +288,17 @@ class PostForm(forms.Form):
 여기 내용의 경우 문자열이긴 하지만 여러 줄 입력을 해야한다 여러줄 입력을 위한 위젯은 Textarea가 있다 그래서 이런식으로 위젯을 설정한다
 자 폼에 대한 정의는 이것으로 끝인데 우리가 모델을 정의할 때와 굉장희 비슷하다
 
+이제 뷰에서 이 폼을 가져와서 템플릿으로 보내보자 그 전에 먼저 urls.py로 가서  path('posts/new', views.post_create), 이 부분 주석 해제한다
+그 다음에 url name을 정해준다 -> path('posts/new', views.post_create, name="post-create"),
+
+자 그 다음에 views.py 로 가서 post_create 뷰를 작성해주자 그리고 PostForm을 import 해주고 post_form 이라는 변수에다가 PostForm을 사용해보자
+->
+from .forms import PostForm 추가 
+그리고 post_create 뷰
+def post_create(request):
+    post_form = PostForm()
+
+
+
+
 
