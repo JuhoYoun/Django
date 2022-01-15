@@ -537,9 +537,28 @@ from django.shortcuts import render 그냥 이 옆에 from django.shortcuts impo
 다시 return redirect('post-detail', post_id=new_post.id) 이 부분을 설명하자면 'post-detail' 이 부분은 어디로 이동할지를 적어주는 부분인데 지금은 url의 네임을 적어줬다 url을 문자열로 하드코딩
 하는것보단 url name을 적어주는게 더 좋기 때문에 이런식으로 적어주고 그 다음에 urls.py를 보면 detail 페이지로 가려면 post_id가 필요했다 ('posts/<int:post_id>/') 그렇기 때문에 post_id=new_post.id
 여기서 post_id를 데이터베이스에 저장될 데이터의 id값을 이용해서 상세보기 페이지로 이동시키는 것이다 즉 새로 생성한 Post 모델의 id 값이 post_id가 되는거다
+즉 이 코드를 한번 정리해보자면 요청에서 유저가 입력한 데이터를 가져온 다음 데이터를 만들어주고 그 데이터를 데이터베이스에 저장한다 그리고난다음 상세보기 페이지로 이동을 시켜준다 
+자 마지막으로 요청 method가 POST 가 아닐 경우도 써보자 else를 해주고 그 안에 코드를 작성하는데 그 전에 위에는 POST 방식이고 밑에는 POST 방식이 아닐 때니까 GET 방식으로 생각해주면 된다
+보통 이 GET 방식은 유저가 데이터를 입력하기 전 그러니까 처음으로 여기 posts/new 이 url로 접속을 하면 유저는 서버로 요청을 하게 되는데 그 요청이란 우리가 데이터를 입력할 수 있는 폼을 달라는 의미이다 그러니까 서버에서는
+유저들이 데이터를 입력할 수 있는 폼을 돌려줘야겠지? 그러니까 원래 맨 밑에 있던 두줄을 else 안으로 이동시켜 이렇게 작성해주자
+->
+def post_create(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        new_post = Post(
+            title = title,
+            content = content
+        )
+        new_post.save()
+        return redirect('post-detail', post_id=new_post.id)
+    else:
+        post_form = PostForm()
+        return render(request, "posts/post_form.html", {'form' : post_form})
 
+개발서버 열고 코드 잘 동작하는지 확인해보자 글하나 새로 써보자 잘 작동되나 확인해보자~
 
-
+아 그리고 지금 post_list 템플릿에 글쓰기 버튼이 없는데 이것도 하나 만들어주자
 
 
 
