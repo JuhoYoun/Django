@@ -529,5 +529,19 @@ new_post.save()
 그다음에 new_post 란 변수에다가 Post 해주시고 안에 위에처럼 작성한다 그러면 Post 모델을 이용해서 데이터를 생성하고 이 생성한 데이터를 new_post.save()로 저장해준다
 이런 과정은 앞에서 쉘을 이용해서 데이터베이스를 조작할 때 한번 해봤다
 
+자 다음엔 이렇게 데이터를 저장하고 난 다음 방금 저장했던 글을 보는 상세 글 보기 페이지 즉 디테일 페이지로 이동하게 해보자
+->  return redirect('post-detail', post_id=new_post.id)
+
+지금처럼 다른 url로 이동할 때는 이 redirect 이라는걸 쓰는데 말 그대로 다른 페이지로 연결해주는 함수다 일단 이걸 쓰려면 from django.shortcuts import redirect 이렇게 해주자 
+from django.shortcuts import render 그냥 이 옆에 from django.shortcuts import render, redirect 이렇게 해줘도 된다          
+다시 return redirect('post-detail', post_id=new_post.id) 이 부분을 설명하자면 'post-detail' 이 부분은 어디로 이동할지를 적어주는 부분인데 지금은 url의 네임을 적어줬다 url을 문자열로 하드코딩
+하는것보단 url name을 적어주는게 더 좋기 때문에 이런식으로 적어주고 그 다음에 urls.py를 보면 detail 페이지로 가려면 post_id가 필요했다 ('posts/<int:post_id>/') 그렇기 때문에 post_id=new_post.id
+여기서 post_id를 데이터베이스에 저장될 데이터의 id값을 이용해서 상세보기 페이지로 이동시키는 것이다 즉 새로 생성한 Post 모델의 id 값이 post_id가 되는거다
+
+
+
+
+
+
 
 
