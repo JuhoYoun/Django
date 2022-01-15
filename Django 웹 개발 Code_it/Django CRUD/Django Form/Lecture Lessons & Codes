@@ -517,8 +517,17 @@ def post_create(request):
     return render(request, "posts/post_form.html", {'form' : post_form})
 
 일단 로직에 대해 간단히 말하면 위에서 request 요청이 POST 방식으로 들어오면 그러니까 urls.py에서 post/news로 POST 방식으로 요청이 온다면 이 때는 유저가 폼의 데이터를 작성하고 전송을 눌렀을 때다 그렇기 때문에
-if request.method == "POST" 그러니까 유저가 폼에 데이터를 입력하고 전송 버튼을 눌렀을 때라면 우리는 유저가 입력한 데이터를 가져와서 모델을 이용해 데이터베이스에 저장하면 된다 그러면 POST
-
+if request.method == "POST" 그러니까 유저가 폼에 데이터를 입력하고 전송 버튼을 눌렀을 때라면 우리는 유저가 입력한 데이터를 가져와서 모델을 이용해 데이터베이스에 저장하면 된다 그러면 POST 요청에서 데이터를 가져와보자
+title = request.POST['title']
+content = request.POST['content']
+이렇게 해주면 요청에서 데이터를 가져올 수 있다
+new_post = Post(
+  title = title,
+  content = content
+)
+new_post.save()
+그다음에 new_post 란 변수에다가 Post 해주시고 안에 위에처럼 작성한다 그러면 Post 모델을 이용해서 데이터를 생성하고 이 생성한 데이터를 new_post.save()로 저장해준다
+이런 과정은 앞에서 쉘을 이용해서 데이터베이스를 조작할 때 한번 해봤다
 
 
 
