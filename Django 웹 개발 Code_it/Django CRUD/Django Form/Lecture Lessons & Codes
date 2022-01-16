@@ -968,3 +968,26 @@ def post_create(request):
         return render(request, "posts/post_form.html", {'form' : post_form})
 
 이 코드의 if 절 안을 ModelForm을 이용해 더 간단하게 고쳐보자
+
+def post_create(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.Post)
+        new_post = post_form.save()
+        
+        return redirect('post-detail', post_id=new_post.id)
+    else:
+        post_form = PostForm()
+        return render(request, "posts/post_form.html", {'form' : post_form})
+
+자 코드에 대해서 간단하게 설명하자면 post_form = PostForm(request.Post) 이런식으로 먼저 폼과 데이터를 바인딩해준다 다음에 이 바인딩 된 내용을 new_post = post_form.save() 이렇게 save해주면 데이터베이스에 저장할 수 있다
+모델 폼이 가지고 있는 이 save 함수는 바운드폼으로부터 가져온 데이터로 모델 인스턴스를 만들고 인스턴스를 데이터베이스에 처리하는 과정을 진행해준다 근데 이건 좀 복잡하니까 그냥 save를 호출하면 데이터베이스에 데이터가 저장된다
+이렇게만 이해해도록 하자 그 다음에 저장을 하고 코드가 잘 작동하는지 확인하자 -> 개발서버 열고 글쓰기로 가서 글 서보자
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
