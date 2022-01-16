@@ -906,7 +906,65 @@ https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4139&directory=
 더 많은 필드 옵션이 궁금하다면 아래 공식 문서를 참고하세요.
 https://docs.djangoproject.com/en/2.2/ref/forms/fields/#core-field-arguments
 --------------------------------------------------------------------------------------------------------------------------------
+폼을 더 간단하게, 모델 폼! (Model Form)
 
+앞서 우리가 작성한 PostForm 클래스를 보면 Post 모델과 형태가 비슷하다 코드를 봐도 중복되는 부분들도 좀 보인다 이렇게 왭 서비스에서의 폼은 데이터베이스 기반 즉 모델을 기반으로 만드는 경우가 많다
+forms.py
+from django import forms 
 
+class PostForm(forms.Form):
+    title = forms.CharField(max_length=50, label='제목')
+    content = forms.CharField(label='내용', widget=forms.Textarea)
+    
+models.py
+from django.db import models
 
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    dt_created = models.DateTimeField(verbose_name="Date Created", auto_now_add = True)
+    dt_modified = models.DateTimeField(verbose_name="Date Modified", auto_now = True)
 
+    def __str__(self):
+        return self.title
+
+유저로부터 데이터를 입력받아 데이터베이스에 저장하는 등의 로직이 많기 때문인데 이번시간에 배울 ModelForm은 장고의 강력한 폼 기능중 하나로 우리가 작성한 모델을 기반으로 해서 자동으로 폼을 생성해준다
+일일이 폼을 작성하는것을 django form 클래스를 이용해서 간편하게 처리했는데 이제 이 form 클래스를 작성하는것 마저 ModelForm을 이용해서 더 간편하게 하는것이다 앞으로 우리가 만드는 대부분의 djnago 프로젝트들은
+이번 시간에 배우는 ModelForm을 사용하게 될것이다
+
+자 그러면 ModelForm을 사용해보자 먼저 ModelForm 을 상속하게 하자 -> class PostForm(forms.ModelForm):
+다음에 우리가 사용할 모델을 불러오자 -> from .models import Post 그리고 아래와 같이 써주자
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+
+안쪽의 Meta 클래스는 PostForm이라는 클래스를 만들 때 적용할 여러가지를 넣어주는 클래스다 이렇게 생각하면 된다 그리고 model = Post 이렇게 적어주면 Post모델을 보고 장고가 폼을 생성하게 되는데 이 Post 모델 여러 필드가 있었지?
+그 중에서 어떤 필드를 폼으로 만들것인지를 명시해 주기 위해서 fields라는 변수에 리스트 형태로 Post 모델에 필더를 넣어주면 된다 
+->
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+
+dt_created와 dt_modified 는 폼으로 입력받는 것이 아니라 자동으로 생성되니까 넣어줄 필요가 없다 자 그런데 지금은 두개만 적어줬지만 모든 필드를 폼으로 만들고 싶은데 모델의 필드가 많다면 지금처럼 하나하나 적기 어렵다 그러면은 
+fields = '__all__'  이런식으로 적어주면 모든 필드가 적용된다 참고로 알아두자 
+다시 돌아와서 폼 작성은 이것으로 끝이다 각각의 폼 필드가 어떤 형식으로 작성되어야하는지는 모델에서 정의한 필드를 참고하여 장고가 자동으로 폼을 생성하게 해주면된다 
+
+그럼 vuews.py로 가서 
+
+def post_create(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        content = request.POST['content']
+        new_post = Post(
+            title = title,
+            content = content
+        )
+        new_post.save()
+        return redirect('post-detail', post_id=new_post.id)
+    else:
+        post_form = PostForm()
+        return render(request, "posts/post_form.html", {'form' : post_form})
+
+이 코드의 if 절 안을 ModelForm을 이용해 더 간단하게 고쳐보자
