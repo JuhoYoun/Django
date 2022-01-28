@@ -824,6 +824,15 @@ dt_created = forms.DateTimeField(widget=NumberInput(attrs={'type': 'date'}), lab
 
 
 ※ 구글링 참조 했던 사이트는 입니다. https://ordinarycoders.com/blog/article/using-django-form-fields-and-widgets
+--------------------------------------------------------------------------------------------------------------------------------
+강의에서 DateField는  Form 을 통해 자동으로 코드가 생성될 때 디폴트 위젯인 달력으로 설정된다고 하셨는데 개발서버 확인 결과 
+
+<input type="text" name="dt_created" required="" id="id_dt_created"> 
+
+이렇게 text 위젯으로 설정된 점을 확인했습니다. 이 과정에서 제가 놓친 부분이 있나요?
+
+DateInput 은 맞는데 이게 기본 위젯이 캘린더형태는 아닙니당. 이건 잘못된 내용 같아용. 제보해봐야겠네용
+
   -------------------------------------------------------------------------------------------------------------------------------
 
 Django Form Field
