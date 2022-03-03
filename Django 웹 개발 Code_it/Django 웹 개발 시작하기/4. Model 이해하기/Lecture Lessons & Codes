@@ -1257,3 +1257,18 @@ posts 앱에서 변경사항은 없지만 프로젝트를 생성하고 사용하
 https://docs.djangoproject.com/ko/4.0/intro/tutorial02/#database-setup
 
 위 링크를 참고해보시면 좋겠습니당!
+---------------------------------------------------------------------------------------------------------------------------------------------
+admin.py 에서 import 할 때 경로
+
+from foods.models import Menu
+
+admin.py는 이미 foods 앱에 있는 파일인데 from foods.models 이런식으로 경로를 설정할 수 있는 이유가 어떻게 되나요?
+
+가령 from .models import Menu 또는 from . import models.Menu 이런식으로 import할 수는 없나요?
+
+좋은 질문이네용!
+
+동일한 패키지 안에 있기 때문에
+
+from .models import Menu
+요 형식으로 쓰실 수 있습니당!
