@@ -1265,7 +1265,11 @@ def validate_symbol(value):
         raise ValidationError('"@"와 "#"는 포함될 수 없습니다.', code="symbol_err")
 
 에러를 발생시키는 raise 문을 사용하고 ValidationError 인수로 에러문구룰 적어주구 에러코드는 symbol_err 로 임의의로 설정해준다 여러가지 에러들 중에 이 에러를 구분할 수 있도록 임의의 코드를 부여해준거다
-자 이제 models.py로 가서 작성했던 validator를 가져와보자 from .validators import validate_symbol 그리고 content 를 
+자 이제 models.py로 가서 작성했던 validator를 가져와보자 from .validators import validate_symbol 그리고 content 를 보자 content = models.TextField(validators = [MinLengthValidator(10, "10자 이상 쓰세요")])
+여기 validators 옵션의 리스트 안에 넣으면 된다 -> content = models.TextField(validators = [MinLengthValidator(10, "10자 이상 쓰세요"), validate_symbol])
+자 이제 개발서버를 실행하고 테스트 해보자 잘 나오는가? 잘나온다 자 이렇게 배운 모델 유효성 검증을 사용하면 모델폼을 사용할 경우 대부분의 유효성 검증을 커버할 수 있다 다음 시간에는 폼에서 할 수 있는 유효성 검증을 배워보자
+
+
 
 
 
