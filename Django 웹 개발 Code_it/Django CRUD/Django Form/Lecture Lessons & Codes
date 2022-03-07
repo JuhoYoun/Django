@@ -1170,7 +1170,7 @@ def post_create(request):
     
 
 자 이제 제목이 중복되는 글을 한번 써보자 -> 에러메세지가 영어로 나온다 -> 이 에러메세지를 바꾸고 싶다면? -> models.py에 가서 바꿔주자!
-title = models.CharField(max_length=50, unique=True) -> title = models.CharField(max_length=50, unique=True, error_message = {'unique' : "제목이 중복됩니다!"})
+title = models.CharField(max_length=50, unique=True) -> title = models.CharField(max_length=50, unique=True, error_messages = {'unique' : "제목이 중복됩니다!"})
 -> unique 라는 에러가 생기면 사전형 key인 unique의 value 인 에러 메시지가 나간다 이러한 key 값에는 지금처럼 장고 내장 옵션 인자를 에러코드로 사용할 수 있고 커스텀 에러코드를 입력할 수 도 있다
 다음 레슨에는 여러가지 validator를 추가하는 방법을 배워보자 
 -----------------------------------------------------------------------------------------------------------------------------------------------
