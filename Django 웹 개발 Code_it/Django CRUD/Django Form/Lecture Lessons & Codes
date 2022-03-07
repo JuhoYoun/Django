@@ -1269,10 +1269,10 @@ def validate_symbol(value):
 여기 validators 옵션의 리스트 안에 넣으면 된다 -> content = models.TextField(validators = [MinLengthValidator(10, "10자 이상 쓰세요"), validate_symbol])
 자 이제 개발서버를 실행하고 테스트 해보자 잘 나오는가? 잘나온다 자 이렇게 배운 모델 유효성 검증을 사용하면 모델폼을 사용할 경우 대부분의 유효성 검증을 커버할 수 있다 다음 시간에는 폼에서 할 수 있는 유효성 검증을 배워보자
 
+파이썬의 raise문에 대해 더 알아보고 싶다면 아래의 공식 문서를 참고해주세요 :)
+파이썬 raise문 공식 문서 바로가기 https://docs.python.org/ko/3/tutorial/errors.html#raising-exceptions
 
-
-
-
+--------------------------------------------------------------------------------------------------------------------------------
 
 
 
