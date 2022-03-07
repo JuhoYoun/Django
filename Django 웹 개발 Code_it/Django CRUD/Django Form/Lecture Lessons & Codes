@@ -1250,8 +1250,8 @@ class MinValueValidator(limit_value, message=None)¶
 Raises a ValidationError with a code of 'min_value' if value is less than limit_value, which may be a callable.
 
 여기 MinValueValidator를 보면 최소 길이에 대한 limit_value와 유효성 검증을 실패했을 때 보여주는 에러 메세지 message를 적어줄 수 있다
-자 그러면 이걸 어떻게 사용할까? 이거는 import를 해야한다 장고 공식 문서 페이지에서 찾아보면 from django.core.exceptions import ValidationError 이렇게 import 하라고 나와있다
-자 그럼 한번 해보자 models.py에서 import 해준다
+자 그러면 이걸 어떻게 사용할까? 이거는 import를 해야한다 장고 공식 문서 페이지에서 찾아보면  django.core.validators 여기서 import 하라고 나와있다
+자 그럼 한번 해보자 models.py에서 import 해준다 from django.core.validators import MinLengthValidator
 
 
 
