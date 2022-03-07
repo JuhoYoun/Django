@@ -1241,7 +1241,22 @@ def post_create(request):
 
 만약 데이터가 보다 복잡한 유효성을 요구한다면? 이 때 사용할 수 있는 것이 바로 Validator 이다 Validator 는 임의의 값을 받아서 내부의 기준을 충족하지 않으면 ValidatorError를 발생시키는 함수이다
 Validator는 하나의 필드에 종속되지 않고 여러 필드에서 사용할 수 있으며 장고에서 기본적으로 제공하는 built-in Validator를 사용하서나 필요하다면 Validator를 직접 구현할 수 있다 먼저 장고에서
-제공하는 Validator를 사용해보겠다 Built-in Validator는 여러 종류가 있는데 우리가 구현하는 유효성 중 하나인 내용은 최소 10글자 이상이어야 한다는 유효성을 구현해보자
+제공하는 Validator를 사용해보겠다 Built-in Validator는 여러 종류가 있는데 우리가 구현하는 유효성 중 하나인 내용은 최소 10글자 이상이어야 한다는 유효성을 구현해보자 사실 모든 validator를 외우고 있는것은 
+말이 안되기 때문에 필요할 때마다 찾아서 사용한다 -> 웹 브라우저로 가서 django built-in validators 이렇게 검색해보자 장고 공식 문서에 들어가자 https://docs.djangoproject.com/en/4.0/ref/validators/
+여기에 validator들이 쫙 있는데 지금 원하는건 길이에 관한거니까 MaxLengthValidator 랑 MinLengthValidator 를 보자 
+
+MinValueValidator¶
+class MinValueValidator(limit_value, message=None)¶
+Raises a ValidationError with a code of 'min_value' if value is less than limit_value, which may be a callable.
+
+여기 MinValueValidator를 보면 최소 길이에 대한 limit_value와 유효성 검증을 실패했을 때 보여주는 에러 메세지 message를 적어줄 수 있다
+자 그러면 이걸 어떻게 사용할까? 이거는 import를 해야한다 장고 공식 문서 페이지에서 찾아보면 from django.core.exceptions import ValidationError 이렇게 import 하라고 나와있다
+자 그럼 한번 해보자 models.py에서 import 해준다
+
+
+
+
+
 
 
 
