@@ -1264,6 +1264,8 @@ def validate_symbol(value):
     if "@" in value or "#" in value:
         raise ValidationError('"@"와 "#"는 포함될 수 없습니다.', code="symbol_err")
 
+에러를 발생시키는 raise 문을 사용하고 ValidationError 인수로 에러문구룰 적어주구 에러코드는 symbol_err 로 임의의로 설정해준다 여러가지 에러들 중에 이 에러를 구분할 수 있도록 임의의 코드를 부여해준거다
+자 이제 models.py로 가서 작성했던 validator를 가져와보자 from .validators import validate_symbol 그리고 content 를 
 
 
 
