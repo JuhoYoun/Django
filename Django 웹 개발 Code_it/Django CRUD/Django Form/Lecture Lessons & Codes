@@ -1253,7 +1253,8 @@ Raises a ValidationError with a code of 'min_value' if value is less than limit_
 자 그러면 이걸 어떻게 사용할까? 이거는 import를 해야한다 장고 공식 문서 페이지에서 찾아보면  django.core.validators 여기서 import 하라고 나와있다
 자 그럼 한번 해보자 models.py에서 import 해준다 from django.core.validators import MinLengthValidator
 자 이제 validator를 사용하면 되는데 어디에 적용할까? 각각의 필드 안에 Validator 라는 항목이 있다 여기에 적용할 validator를 적어주면 된다 한번 해보자 먼저 여기 content에다 하자
-
+content = models.TextField() -> content = models.TextField(validators = [MinLengthValidator(10, "10자 이상 쓰세요")])
+개발 서버 켜고 에러메세지 잘 뜨나 확인해보자 
 
 
 
