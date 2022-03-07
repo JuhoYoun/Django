@@ -1139,5 +1139,46 @@ def post_create(request):
         return render(request, "posts/post_form.html", {'form' : post_form})
 
 여기 POST 일 떄 즉 유저로부터 데이터를 입력받을 때 바로 데이터베이스에 데이터를 저장하게 되어있는데 이렇게 데이터의 유효성을 검증하지 않고 바로 데이터를 사용하고 저장하는것은 위험하다 이 부분을 수정해서 
-데이터 유효성 검증을 해 통과하면 데이터베이스에 저장을 하고 아니면 다시 입력하도록 해주자
+데이터 유효성 검증을 해 통과하면 데이터베이스에 저장을 하고 아니면 다시 입력하도록 해주자   if post_form.is_valid():  if 문을 이용한다 is_valid() 메소드는 post_form의 데이터가 유효한지 체크한다
+유효하면 데이터를 저장하고 리디렉하게하자 데이터가 유효하지 않을 때도 구현해보자 else -> return render(request, "posts/post_form.html", {'form' : post_form}) 이렇게 되면 유효성을 통과하지 못한 
+폼을 다시 템플릿에 전달하게 되고 이 때 유효성 검증을 통과 못한 에러메세지가 기존의 데이터와 함께 전달된다 유저는 입력했던 폼에 있는 데이터를 바탕으로 다시 입력하게 된다
+->
+def post_create(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            new_post = post_form.save()
+            return redirect('post-detail', post_id=new_post.id)
+        else:
+            return render(request, "posts/post_form.html", {'form' : post_form})
+
+    else:
+        post_form = PostForm()
+        return render(request, "posts/post_form.html", {'form' : post_form})
+
+다음과 같이 줄일 수 있다
+->
+def post_create(request):
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+        if post_form.is_valid():
+            new_post = post_form.save()
+            return redirect('post-detail', post_id=new_post.id)
+    else:
+        post_form = PostForm()
+    return render(request, "posts/post_form.html", {'form' : post_form})
+    
+
+자 이제 제목이 중복되는 글을 한번 써보자 -> 에러메세지가 영어로 나온다 -> 이 에러메세지를 바꾸고 싶다면? -> models.py에 가서 바꿔주자!
+title = models.CharField(max_length=50, unique=True) -> title = models.CharField(max_length=50, unique=True, error_message = {'unique' : "제목이 중복됩니다!"})
+-> unique 라는 에러가 생기면 사전형 key인 unique의 value 인 에러 메시지가 나간다 이러한 key 값에는 지금처럼 장고 내장 옵션 인자를 에러코드로 사용할 수 있고 커스텀 에러코드를 입력할 수 도 있다
+다음 레슨에는 여러가지 validator를 추가하는 방법을 배워보자 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+
+
+
+
+
 
