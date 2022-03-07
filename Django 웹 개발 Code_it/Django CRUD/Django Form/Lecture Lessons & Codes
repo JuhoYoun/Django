@@ -1254,10 +1254,11 @@ Raises a ValidationError with a code of 'min_value' if value is less than limit_
 자 그럼 한번 해보자 models.py에서 import 해준다 from django.core.validators import MinLengthValidator
 자 이제 validator를 사용하면 되는데 어디에 적용할까? 각각의 필드 안에 Validator 라는 항목이 있다 여기에 적용할 validator를 적어주면 된다 한번 해보자 먼저 여기 content에다 하자
 content = models.TextField() -> content = models.TextField(validators = [MinLengthValidator(10, "10자 이상 쓰세요")])
-개발 서버 켜고 에러메세지 잘 뜨나 확인해보자 
-
-
-
+개발 서버 켜고 에러메세지 잘 뜨나 확인해보자 잘뜬다 자 이제 그러면 #과 @을 쓸 수 없게 하는 유효성 검증도 추가해보자 이 부분은 직접 validator를 만들면서 해결해보자
+posts 앱에 validators.py라는 파일을 하나 더 만들어주자 validator는 인자로 넘어오는 밸류를 검증하는 로직을 수행하다가 유효성 검증이 실패했을 때 ValidationError를 발생시켜주면 된다
+그러면 장고에서 지원하는 ValidationError 객체를 가져와보자 from django.core.exceptions import ValidationError 이렇게 해주자 이 ValidationError는 장고에서 제공하는 여러 에러중 하나로
+유효성 검증 실패를 의미하는 에러이다 이 ValidationError 를 발생시키면 장고 내부적으로 에러인데 유효성 검증에 실패했구나 이런식으로 이해하고 그거에 맞는 처리 로직을 수행한다 자 그러면 
+함수를 하나 
 
 
 
