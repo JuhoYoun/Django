@@ -1274,8 +1274,200 @@ def validate_symbol(value):
 
 --------------------------------------------------------------------------------------------------------------------------------
 
+데이터 모델이 변경되면 migration을 해주어야 한다고 알고 있었는데
 
+해당 수업에서 models.py에 validator들을 추가 해주었지만 migrate진행을 하지 않고도 잘 진행 되었습니다.
 
+때문에 두가지 질문이 있습니다.
 
+1. models.py에 추가한 validator들은 데이터베이스에 제약조건을 추가하는 용도가 아닌걸까요?
+
+ (작성한 validator들이 sql문으로 변환되어 데이터베이스에 입력되는 용도가 아닌걸까요?)
+
+ 
+
+2. 만약 1의 용도가 아니라면 models.py에 입력한 validator들은
+
+  views.py의 .is_valid의 함수를 작동시키기 위함일까요?
+
+  (데이터베이스에서가 아닌 파이썬에서 유효성 검증을 진행하는 걸까요?) 
+  
+
+is_valid() 메서드가 실행되는 순서입니다.
+
+form이 여러개의 데이터로 구성되어 있으면, is_valid()메서드는 full_clean()메서드를 실행합니다.
+
+full_clean() 메서드는 아래의 순서로 form필드를 검사하는데요,
+
+    to_python 메서드로 파이썬 코드로 변환합니다. 실패하면 ValidationError가 발생합니다.
+    커스터마이징한 validator들과, 필드에 명시된 validator들을 검사합니다. 실패하면 ValidationError가 발생합니다.
+    form에 clean_으로 시작하는 메서드가 있다면,  실행합니다.
+
+full_clean()메서드는 마지막으로 clean메서드를 실행합니다. clean메서드는 cleaned_data 딕셔너리를 리턴하구요.
+------------------------------------------------------------------------------------------------------------------------------------
+
+실습과제
+100XP
+오늘 하루는 유효했나요?
+
+감정 일기에 다음과 같은 유효성 검사를 추가하려고 합니다. diary 앱 디렉토리 안의 validators.py에 유효성 검사기(validator)를 작성해 주세요.
+
+1. '제목'과 '내용'에는 '#'이 들어갈 수 없습니다.
+2. '감정 상태' 에는 숫자가 들어갈 수 없습니다.
+3. '감정 점수'는 0부터 10사이의 숫자만 들어갈 수 있습니다.
+
+    유효성 검사 함수는 유효성 검사에 실패했을 경우 ValidationError를 발생 시켜야 합니다.
+
+    from django.core.exceptions import ValidationError
+
+    ValidationError는 첫번째 파라미터로 에러 메세지를 받습니다.
+
+    ValidationError('error message')
+
+    먼저 '#'이 들어있는 지를 검증하는 validate_no_hash 함수를 작성해 주세요.
+
+    def validate_no_hash(value):
+        ...
+        raise ValidationError(...)
+
+    다음으로는 숫자가 들어있는 지를 검증하는 validate_no_numbers 함수를 작성해 주세요.
+
+    .isdigit() 함수는 문자가 숫자 값인지 아닌지를 판단해서
+    그 결과를 True, False로 돌려주는 함수입니다.
+
+    for ch in value: # 입력된 문자열을 하나씩 반복하면서
+        # 숫자가 있는지를 체크하면 되겠죠?
+
+    마지막으로 입력된 값이 0부터 10사이의 숫자 인지를 검증하는 validate_score 함수를 작성해 주세요.
+
+    모델 폼을 사용하고 있으므로 models.py로 가서 아래를 참고하여 각 필드 별 알맞은 유효성을 추가해 주세요.
+
+    1. '제목'과 '내용'에는 '#'이 들어갈 수 없습니다.
+    2. '감정 상태' 에는 '#'과 숫자가 들어갈 수 없습니다.
+    3. '감정 점수'는 0부터 10사이의 숫자만 들어갈 수 있습니다.
+
+    example_field = models.CharField(validators=[validator ...])
+
+    views.py로 가서 아래를 참고하여 데이터가 유효할 때만 저장 로직을 수행하도록 수정해 주세요.
+
+    # 데이터와 폼이 합쳐진 바운드폼으로 데이터가 유효한지 여부를 체크할 수 있습니다.
+    form.is_valid()
+
+    데이터가 유효하지 않을 경우에는 입력된 폼 데이터를 다시 page_form 템플릿으로 전달하여 비어 있지 않은 상태에서 데이터를 수정할 수 있도록 작성해 주세요.
+
+    개발 서버를 켜고 각각의 유효성 검증이 잘 동작 하는지 체크해 주세요.
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4143&directory=Untitled.png&name=Untitled.png
+
+과제 해설close solution tab
+
+    diary/validators.py에 유효성 검사를 위한 함수를 작성합니다.
+        유효성 검사는 조건을 만족하지 못했을 경우 ValidationError를 발생시키면 됩니다.
+        먼저 ValidationError를 import 합니다.
+
+    # validators.py
+
+    from django.core.exceptions import ValidationError
+
+    입력된 값에 '#'이 포함되어 있는지를 검증하는 validate_no_hash 함수를 작성합니다.
+        함수를 정의하고 파라미터로 검증을 수행할 값을 받습니다.
+        그 후 만약 해당 값에 '#'이 들어 있다면 raise 문을 이용해서 ValidationError를 내도록 합니다.
+        이때 에러 메시지를 함께 적어 줄 수 있습니다.
+
+    from django.core.exceptions import ValidationError
+
+    def validate_no_hash(value):
+        if '#' in value:
+            raise ValidationError('# 은 포함될 수 없습니다.')
+
+    다음으로 입력된 값에 숫자가 들어 있는지를 검증하는 validate_no_numbers 함수를 작성합니다.
+        입력된 값을 하나씩 반복하면서 isdigit()을 이용해 숫자 인지 여부를 체크합니다.
+        만약 해당 값이 숫자라면 ValidationError를 내도록 합니다.
+
+    from django.core.exceptions import ValidationError
+
+    ...
+
+    def validate_no_numbers(value):
+        for ch in value:
+            if ch.isdigit():
+                raise ValidationError('숫자는 들어갈 수 없습니다.')
+
+    마지막으로 입력된 값이 0부터 10사이의 숫자 인지를 검증하는 validate_score 함수를 작성합니다.
+
+    from django.core.exceptions import ValidationError
+
+    ...
+
+    def validate_score(value):
+        if value < 0 or value > 10:
+            raise ValidationError('0부터 10사이의 숫자만 입력 가능합니다.')
+
+    이제 작성한 validator들을 적용 시켜 주면 됩니다.
+        우리는 현재 모델 폼을 사용하고 있으므로 모델 필드에 유효성 검증을 추가 해주면 됩니다.
+        models.py로 가서 먼저 우리가 작성한 validator를 가져옵니다.
+
+    from django.db import models
+    from .validators import validate_no_hash, validate_no_numbers, validate_score
+
+        각각의 필드에 맞는 유효성을 validators 파라미터로 전달합니다.
+
+    from django.db import models
+    from .validators import validate_no_hash, validate_no_numbers, validate_score
+
+    # Create your models here.
+    class Page(models.Model):
+        title = models.CharField(max_length=100, validators=[validate_no_hash])
+        content = models.TextField(validators=[validate_no_hash])
+        feeling = models.CharField(max_length=80, validators=[validate_no_hash, validate_no_numbers])
+        score = models.IntegerField(validators=[validate_score])
+        dt_created = models.DateField()
+
+        def __str__(self):
+            return self.title
+
+    이제 views.py로 가서 입력된 데이터가 유효성 검증을 통과 했을 때만 저장 되도록 로직을 수정합니다.
+
+    def page_create(request):
+        if request.method == 'POST':
+            form = PageForm(request.POST)
+            if form.is_valid(): # 데이터가 유효한 경우에만
+                new_page = form.save() # 저장 로직을 수행하고
+                return redirect('page-detail', page_id=new_page.id) # 새 페이지로 갑니다.
+        else:
+                ...
+
+    그리고 만약 데이터가 유효하지 않다면 어떻게 해야 할까요? 다시 데이터를 입력하도록 하면 됩니다.
+        데이터가 유효하지 않다면 page_form 템플릿에 바인딩 폼을 전달하여 데이터가 있는 상태로 다시 입력하도록 결과로 돌려줍니다.
+
+    def page_create(request):
+        if request.method == 'POST':
+            form = PageForm(request.POST) # 이 form은 입력된 데이터가 들어있는 바인딩 폼입니다.
+            if form.is_valid():
+                new_page = form.save()
+                return redirect('page-detail', page_id=new_page.id)
+            else: # 데이터가 유효하지 않다면
+                return render(request, 'diary/page_form.html', {'form': form})
+        else:
+            form = PageForm() # 이 form은 비어있는 폼 입니다.
+            return render(request, 'diary/page_form.html', {'form': form})
+
+        위와 같은 코드는 아래처럼 다시 적을 수 있습니다.
+        데이터가 유효하지 않을 때의 else를 지우고 중복되는 return render (...)를 하나로 수행하도록 작성했습니다.
+        이렇게 하면 요청이 POST 방식이라면 입력된 데이터가 채워진 form을, GET 방식이라면 비어있는 form을 갖게 됩니다.
+
+    def page_create(request):
+        if request.method == 'POST':
+            form = PageForm(request.POST)
+            if form.is_valid():
+                new_page = form.save()
+                return redirect('page-detail', page_id=new_page.id)
+        else:
+            form = PageForm()
+        return render(request, 'diary/page_form.html', {'form': form})
+
+    개발 서버를 켜고 각각의 유효성 검증이 잘 동작 하는지 확인해 주세요.
+
+----------------------------------------------------------------------------------------------------------------------------------------
 
 
