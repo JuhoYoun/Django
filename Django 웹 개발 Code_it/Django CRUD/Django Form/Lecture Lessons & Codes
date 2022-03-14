@@ -1540,10 +1540,27 @@ class PostForm(forms.ModelForm):
 Meta 클래스 아래쪽에 함수를 정의해준다 clean_ 하고 유효성 검사를 할 필드명을 적는다 (title) 이제 유효성 검사를 할 데이터를 가져와야한다 title이라는 변수에다가 self.cleaned_data 이렇게 해주고 안에다 'title'
 이렇게 넣어준다 모든 Form 클래스는 기본적으로 cleaned_data걸 가지고 있는데 이 cleaned_data 안에는 폼필드를 정의할 때 넣어준 유효성 검증을 통과한 데이터가 들어가있다 만약 폼필드를 사용하지 않았다면 유저가 입력한
 데이터가 그대로 넘어오게 된다 우리는 모델 필드에 유효성 검증을 넣어줬기 때문에 여기서 가져온 cleaned_data['title'] 에는 유효성 검증이 이루어지지 않은 상태라는 것이다 자 이상태에서 title에다가 유효성 검증을 추가하면 된다
+자 한번 해보자 제목에 "*"가 있으면 안되는 유효성을 추가해보자
 
+from django import forms
+from .models import Post
+from .validators import validate_symbol
+from django.core.exceptions import ValidationError
 
+class PostForm(forms.ModelForm):
+    # memo = forms.CharField(max_length=50, validators=[validate_symbol])
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+    
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if "*" in title:
+            raise ValidationError("*는 포함될 수 없습니다")
+        return title
 
-
+자 이러한 clean_필드 가 Validator 와 다른 점은 clean_필드 는 하나의 필드에 대해서만 검증아 가능하며 유효성 검증 에러를 내는것과는 상관 없이 항상 이런식으로 return title 해서 cleaned_data에서 가져온
+데이터를 리턴해줘야 한다 그에 반해 validator는 한번 정의하면 모델과 폼에서 모두 사용이 가능하고 여러 필드에서 사용이 가능하다 자 여기 까지 적어줬으면 저장을 한 다음에 개발서버를 켜봐라
 
 
 
