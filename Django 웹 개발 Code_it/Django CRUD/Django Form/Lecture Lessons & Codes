@@ -1495,8 +1495,34 @@ def post_create(request):
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
+폼(form)에서 유효성 검증하기
 
+모델에 썼던 필드 옵션과 발리데이터들은 폼 필드에서도 그대로 쓸 수 있다 이전까지 연습에서는 모델폼을 사용해서 폼 필드가 없었지만 모델을 쓰지 않는 일반 폼의 경우 forms.py에 각각의 폼 필드를 작성해야하고
+그 때 우리가 배운 필드 옵션과 validator들을 적어줄 수 있다 우리의 경우에도 모델에 연관되지 않은 데이터를 입력받아야 할 때는 추가적으로 폼 필드를 만들 수 있다 자 해보자
 
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+        
+다음과 같이 추가해주자 
+
+from django import forms
+from .models import Post
+from .validators import validate_symbol
+
+class PostForm(forms.ModelForm):
+    memo = forms.CharField(max_length=50, validators=[validate_symbol])
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+
+개발 서버를 켜고 들어가면 Memo란이 생겼다
+이 Memo 필드는 예시로 든것이니 일단 지워주자 자 이렇게 필드를 정의할 때 유효성 검사를 작성하는 것 이외에 다른 방법으로 유효성을 검사할 수 있는데 바로 clean_필드네임 을 사용하는것이다 
+자 한번 해보자
 
 
 
