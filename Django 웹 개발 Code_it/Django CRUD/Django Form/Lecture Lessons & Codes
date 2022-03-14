@@ -1469,5 +1469,105 @@ full_clean()메서드는 마지막으로 clean메서드를 실행합니다. clea
     개발 서버를 켜고 각각의 유효성 검증이 잘 동작 하는지 확인해 주세요.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
+null = True 로 설정할 시 migration
+
+title의 blank 에 True 값을 그리고 null에 True 값을 설정한 후 개발서버에서 제목이 빈칸인 게시물을 전송했더니 
+
+NOT NULL constraint failed
+
+위와 같은 에러가 났습니다 
+
+개발서버를 끄고 migration 을 생성, 적용한 후 다시 개발서버를 열어 제목이 빈칸인 게시물을 올렸더니 제목이 None 인 게시물이 잘 올라갔습니다
+
+여기서 처음에 에러가 난 이유와 마이그레이션 생성,적용 했더니 에러가 없어진 이유가 무엇인가요?
+
+
+1.
+migration 하기 전 상태를 알면 좋을텐데,
+
+blank= True 와 null=True 를 migration 을 안하셨다면 해야 반영되는게 맞을 것입니당.
+
+원래 기본값은 False 로 주어지게 되니까용
+
+2.
+Db 혹은 객체화 코드 부분, 또는 어댑터 부분 전부 살펴보시는 게 좋지 않을까요.
+
+스키마에 따라서 코드가 재생성되거나, 코드에 따라서 스키마를 형성할 것 같아 마이그레이션 시에 수동으로 고쳐야하는 점이 있을 것 같아요
+---------------------------------------------------------------------------------------------------------------------------
+제목이나 내용을 빈칸으로 남기고 전송 버튼을 누를 때와 중복되는 제목일 때 전송 버튼을 누르는 경우
+
+제목이 중복일 때 전송 버튼을 누르면 바운드 폼이 뷰로 전달되어 is_valid를 통해 유효성 검사를 하게 되는데 
+
+제목이나 내용을 빈칸으로 남기고 전송 버튼을 누를 때는 바운드된 폼이 뷰로 전달 되지 않나요?
+
+def post_create(request):
+
+    if request.method == 'POST':
+
+        post_form = PostForm(request.POST)
+
+        if post_form.is_valid():
+
+            new_post = post_form.save()
+
+            return redirect('post-detail', post_id=new_post.id)
+
+    else:
+
+        post_form = PostForm()
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
+
+위의 코드를 
+
+def post_create(request):
+
+    if request.method == 'POST':
+
+        post_form = PostForm(request.POST)
+
+        if post_form.is_valid():
+
+            new_post = post_form.save()
+
+            return redirect('post-detail', post_id=new_post.id)
+
+    else:
+
+        pass
+
+    post_form = PostForm()
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
+
+다음과 같이 고치고 내용에는 텍스트를 입력하고 제목은 빈칸으로 놔둔채로 전송버튼을 누르면 "이 항목을 입력세요"라는 툴팁 같은게 뜨고 (에러메시지와는 다른)
+
+제목이 빈칸이고 내용은 채워져 있는 폼은 그대로 유지됩니다 
+
+만약 이 경우 바운드폼이 뷰로 전달된다면 제가 고친 post_create 뷰대로 전송 버튼 누른 후 모든 항목이 빈칸은 새로운 폼을 받을 텐데
+
+제목이 비었고 내용은 채워져있는 폼이 그대로 있는거 보니 바운드폼이 아예 뷰로 전달되지 않은거 같아요!
+
+
+예리하신 지적입니당~!
+
+위와 같은 경우엔 전송을 눌러도 뷰로 전달되지 않습니당.
+
+처음 posts/new 페이지에 접근할 때는 GET 요청이 들어가고,
+
+이에 따라 해당 로직이 실행되지만용.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 
