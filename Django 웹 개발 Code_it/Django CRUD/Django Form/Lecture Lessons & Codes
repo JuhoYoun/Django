@@ -1610,3 +1610,38 @@ class PostForm(forms.ModelForm):
 짜잔 에러메세지는 폼.필드.errors 를 통해서 접근할 수 있다 개발 서버 열고 해보면 에러 메세지 잘나온다
 ---------------------------------------------------------------------------------------------------------------------------
 
+Form에 CSS 적용하기 1
+
+자 우선 에러 메시지들을 빨간색으로 바꿔보자 간단한 CSS를 적용해주면된다 VSCode로 가서 static/posts/css 에다가 form.css를 생성한다 
+
+.error {
+    color: red;
+}
+
+그 다음에 post_form 템플릿으로 가서 작성한 css를 적용시켜주자 CSS를 적용시켜 주기 위해서 일단 기본적인 html 구조를 잡자 기본적인 구조는 base 템플릿에서 상속하자
+base.html 의 css 블록을 form.html에 구현하자 그리고 base.html 의 content 블락을 form.html에 구현하고 그 안에 기존에 있던 form.html의 form 태그 부분을 넣어주자
+->
+{% extend "./base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/css/form.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        <h3>제목</h3>
+        <p>{{form.title}}</p>
+        {% for error in form.title.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        <h3>내용</h3>
+        <p>{{form.content}}</p>
+        {% for error in form.content.errors %}
+            <p>{{error}}</p>
+        {% endfor %}
+        <input type="submit" value="전송">
+    </form>
+{% endblock content %}
+
+
