@@ -1654,7 +1654,49 @@ Form에 css 적용하기 2
 에러 메세지 같은 경우에는 p 태그에 클래스를 적용했지만 제목같은 경우에는 에러메세지 처럼 바로 아이디나 클래스를 적용할 수 없다 그 이유는 입력하는 input 태그 안에 있는 위젯에 대한
 스타일을 변경해야 되는데 지금은 장고 form에서 위젯에 대한 스타일을 자동으로 지정해주고 있기 때문이다
 
+<form method=="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title">
+</form>
 
+만약 위의 폼과 위젯을 html로 구현했다면
 
+<form method=="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title" style="width:100">
+</form>
 
+위 처럼 적어서 적용하거나 
+
+html
+<form method=="post">
+    <label for="title">제목</label>
+    <input type="text" id="title" name="title">
+</form>
+
+css
+#title{
+  width : 100;
+ }
+ 
+위처럼 css에 아이디를 사용해서 적용하면 되는데 우리는 이러한 설정들을 템플릿에서 바로 접근할 수 없고 폼을 정의한 forms.py에서 접근할 수 있다 자 그럼 forms.py로 가보자
+
+from django import forms
+from .models import Post
+from .validators import validate_symbol
+from django.core.exceptions import ValidationError
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+    
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if "*" in title:
+            raise ValidationError("*는 포함될 수 없습니다")
+        return title
+        
+여기 보면 title과 content 필드를 장고가 자동으로 모델을 보고 유추해서 사용하고 있다 models.py를 보면 title 같은 경우에는 CharField를 사용하고 있다 자 그럼 이제 장고 공식문서를 켜서
+이러한 CharField 같은 모델 필드를 변환할 때 장고는 어떤 위젯을 사용하는지 한번 봐보자 검색창에다가 django form charfield 라고 처보자 
 
