@@ -1621,7 +1621,7 @@ Form에 CSS 적용하기 1
 그 다음에 post_form 템플릿으로 가서 작성한 css를 적용시켜주자 CSS를 적용시켜 주기 위해서 일단 기본적인 html 구조를 잡자 기본적인 구조는 base 템플릿에서 상속하자
 base.html 의 css 블록을 form.html에 구현하자 그리고 base.html 의 content 블락을 form.html에 구현하고 그 안에 기존에 있던 form.html의 form 태그 부분을 넣어주자
 ->
-{% extend "./base.html" %}
+{% extends "./base.html" %}
 {% load static %}
 
 {% block css %}
@@ -1633,15 +1633,23 @@ base.html 의 css 블록을 form.html에 구현하자 그리고 base.html 의 co
         <h3>제목</h3>
         <p>{{form.title}}</p>
         {% for error in form.title.errors %}
-            <p>{{error}}</p>
+            <p class="error">{{error}}</p>
         {% endfor %}
         <h3>내용</h3>
         <p>{{form.content}}</p>
         {% for error in form.content.errors %}
-            <p>{{error}}</p>
+            <p class="error">{{error}}</p>
         {% endfor %}
         <input type="submit" value="전송">
     </form>
 {% endblock content %}
+
+이제 위의 에러 문구 p 태그에다가 클래스도 적용했다 개발서버 켜고 들어가면 잘나온다
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+
+
 
 
