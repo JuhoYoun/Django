@@ -1749,7 +1749,16 @@ class PostForm(forms.ModelForm):
         return title
 
 widgets 변수를 만들어줬다 이 widgets 은 사전형 변수로 필드 이름을 키로 하고 적용할 위젯을 값으로 해서 폼 필드마다 위젯을 직접 명시할 수 있게 해준다 기본 위젯 말고 다른 위젯을 사용하거나 지금처럼 
-위젯에 접근해야 될 때 쓰인데 원래 TextInput은 title 필드의 기본 위젯이었다 우린 여기서 다양한 스타일을 적용할 수 있다 아이디나 클래스등을 사용하면 된다 먼저 스타일을 적용하자
+위젯에 접근해야 될 때 쓰인데 원래 TextInput은 title 필드의 기본 위젯이었다 우린 여기서 다양한 스타일을 적용할 수 있다 아이디나 클래스등을 사용하면 된다 먼저 스타일을 적용하자 form.css 로 가자
+다음과 같이 추가해주자
+
+.form {
+    width: 400px;
+}
+
+그리고 다시 forms.py 로 가자 widgets = {'title' : forms.TextInput}  이 라인을 다음과 같이 고친다
+-> widgets = {'title' : forms.TextInput(attrs={'class':'title'})}
+이러면 여기 TextInput 이라는 위젯은 속성으로 클래스가 title이라는 것을 갖게되는것이다
 
 
 
