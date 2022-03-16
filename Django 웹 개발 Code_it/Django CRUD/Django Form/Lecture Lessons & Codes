@@ -2007,3 +2007,28 @@ class CharField(**kwargs)¶
 
 여기 보면 CharField 같은 경우 기본 위젝은 TextInput 이다 우리가 앞에서 보았던 길쭉한 한줄 입력창이다 다시 돌아가서 forms.py로 가서 정리를 해보면 자 우리는 ModelForm을 사용하고 
 이 title 같은 경우에는 모델의 CharField로 정의가 되어있으며 이러한 CharField는 폼으로 변환될 때 TextInput을 기본 위젯으로 사용한다는 것을 알고 있다 그럼 forms.py로 가서 다음과 같이 적어주자
+
+from django import forms
+from .models import Post
+from .validators import validate_symbol
+from django.core.exceptions import ValidationError
+
+class PostForm(forms.ModelForm):
+    # memo = forms.CharField(max_length=50, validators=[validate_symbol])
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+        widgets = {'title' : forms.TextInput}
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if "*" in title:
+            raise ValidationError("*는 포함될 수 없습니다")
+        return title
+
+widgets 변수를 만들어줬다 이 widgets 은 사전형 변수로 필드 이름을 키로 하고 적용할 위젯을 값으로 해서 폼 필드마다 위젯을 직접 명시할 수 있게 해준다 기본 위젯 말고 다른 위젯을 사용하거나 지금처럼 
+위젯에 접근해야 될 때 쓰인데 원래 TextInput은 title 필드의 기본 위젯이었다 우린 여기서 다양한 스타일을 적용할 수 있다 아이디나 클래스등을 사용하면 된다 먼저 스타일을 적용하자
+
+
+
+
+
