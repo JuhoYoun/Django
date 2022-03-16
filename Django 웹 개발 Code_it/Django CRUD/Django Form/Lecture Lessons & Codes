@@ -1758,7 +1758,37 @@ widgets 변수를 만들어줬다 이 widgets 은 사전형 변수로 필드 이
 
 그리고 다시 forms.py 로 가자 widgets = {'title' : forms.TextInput}  이 라인을 다음과 같이 고친다
 -> widgets = {'title' : forms.TextInput(attrs={'class':'title'})}
-이러면 여기 TextInput 이라는 위젯은 속성으로 클래스가 title이라는 것을 갖게되는것이다
+이러면 여기 TextInput 이라는 위젯은 속성으로 클래스가 title이라는 것을 갖게되는것이다 그리고 스타일 하나를 더 줘보자 그 다음에 다른 스타일을 더 주자
+유저가 처음으로 타이틀을 입력할 때 위젯 안에 제목을 입력하세요 같은 텍스트가 나오도록 해보자 이런건 css 속성중에 placeholder 라는것을 쓰면 된다
+->
+        widgets = {'title' : forms.TextInput(attrs=
+            {'class':'title',
+            'placeholder' : "제목을 입력하세요"})}
+
+자 그럼 이제 content 에다가도 placeholder 를 지정해주자
+->
+from django import forms
+from .models import Post
+from .validators import validate_symbol
+from django.core.exceptions import ValidationError
+
+class PostForm(forms.ModelForm):
+    # memo = forms.CharField(max_length=50, validators=[validate_symbol])
+    class Meta:
+        model = Post
+        fields =['title', 'content']
+        widgets = {'title' : forms.TextInput(attrs=
+                      {'class':'title',
+                      'placeholder' : "제목을 입력하세요"}),
+                   'content' : forms.Textarea(attrs=
+                      {'placeholder' : "내용을 입력하세요"})}
+    def clean_title(self):
+        title = self.cleaned_data["title"]
+        if "*" in title:
+            raise ValidationError("*는 포함될 수 없습니다")
+        return title
+
+자 이제 개발 서버 켜고 확인하자
 
 
 
