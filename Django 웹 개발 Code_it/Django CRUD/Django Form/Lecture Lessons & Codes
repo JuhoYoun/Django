@@ -2075,3 +2075,5 @@ def post_update(request, post_id):
     post_form = PostForm(instance=post)
 
     return render(request, "posts/post_form.html", {'form' : post_form})
+    
+이 다음에 해줘야하는건 수정된 글을 저장하는것이다 유저가 글 작성 버튼을 누르면 post 방식으로 요청이 들어간다 
