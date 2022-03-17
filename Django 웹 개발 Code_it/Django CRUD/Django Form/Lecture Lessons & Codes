@@ -2060,5 +2060,18 @@ blank 옵션은 폼에 입력할 때 빈 값을 허용할지 여부로 데이터
             <div class="btn_modify"><a href="{% url 'post-update' post.id %}">수정하기</a></div>
         </div>
 
-자 다음으로는 뷰로 가보자
+자 다음으로는 뷰로 가보자 post_update 뷰를만들어 줘야겠지? post.id 가 post_id 인자로 전달되서 post_update 인자로 들어가게된다 
+그냥 폼을 보여주느게 아니라 기존의 데이터가 채워져 있어야하므로 해당 포스트의 데이터를 가져와야한다
+-> post = Post.objects.get(id=post_id)
 
+자 이제 폼을 만들어주자
+-> post_form = PostForm(instance=post)
+
+기존의 모델을 폼에 넘겨주는 인자로 instance 를 사용하였다 이렇게하면 기존의 데이터가 폼에 바운드된다
+그리고 return render(request, "posts/post_form.html", {'form' : post_form}) 렌더해준다
+->
+def post_update(request, post_id):
+    post = Post.objects.get(id=post_id)
+    post_form = PostForm(instance=post)
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
