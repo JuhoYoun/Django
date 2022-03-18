@@ -2103,3 +2103,153 @@ def post_update(request, post_id):
     return render(request, "posts/post_form.html", {'form' : post_form})
 
 자 완성! 개발서버 켜고 해봐라
+-------------------------------------------------------------------------------------------------------------------------------
+실습과제
+100XP
+감정도 수정할 수 있을까요
+
+지금은 상세 일기 보기 페이지에서 '수정하기'를 눌러도 아무런 반응이 없습니다. 아래를 참고해서 상세 일기 보기 페이지의 '수정하기'를 구현해 주세요.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4150&directory=Untitled.png&name=Untitled.png
+
+    urls.py로 가서 수정하기에 해당하는 url 패턴을 주석 해제해 주세요.
+
+    page_detail 템플릿으로 가서 수정하기 페이지로 가는 링크를 url 템플릿 태그를 이용해서 작성해 주세요.
+
+    views.py로 가서 page_update 뷰를 작성해 주세요.
+     page_update 뷰는 먼저 수정할 데이터를 데이터 베이스에서 조회합니다.
+
+    def page_update(...):
+        object = <수정 할 Page 데이터를 조회>
+
+    POST
+
+    요청이 POST 방식인 경우는 사용자가 데이터를 수정하고 전송을 눌렀을 때입니다.
+
+    def page_update(...):
+        object = <수정 할 Page 데이터를 조회>
+        if <request가 POST 방식이라면>:
+            form = PageForm(<request에 저장되어 있는 데이터>, instance=<조회한 데이터>)
+            if <유효한 데이터라면>:
+                <데이터를 저장하고>
+                return <일기 상세 보기 페이지로 redirect>
+
+    요청이 POST 방식이라면 현재 request에 저장되어 있는 데이터와 데이터 베이스에서 조회한 Page 데이터 모델을 이용해서 PageForm을 만들어 주세요. PageForm의 instance 파라미터를 이용합니다.
+     그리고 작성한 form을 이용해서 유효성 검증을 한 후 유효한 데이터라면 데이터 베이스에 저장한 다음
+     데이터를 저장한 뒤 수정 된 데이터를 볼 수 있는 일기 상세 보기 페이지로 redirect 하도록 작성해 주세요.
+    GET
+
+    요청이 GET 방식인 경우는 처음 수정 페이지에 들어왔을 때이므로 기존의 데이터를 보여주고 수정할 수 있는 페이지를 제공해야 합니다.
+
+    def page_update(...):
+        object = <수정 할 Page 데이터를 조회>
+        if <request가 POST 방식이라면>:
+            # POST 로직
+        else:
+            form = PageForm(instance=<조회한 데이터>)
+
+    입력 할 수 있도록 PageForm을 생성하는데 이때 비어 있는 폼이 아닌 조회한 데이터로 채워진 폼을 제공합니다. instance 파라미터를 사용하세요.
+    return
+
+    def page_update(...):
+        object = <수정 할 Page 데이터를 조회>
+        if <request가 POST 방식이라면>:
+            # POST 로직
+        else:
+            # GET 로직
+        return render(...)
+
+    page_form 템플릿을 랜더해서 결과로 돌려주도록 작성해 주세요. 이때 위에서 생성한 form을 함께 템플릿으로 전달해야 합니다.
+
+    개발 서버를 켜고 상세 일기 보기 페이지로 가서 정상적으로 수정이 되는지 확인해 주세요.
+
+과제 해설close solution tab
+
+    이번에는 수정하기 기능을 구현해 보도록 하겠습니다. 먼저 urls.py로 가서 page-update를 주석 해제 해주세요.
+
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('diary/', views.page_list, name='page-list'),
+        path('diary/info', views.info, name='info'),
+        path('diary/write/', views.page_create, name='page-create'),
+        path('diary/page/<int:page_id>/', views.page_detail, name='page-detail'),
+        path('diary/page/<int:page_id>/edit/', views.page_update, name='page-update'),
+        # path('diary/page/<int:page_id>/delete/', views.page_delete, name='page-delete'),
+    ]
+
+    page_detail 템플릿으로 가서 수정하기로 가는 링크를 작성해 주겠습니다. url 템플릿 태그를 이용해서 작성하면 되겠죠? 이때 수정할 데이터를 조회해야 하므로 조회를 위한 object.id도 함께 적어줍니다.
+
+    {% extends './base.html' %}
+
+    {% block content %}
+    <div class="wrap-notetext">
+        <div class="notetext">
+            <div class="text-box">
+               ...
+                <div class="notetext-btn">
+                    <ul>
+                        <li><a href="#">삭제하기</a></li>
+                        <li><a href="{% url 'page-update' object.id %}">수정하기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    views.py로 가서 page_update 뷰를 작성해 보겠습니다.
+        page_update 뷰는 request와 page_id 파라미터가 필요합니다.
+        이 page_id를 사용해서 수정할 Page 데이터 모델을 조회합니다.
+
+    def page_update(request, page_id):
+        object = Page.objects.get(id=page_id)
+
+    POST
+        요청이 POST 방식 이라는 것은 사용자가 데이터를 수정하고 제출을 했다는 것을 의미합니다. 우리는 입력된 데이터를 받아서 유효성을 검사하고 데이터베이스에 저장한 후 일기 상세 보기 페이지로 안내 하면 됩니다.
+        Create와 달리 Update는 새로 Page 데이터 모델을 만들어서 저장하는 것이 아니라 기존의 데이터 모델을 수정해야 하므로 PageForm의 instance 파라미터로 조회한 데이터 모델을 넘겨주어야 합니다.
+
+    def page_update(request, page_id):
+        object = Page.objects.get(id=page_id)
+        if request.method == 'POST': # 요청이 POST 방식이라면
+            form = PageForm(request.POST, instance=object) # 기존의 데이터 모델에 새로운 데이터를 설정하고
+            if form.is_valid(): # 유효성 검사를 통과했다면
+                form.save() # 데이터를 저장한 뒤
+                return redirect('page-detail', page_id=object.id) # 상세 보기 페이지로 안내합니다.
+       
+
+    GET
+        요청이 GET 방식 이라는 것은 사용자가 처음 수정하기 페이지에 왔을때를 의미합니다.
+        이때 우리는 비어있는 폼 형식의 페이지가 아니라 기존 데이터가 채워진 상태의 폼을 제공해야 하므로 PageForm의 instance 파라미터에 조회한 Page 데이터 모델을 넘겨줍니다.
+
+    def page_update(request, page_id):
+        object = Page.objects.get(id=page_id)
+        if request.method == 'POST':
+            form = PageForm(request.POST, instance=object)
+            if form.is_valid():
+                form.save()
+                return redirect('page-detail', page_id=object.id)
+        else:
+            form = PageForm(instance=object)
+
+    return
+        마지막으로 POST와 GET에서 작성한 form을 이용해서 page_form 템플릿을 랜더한 후 결과로 돌려주도록 작성합니다.
+        이렇게 하게 되면 요청 방식이 POST 일 때는 'form'이 입력된 데이터가 들어간 form이 되고 만약 데이터가 유효하다면 데이터를 저장하고 상세 페이지로 가며, 유효하지 않다면 form에 입력된 데이터를 갖고 있는 그대로 return을 향하게 됩니다.
+        요청 방식이 GET 방식 일 때는 폼에 기존 데이터를 넣은 후 다른 로직이 없으므로 return을 향하게 되는거죠.
+        그러면 return에서는 각각 작성된 form을 page_form 템플릿으로 넘겨서 렌더한 후 결과로 돌려주면 됩니다.
+
+    def page_update(request, page_id):
+        object = Page.objects.get(id=page_id)
+        if request.method == 'POST':
+            form = PageForm(request.POST, instance=object)
+            if form.is_valid():
+                form.save()
+                return redirect('page-detail', page_id=object.id)
+        else:
+            form = PageForm(instance=object)
+        return render(request, 'diary/page_form.html', {'form': form})
+
+    개발 서버를 켜고 상세 일기 보기 페이지로 가서 정상적으로 수정이 되는지 확인해 주세요.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
