@@ -2291,4 +2291,17 @@ def post_delete(request, post_id):
 </div>
 {% endblock content %}
 
-여기선 장고폼을 쓸 필요가 없어 그냥 html 폼을 썼다
+여기선 장고폼을 쓸 필요가 없어 그냥 html 폼을 썼다 템플릿은 이걸로 됬고 뷰로 가자 post_delete 을 바꿔줘야한다
+->
+def post_delete(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        post.delete()
+        return redirect('post-list')
+    else:
+        return render(request, "posts/post_confirm_delete.html", {'post' : post})
+        
+POST 일 때 그러니까 post_confirm_delete 템플릿에서 버튼을 눌렀을 때는 포스트를 지워주고 아닐 때는 post_confirm_delete 템플릿을 렌더해준다
+자 이제 개발서버 켜고 확인해봐라
+---------------------------------------------------------------------------------------------------------------------------------
+
