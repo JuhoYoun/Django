@@ -2305,3 +2305,153 @@ POST 일 때 그러니까 post_confirm_delete 템플릿에서 버튼을 눌렀�
 자 이제 개발서버 켜고 확인해봐라
 ---------------------------------------------------------------------------------------------------------------------------------
 
+실습과제
+100XP
+지우고 싶은 하루를 보냈나요
+
+아래를 참고해서 일기 상세 보기 페이지의 '삭제하기' 기능을 구현해 주세요. 삭제하기를 눌렀을 경우 정말 삭제할 것 인지를 묻는 페이지가 나오고 확인을 누르면 삭제되는 로직입니다.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4154&directory=Untitled.png&name=Untitled.png
+
+    urls.py로 가서 삭제하기에 해당하는 url 패턴의 주석을 해제해 주세요.
+
+    page_detail 템플릿으로 가서 삭제하기로 가는 링크를 url 템플릿 태그를 이용해서 작성해 주세요.
+
+    아래를 참고해서 page_delete 뷰를 작성해 주세요.
+        먼저 삭제할 글을 데이터 베이스로 부터 조회해 주세요.
+    POST
+        POST는 유저가 "삭제하시겠습니까?" 라는 질문에 "예"를 눌러서 폼을 제출했을 때 입니다.
+        만약 요청이 POST 방식이라면 조회한 데이터를 지우고 'page-list' 즉 일기 목록 보기 페이지로 redirect 되도록 작성해 주세요.
+
+    def page_delete(...):
+        object = <삭제 대상 일기를 조회하는 로직>
+        if <요청 방식이 POST라면>:
+            <object를 이용해서 삭제 처리>
+            return redirect(<일기 목록 보기 페이지로 연결>)
+
+    GET
+        GET은 유저가 처음 일기 삭제 페이지를 들어왔을 때이므로 삭제할 것인지를 다시 한번 묻는 page_confirm_delete.html을 랜더 해서 결과로 돌려주도록 작성합니다.
+        이때 삭제할 일기를 함께 템플릿으로 전달해 템플릿에서 해당 데이터를 사용할 수 있도록 작성해 주세요.
+
+    def page_delete(...):
+        object = <삭제 대상 일기를 조회하는 로직>
+        if <요청 방식이 POST라면>:
+            # POST에 해당하는 로직
+        else:
+            return render(<page_confirm_delete 템플릿을 랜더>)
+
+    page_confirm_delete 템플릿으로 가서 [A]~[E]를 작성해 주세요.
+
+    개발 서버를 켜고 정상적으로 삭제 처리가 되는지 확인해 주세요.
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4154&directory=Untitled%201.png&name=Untitled+1.png
+
+과제 해설close solution tab
+
+    이번에는 삭제 기능을 구현해 보겠습니다. 먼저 urls.py로 가서 page-delete에 해당 하는 URL의 주석을 해제합니다.
+
+    # urls.py
+
+    from django.urls import path
+    from . import views
+
+    urlpatterns = [
+        path('diary/', views.page_list, name='page-list'),
+        path('diary/info', views.info, name='info'),
+        path('diary/write/', views.page_create, name='page-create'),
+        path('diary/page/<int:page_id>/', views.page_detail, name='page-detail'),
+        path('diary/page/<int:page_id>/edit/', views.page_update, name='page-update'),
+        path('diary/page/<int:page_id>/delete/', views.page_delete, name='page-delete'),
+    ]
+
+    다음으로 page_detail 템플릿으로 가서 '삭제하기' 를 누르면 삭제 페이지로 올 수 있도록 링크를 작성합니다. url 템플릿 태그를 이용하면 되는데 이때 삭제할 데이터를 조회할 page_id를 파라미터로 넘겨줍니다.
+
+    <!-- page_detail.html -->
+    {% extends './base.html' %}
+
+    {% block content %}
+    <div class="wrap-notetext">
+        <div class="notetext">
+            ...
+                <div class="notetext-btn">
+                    <ul>
+                        <li><a href="{% url 'page-delete' object.id %}">삭제하기</a></li>
+                        <li><a href="{% url 'page-update' object.id %}">수정하기</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    이제 page_delete 뷰를 작성하겠습니다.
+        page_delete 뷰를 정의하는데 request와 page_id를 파라미터로 합니다.
+        그리고 이 page_id를 이용해서 삭제 처리할 Page 데이터를 조회합니다.
+
+    def page_delete(request, page_id):
+        object = Page.objects.get(id=page_id)
+
+    POST
+        요청 방식이 POST 라는 것은 사용자가 삭제할 것 인지를 묻는 항목에 '예'를 눌러서 폼을 제출 했을 때를 말합니다.
+        조회한 데이터를 지우고 일기 목록 보기 페이지로 안내 합니다.
+
+    def page_delete(request, page_id):
+        object = Page.objects.get(id=page_id)
+        if request.method == 'POST': # 만약 요청 방식이 POST라면
+            object.delete() # 조회한 Page 데이터를 삭제처리하고
+            return redirect('page-list') # 일기 목록 보기로 안내합니다.
+       
+
+    GET
+        요청 방식이 GET이라는 것은 사용자가 처음 삭제하기를 눌렀을 때를 말합니다. 우리는 다시 한번 정말 삭제할 것 인지를 물어보는 page_confirm_delete 템플릿을 랜더 해서 결과로 돌려주면 됩니다.
+
+    def page_delete(request, page_id):
+        object = Page.objects.get(id=page_id)
+        if request.method == 'POST':
+            object.delete()
+            return redirect('page-list')
+        else: # 만약 요청이 GET 방식이라면
+                    # page_confirm_delete.html을 랜더해서 돌려주도록 합니다.
+                    # 이때 삭제 확인 페이지에서 글의 제목을 보여줄 수 있도록 object를 함께 넘겨줍니다.
+            return render(request, 'diary/page_confirm_delete.html', {'object': object})
+
+    page_confirm_delete 템플릿으로 가서 먼저 상속과 block 처리를 해주도록 하겠습니다.
+
+    {% extends './base.html' %} <!-- [A] base 템플릿 상속 -->
+
+    {% block content %} <!-- [B] content 블럭 처리 -->
+    <div class="wrap-delete">
+        <div class="delete-box">
+            ...
+        </div>
+    </div>
+    {% endblock content %} <!-- [B] content 블럭 처리 -->
+
+        그 다음 page_delete 뷰에서 넘겨준 데이터를 이용해 작성된 날짜와 제목을 표시하고
+        '남기기'를 누르면 다시 이 글의 상세 보기 페이지로 이동하도록 url 템플릿 태그를 이용해서 작성합니다.
+
+    {% extends './base.html' %}
+
+    {% block content %}
+    <div class="wrap-delete">
+        <div class="delete-box">
+            <div class="note-info">
+                <p>&#123;</p>
+                <span class="note-date">{{object.dt_create}}</span>
+                <span class="note-title">{{object.title}}</span>
+                <p>&#125;</p>
+            </div>
+            <p>이 하루를 지울까요?</p>
+            <form method='post'>{% csrf_token %}
+                <ul>
+                    <li><input type="submit" value="지우기"></li>
+                    <li><a href="{% url 'page-detail' object.id%}">남기기</a></li> 
+                </ul>
+            </form>
+        </div>
+    </div>
+    {% endblock content %}
+
+    개발 서버를 켜고 정상적으로 삭제 처리가 되는지 확인해 주세요.
+
+--------------------------------------------------------------------------------------------------------------------------------------
