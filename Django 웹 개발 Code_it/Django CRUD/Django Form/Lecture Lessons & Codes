@@ -2541,4 +2541,80 @@ https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4152&directory=
     </html>
 
     개발 서버를 켜고 도메인으로 바로 접속해서 메인 페이지가 잘 나오는지 확인하고 'click to enter'를 눌러 일기 목록 보기 페이지로 가는지 확인합니다.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+def validate_score(value):
+
+if value < 0 or value > 10:
+
+raise ValidationError('0부터 10사이의 숫자만 입력 가능합니다.')
+
+
+이 과제에서는 ValidationError 안에 인자로 code 값을 입력해주지 않았는데 code 인자는 생략해줘도 되는건가요?
+
+code 인자는 언제 역할을 하나요?
+
+공식문서에 따르면 쓰는 것을 권장하고는 있습니당
+
+https://docs.djangoproject.com/en/4.0/ref/forms/validation/#raising-validationerror
+
+
+그런데 Two scoops of Django 라는 잘 알려진 책에 의하면
+
+Django 의 코어 개발자인 마크 탐린이 아래와 같이 말했다고 합니당
+
+    장고의 공식 문서는 교과서적인 최선의 모범 해법만을 추천하다.
+
+마크 탐린의 개인적인 의견이긴 하지만용.
+
+다시 말해 최상의 방법이긴 하지만 반.드.시 써야 하는 것은 아닐 것 같아용. 물론 책에서도 서드 파티 애플리케이션과 같은 경우에는
+
+반드시 써야된다고 말하고는 있습니다.
+
+
+에러 원인을 명확히 확인하고자 할 때 최상의 방법이 위 방법이라고 하니 선택적이긴 하지만 이 의도라면 써주시는게 좋다고 생각합니당.
+---------------------------------------------------------------------------------------------------------------
+
+{{form.title}} 라는 템플릿 태그를 쓰게 되면 해당 폼의 title 필드의 input 위젯만 출력 되는건가요?
+
+
+{{form}} 만 써서 렌더하면 필드들의 레이블과 인풋 위젯이 모두 출력되는데
+
+
+{{form.title}} 으로 렌더하면 어째서 위젯만 출력되는지 궁금합니다. 혹은 레이블을 출력하는 다른 기능도 있나요?
+
+{{form}} 형태로 쓰시게 되면 {{form.as_table}}과 동일한 결과를 화면에서 보실 수 있는데,
+
+{{form}} 은 str(form) 과 같고 이 경우 as_table 메소드를 호출하게 되어 있습니당
+
+혹시 객체지향을 들으셨다면,
+
+class BaseForm:
+    .
+    .
+    .
+    def __str__(self):
+        return self.as_table()
+
+
+str(form) 실행시 왜 self.as_table() 메소드가 호출되는지 위 코드를 통해 아실 수 있을거에용
+
+as_table() 메소드는 아래와 같이 구현되어 있고용
+
+def as_table(self):        
+    "Return this form rendered as HTML <tr>s -- excluding the <table></table>."        
+    return self._html_output(            
+        normal_row='<tr%(html_class_attr)s><th>%(label)s</th><td>%(errors)s%(field)s%(help_text)s</td></tr>',               
+        error_row='<tr><td colspan="2">%s</td></tr>',            
+        row_ender='</td></tr>',            
+        help_text_html='<br><span class="helptext">%s</span>',            
+        errors_on_separate_row=False,        
+   )
+
+
+label 만 따로 render를 원하신다면
+
+https://docs.djangoproject.com/en/3.2/topics/forms/#looping-over-the-form-s-fields
+
+위 링크를 참고해보시면 좋겠습니당
 
