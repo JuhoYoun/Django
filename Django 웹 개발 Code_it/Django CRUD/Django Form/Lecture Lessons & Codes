@@ -2269,4 +2269,26 @@ def post_delete(request, post_id):
     
     return redirect('post-list')
     
-자 이러면 삭제 기능은 구현이 끝난다
+자 이러면 삭제 기능은 구현이 끝난다 개발 서버 들어가서 아무 글이나 삭제 누르면 잘 삭제된다! 근데 삭제 버튼을 누르면 바로 삭제되버리지? 한번의 클릭으로 글이 날아거 버리는것은 위험하다
+정말 글을 삭제하려는것이 맞는지 한번 더 물어보고 네라고 할 시 삭제하도록 만들어보겠다 post_confirm_delete.html 이라는 템플릿을만들어준다 이미 수업에서 만들어주었다 
+->
+{% extends './base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'posts/css/post_confirm_delete.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="confirm">
+    <p class="title">[{{post.title}}]</p>
+    <p>삭제하시겠습니까?</p>
+    <form method="POST">{% csrf_token %}
+        <div class="confirm_btn">
+            <input type="submit" value="삭제하기">
+        </div>
+    </form>
+</div>
+{% endblock content %}
+
+여기선 장고폼을 쓸 필요가 없어 그냥 html 폼을 썼다
