@@ -2082,4 +2082,24 @@ def post_update(request, post_id):
         post_form = PostForm(request.POST, instance=post)
         
 instance=post 이런식으로 인자를 주는 이유는 작성된 데이터와 폼을 바인딩하는데 이 때 새로운 모델 객체를 갖는 폼을 생성하는것이 아니라 기존에 작성되었던 POST 모델 인스턴스와 수정된 데이터를 갖는 폼을 만드는것이다
-이 부분이 핵심이다
+이 부분이 핵심이다 그리고 유효성 검증도 해주고 리디렉도 해주자
+->
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('post-detail', post_id=post.id)
+
+이제 POST 가 아닌 GET 방식으로 요청이 올 때를 구현하자 즉 상세페이지에서 글 수정하기를 눌러서 처음 들어온 상태라면 이미 작어놓았던 post_form = PostForm(instance=post) 이 부분이다 이걸 else 아래 넣기만 하자
+->
+def post_update(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        post_form = PostForm(request.POST, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+            return redirect('post-detail', post_id=post.id)
+    else:
+        post_form = PostForm(instance=post)
+
+    return render(request, "posts/post_form.html", {'form' : post_form})
+
+자 완성! 개발서버 켜고 해봐라
