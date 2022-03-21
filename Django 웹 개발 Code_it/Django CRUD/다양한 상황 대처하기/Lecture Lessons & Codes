@@ -37,7 +37,7 @@ post_list 템플릿으로 가자 자 여기다 if else 문을 넣어 게시글�
                 </a></div>
             {% endfor %}
         {% else %}
-            <div><p>글이 없넹<br>하나 작성해보는건 어때?</p></div>
+            <div class='blank'><p>글이 없넹<br>하나 작성해보는건 어때?</p></div>
         {% endif %}
     </div>
 {% endblock content %}
