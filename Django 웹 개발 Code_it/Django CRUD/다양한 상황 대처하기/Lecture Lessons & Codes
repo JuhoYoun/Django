@@ -73,6 +73,26 @@ Post.DoesNotExist라는 오류가 나게되는데 그럴 때는 except Post.Does
 그리고 이 Http404는 에러가 발생했을 떄 장고가 내부적으로 가지고 있는 404 에러에 대한 뷰를 호출해서 기본 에러 페이지를 렌더한다음 유저에게 보여주게 된다
 개발 서버 열고 테스트해봐라
 
+그런데 뷰 안에 이렇게 데이터베이스로부터 어떤 특정한 조건의 데이터를 가져오는 일은 매우 흔한일이다 그래서 장고는 이렇게 데이터를 조회했는데 해당 데이터가 없는 경우에 404 에러 까지 발생시키는 일련의
+과정을 하나의 함수로 제공한다 이부분을 함께 해보자 일단 다음과 같이 임포트해주자 -> from django.shortcuts import get_object_or_404 그리고 아래와 같이 뷰를 작성해주자
+->
+def post_detail(request, post_id):
+
+    post = get_object_or_404(Post, id=post_id)
+
+    context = {'post' : post}
+    return render(request, 'posts/post_detail.html', context)
+    
+자 개발서버 켜고 확인해보자 404 에러 메세지가 잘 출력된다 자 만약에 이런식으로 에러에대한 처리를 해주지 않으면 404 에러말고 500 에러 즉 서버 에러를 발생시키는데 서버 에러란 한마디로 말하면 
+서버 어딘가에서 로직을 수행하다고 발생한 에러라는 뜻이다 굉장히 범위가 넓지? 그래서 500 에러는 어디서 발생한 에러인지 알 수 없지만 404 에러는 요청에 대한 표시를 할 때 페이지가 없다는 말로
+서버에 문제가 있는 것이 아니고 내가 요청한 페이지가 없는 페이지구나 라는 인식을 할 수 있게 된다 자 앞으로 뷰에서 get으로 데이터를 조회할 때는 get_object_or_404 를 사용하자 자 그리고 update 와 delete
+뷰도 바꿔주자 
+
+더 알아보기
+
+파이썬 try-except 구문에 대해 더 알고싶다면 아래의 공식문서를 참고해보세요.
+try-except 공식문서 바로가기
+https://docs.python.org/ko/3/tutorial/errors.html#handling-exceptions
 
 
 
