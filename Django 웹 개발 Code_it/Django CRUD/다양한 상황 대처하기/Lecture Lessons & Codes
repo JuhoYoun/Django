@@ -44,3 +44,35 @@ post_list 템플릿으로 가자 자 여기다 if else 문을 넣어 게시글�
 
 짜잔 이렇게 하면 된다~~
 ----------------------------------------------------------------------------------------------------------------------------------
+가져올 데이터가 존재하지 않는다면?
+
+우리 뷰를 보면 많은 뷰 함수에서 post = Post.objects.get(id=post_id) 이런식으로 id를 이용해서 포스트를 가져온다 그런데 만약 데이터베이스에서 없는 아이디를 이용해서 조회하려고 하면 어떻게 될까?
+한번 없는 id를 이용해서 url을 처보자 -> 에러페이지가 나온다 웹서비스를 할 때는 이런식으로 의도치 않은 접근 등으로 인한 다양한 에러 상황을 처리해줘야한다 지금과 같은 상황에서는 사용자에게 404에러 즉
+이러한 접근에 대해서는 제공할 페이지가 없다 뭐 잘못된 접근이라는 에러 메세지를 보여주는것이 좋습니다 한번 해보자 다시 뷰로 가서 post_detail 뷰에 에러를 처리해주는 코드를 작성하자
+
+이전 뷰
+def post_detail(request, post_id):
+    post = Post.objects.get(id=post_id)
+    context = {'post' : post}
+    return render(request, 'posts/post_detail.html', context)
+
+새로운 뷰
+def post_detail(request, post_id):
+    try:
+        post = Post.objects.get(id=post_id)
+    except Post.DoesNotExist:
+        raise Http404()
+
+    context = {'post' : post}
+    return render(request, 'posts/post_detail.html', context)
+
+try 문은 에러가 날만한 구문을 적고 try 즉 시도하라는 뜻이다 그리고 만약 이떄 우리가 원하는 데이터를 가지고 오지 못한다면 그러니까 우리가 요청한 post_id에 해당하는 데이터가 데이터베이스에 없으면 
+Post.DoesNotExist라는 오류가 나게되는데 그럴 때는 except Post.DoesNotExist: 해주시고 raise Http404() 해서 404 에러를 띄워주면 된다 이 Http404 에러를 띄우려면 에러도 따로 임포트 해줘야한다
+-> from django.http import Http404
+
+그리고 이 Http404는 에러가 발생했을 떄 장고가 내부적으로 가지고 있는 404 에러에 대한 뷰를 호출해서 기본 에러 페이지를 렌더한다음 유저에게 보여주게 된다
+개발 서버 열고 테스트해봐라
+
+
+
+
