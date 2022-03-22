@@ -282,4 +282,12 @@ https://docs.djangoproject.com/ko/3.1/ref/django-admin/#what-s-a-fixture
 데이터를 자동으로 생성해주는 패키지이다 매우 직관적으로 쉽게 사용할수 있는 패키지므로 같이 설치하고 사용해보자 그러면 터미널로 가자! 
 costory 프로젝트 루트 디렉토리에서 다음과 같이 설치해준다 -> pip install django-seed
 
+주의사항
+
+강의 환경과 맞추기 위해 django-seed 는 0.2.2 버전을 설치해주세요.
+
+pip install django-seed==0.2.2
+
+다 설치가 되었다면 costory 폴더의 settings에 들어가서 INSTALLED_APPS 에 django_seed를 추가해준다 이러면 설치와 설정이 모두 끝난다 자 그러면 터미널로 가서 프로젝트 루트 디렉토리에다가 다음과 같이 
+명령어를 친다 -> python manage.py seed posts --number=50
 
