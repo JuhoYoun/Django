@@ -220,4 +220,9 @@ json_object["data_01"]["title"] = "title_data_01"
 
 이런식으로 같은 데이터라고 해도 다양한 형태와 계층으로 JSON을 표현할 수 있다 즉 내용물은 같지만 구조가 다른것이다 자 그러면 생각해보자 작성하는 사람마다 다른 형식으로 JSON을 작성하면 
 장고가 어떤 형식으로 작성된 JSON인지 모르기 때문에 데이터를 파악하기 힘들다 그래서 장고가 읽을 수 있는 구조로 JSON을 작성해야한다 구조를 알아보는 가장 좋은 방법은 장고로 부터 데이터 하나를
-JSON형식으로 추출해보는 것이다 한번 해보자 일단 글을 다 삭제한 상태에서
+JSON형식으로 추출해보는 것이다 한번 해보자 일단 글을 다 삭제한 상태에서 글을 하나 써보자 제목은 title_data_01 그리고 내용은 content_data_01 이렇게 쓴다 그리고 터미널로 가서 다음과 같이 입력하라
+-> python manage.py dumpdata posts > posts_data.json
+이 명령어는 장고의 프로젝트의 데이터를 파일로 추출하는 며령어인 dumpdata를 이용해서 데이터를 JSON 파일로 추출한것이다 실행하면 프로젝트 루트 디렉토리에 posts_data.json JSON 파일이 생긴다
+파일을 열어보면 데이터가 들어있기는 한데 조금 불편하게 생겼다 자 그러면 보기 쉽게 여기다 indentation 을 넣어주게 다음과 같이 명령어를 처라
+-> python manage.py dumpdata posts --indent=2 > posts_data.json
+그러면 이쁘게 들여쓰기가 두칸씩 되서 출력된다
