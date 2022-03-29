@@ -461,8 +461,10 @@ https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
+한 페이지에 글이 너무 많다면? 계속 글이 쭉 내려가면 페이지가 너무 길어지고 UI 측면에서 별로다 -> Pagination 
+장고에서는 Pagination 을 간편하게 구현할 수 있다 이번 시간에는 장고의 Pagination 기능을 shell에서 실습해볼것이다 
+python manage.py shell -> from django.core.paginator import Paiginator
+이제 페이지를 나눌 데이터가 있어야한다
 
 
 
