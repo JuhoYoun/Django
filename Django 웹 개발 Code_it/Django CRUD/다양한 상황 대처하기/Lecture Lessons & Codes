@@ -464,7 +464,12 @@ https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=
 한 페이지에 글이 너무 많다면? 계속 글이 쭉 내려가면 페이지가 너무 길어지고 UI 측면에서 별로다 -> Pagination 
 장고에서는 Pagination 을 간편하게 구현할 수 있다 이번 시간에는 장고의 Pagination 기능을 shell에서 실습해볼것이다 
 python manage.py shell -> from django.core.paginator import Paiginator
-이제 페이지를 나눌 데이터가 있어야한다
+이제 페이지를 나눌 데이터가 있어야한다 -> from posts.models import Post -> posts = post.objects.all() -> 그리고 posts.count() 해서 포스트가 몇개인지 확인해보자 
+자 이제 이 posts 를 가지고 페이지네이터를 생성해보자 자 페이지를 만들건데 Paginator 를 이용해서 posts 에 있는것들을 여섯개씩 잘라서 페이지를만들어보자 
+-> pages = Paginator(posts, 6)
+그 다음에 pages.page_range 해보면 range(1,10) 이렇게 뜨는데 페이지 9개가 생성됬다는 뜻이다 그리고 페이지도 하나씩 가져올 수 있는데 
+page = pages.page(1)  그리고 page.object_list 이렇게하면 페이지 글들이 보인다 몇가지 함수를 더 배워보자
+
 
 
 
