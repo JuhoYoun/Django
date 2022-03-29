@@ -347,7 +347,119 @@ def validate_post():
 이제 이 함수를 실행하면 되는데 지금 코드를 보면 모델이나 ORM등 장고의 기능을 이용해서 코드를 구현했다 그렇기 때문에 이 함수를 직접 실행하려면 장고의 기능을 사용할 수 있는 환경이 갖혀진 곳에서
 실행해야한다 가장 간단하게 사용하는 방법은 django shell을 사용하는것이다 한번 해보자 python manage.py shell -> from posts.validate_data import validate_post -> validate_post()
 이러면 validate_post 함수고 동작하면서 콘솔에 메세지들이 출력된다 -> 개발 서버 켜고 들어가면 &는 모드 삭제되고 수정일이 작성일 이전인 글들은 수정일이 현재로 바뀐것을 볼 수 있다
+----------------------------------------------------------------------------------------------------------------------------------------------------
 
+실습과제
+100XP
+감정이 뒤죽박죽
+
+우리가 만든 감정 일기가 잘 동작 하는지 테스트 해보고 싶습니다. 'django-seed'를 사용하여 50개의 무작위 데이터를 생성하고 각 데이터 중 유효성 검증에 맞지 않는 데이터를 수정해 주세요.
+
+https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=Untitled.png&name=Untitled.png
+
+    pip를 이용해서 'django-seed' 0.2.2 버전을 설치해 주세요.
+
+    pip install django-seed==0.2.2
+
+    settings.py의 app 목록에 'django_seed'를 추가해 주세요.
+
+    터미널을 열고 30개의 무작위 데이터를 생성해 주세요.
+
+    개발 서버를 켜고 데이터를 확인해 주세요.
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=Untitled%201.png&name=Untitled+1.png
+
+    이 중에서 '감정 점수'를 보면 정수형 이긴 하지만 값의 범위가 매우 넓습니다. 이 부분을 아래를 참고해서 0 부터 10 사이의 무작위 정수로 수정해 주세요.
+
+        diary 앱의 validate_data.py에 page 데이터를 수정하는 'validate_pages' 함수를 작성해 주세요.
+
+        validate_pages 함수는 파라미터가 없는 형태 입니다.
+
+        pages라는 변수에 데이터 베이스에서 모든 Page 데이터를 가져와 주세요.
+
+        모든 pages 데이터를 돌면서 page의 score가 0 미만 이거나 10을 초과 한다면 아래를 참고해서 0부터 10사이의 무작위 정수로 값을 바꾼 후 데이터 베이스에 저장하는 로직을 작성해 주세요.
+
+        import random
+        value = random.randint(a,b)
+
+        randint 함수는 매개변수로 넘어온 a와 b사이의 무작위 정수를 반환합니다.
+        이때 반환하는 범위는 a와 b를 모두 포함한 폐구간(closed interval)입니다. (a<=X<=b)
+
+    터미널을 열고 django shell을 실행 한 뒤 아래를 참고해서 방금 작성한 validate_pages 함수를 실행해 주세요.
+
+     ```python
+     from diary.validate_data import validate_pages
+     ```
+
+    개발 서버를 켜고 정상 적으로 감정 점수가 수정 되었는지 확인해 주세요.
+    변경 전
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=Untitled%202.png&name=Untitled+2.png
+    변경 후
+
+    https://bakey-api.codeit.kr/api/files/resource?root=static&seqId=4162&directory=Untitled%203.png&name=Untitled+3.png
+
+과제 해설close solution tab
+
+    django-seed를 사용하기 위해서는 settings.py의 INSTALLED_APPS 항목에 'django_seed'를 추가해 주어야합니다.
+
+    # settings.py
+    ...
+    # Application definition
+
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'diary',
+        'django_seed', # 추가합니다.
+    ]
+    ...
+
+    터미널을 열고 django-seed를 이용해서 무작위의 30개 Page 데이터를 생성합니다. manage.py 다음 seed를 적고 데이터를 생성할 앱 이름과 생성할 숫자를 적어 주면 됩니다.
+
+    python manage.py seed diary --number=30
+
+    개발 서버를 켜고 일기 목록 보기 페이지로 가면 생성된 데이터를 확인할 수 있습니다. 그런데 보면 감정 점수가 정수형 이긴 하지만 범위가 너무 넓습니다. 이를 해결 하기 위한 validate_pages 함수를 구현해 볼게요.
+
+    diary 앱의 validate_data.py에 validate_pages 함수를 정의합니다.
+        데이터를 조회하기 위해 먼저 Page 모델을 import 합니다.
+        모든 데이터를 가져와서 pages라는 변수에 넣습니다.
+
+    from .models import Page
+
+    def validate_pages():
+        pages = Page.objects.all()
+
+        pages를 하나씩 반복하면서 안쪽의 score가 0미만 이거나 10을 초과하는지 확인합니다.
+        만약 0미만 이거나 10을 초과한다면 random 모듈을 이용해 0에서 10사이의 무작위 정수를 생성한 뒤 수정하고 저장합니다.
+
+    from .models import Page
+    import random # random 모듈 import
+
+    def validate_pages():
+        pages = Page.objects.all()
+        for page in pages:
+            if page.score < 0 or page.score > 10: # 만약 범위를 벗어난다면
+                page.score = random.randint(0, 10) # 0~10 사이의 무작위 정수로 수정하고
+                page.save() # 저장합니다.
+
+    이제 작성한 validate_pages 함수를 한 번만 실행하면 모든 데이터의 score가 알맞게 변경됩니다.
+        django shell을 실행하고 validate_pages 함수를 import 합니다.
+        가져온 함수를 실행해서 데이터를 변경합니다.
+
+    python manage.py shell
+
+    from diary.validate_data import validate_pages
+
+    validate_pages()
+
+    개발 서버를 켜고 일기 목록 페이지로 가서 정상적으로 감정 점수 값이 수정 되었는지 확인합니다.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
