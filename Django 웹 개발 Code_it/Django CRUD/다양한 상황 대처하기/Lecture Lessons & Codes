@@ -479,4 +479,26 @@ page = pages.page(1)  그리고 page.object_list 이렇게하면 페이지 글�
 정보를 함께 제공해야된다는 것이다 자 앞에서 데이터 변경 없이 조회만 할 때는 GET 방식을 이용한다는 것을 배웠다 그리고 이 때 조회에 필요한 데이터를 전달 할 때는 URL애 데이터를 담아서 전달하는 방식인
 쿼리스트링을 이용해서 페이지네이션을 구현할 현재 페이지 번호를 전달할 것이다 이런식으로 페이지 번호를 넘겨주고 서버는 페이지 번호를 받아 페이지에 맞는 데이터 화면을 응답으로 돌려주는것이다 
 
+뷰로 가서 post_list 뷰를 수정해보자 일단 Paginator 을 import 하자 -> from django.core.paginator import Paginator
+그리고 다음의 뷰를
+def post_list(request):
+    posts = Post.objects.all()
+    context = dict()
+    context['posts'] = posts
+    return render(request, 'posts/post_list.html', context)
+
+이렇게 고쳐주자 
+def post_list(request):
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 6)
+    curr_page_number = request.GET.get('page')
+    if curr_page_number is None:
+        curr_page_number = 1
+    page = paginator.page(curr_page_number)
+    return render(request, 'posts/post_list.html', {'page' : page})
+
+
+
+
+
 
