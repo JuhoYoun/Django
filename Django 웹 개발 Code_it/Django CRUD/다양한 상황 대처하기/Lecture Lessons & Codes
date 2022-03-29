@@ -491,13 +491,13 @@ def post_list(request):
 def post_list(request):
     posts = Post.objects.all()
     paginator = Paginator(posts, 6)
-    curr_page_number = request.GET.get('page')
+    curr_page_number = request.GET.get('page') #쿼리 스트링은 name 과 value 로 이루어져있다 쿼리 스트링에서 page 값을 가져오는것이다 
     if curr_page_number is None:
         curr_page_number = 1
     page = paginator.page(curr_page_number)
     return render(request, 'posts/post_list.html', {'page' : page})
 
-
+다 했으면 이제 post_list.html 템플릿으로 가자 
 
 
 
