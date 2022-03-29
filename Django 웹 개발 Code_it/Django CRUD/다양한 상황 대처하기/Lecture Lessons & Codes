@@ -342,10 +342,11 @@ def validate_post():
             post.save()
         if post.dt_modified < post.dt_created:
             print(post.id, "번 글에 수정일이 생성일보다 과거입니다.")
-            post.save()
+            post.save() #수정일을 현재로 바꾸기 위해 
  
 이제 이 함수를 실행하면 되는데 지금 코드를 보면 모델이나 ORM등 장고의 기능을 이용해서 코드를 구현했다 그렇기 때문에 이 함수를 직접 실행하려면 장고의 기능을 사용할 수 있는 환경이 갖혀진 곳에서
-실행해야한다 가장 간단하게 사용하는 방법은 django shell을 사용하는것이다 한번 해보자
+실행해야한다 가장 간단하게 사용하는 방법은 django shell을 사용하는것이다 한번 해보자 python manage.py shell -> from posts.validate_data import validate_post -> validate_post()
+이러면 validate_post 함수고 동작하면서 콘솔에 메세지들이 출력된다 -> 개발 서버 켜고 들어가면 &는 모드 삭제되고 수정일이 작성일 이전인 글들은 수정일이 현재로 바뀐것을 볼 수 있다
 
 
 
