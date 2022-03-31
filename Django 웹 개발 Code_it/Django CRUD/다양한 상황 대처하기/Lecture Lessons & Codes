@@ -701,3 +701,36 @@ Template에서는 View에서 넘어온 Page를 이용해서 화면을 구성하�
 이외에 Django의 Pagination에 대해 더 많이 알고 싶다면 아래 공식문서를 참고하세요.
 https://docs.djangoproject.com/en/2.2/topics/pagination/
 -------------------------------------------------------------------------------------------------------------------------------------------
+
+<div class="paginator">
+  {% if page.has_previous %}
+    <a href="?page=1" class="first">first</a>
+    <a href="?page={{page.previous_page_number}}" class="prev">prev</a>
+  {% endif %}
+    <span>
+      <p>{{page.number}} of {{page.paginator.num_pages}} </p>
+    </span>
+  {% if page.has_next %}
+    <a href="?page={{page.next_page_number}}" class="next">next</a>
+    <a href="?page={{page.paginator.num_pages}}" class="last">last</a>
+  {% endif %}
+</div>
+
+
+위의 템플릿 코드에서 has_previous() has_next() next_page_number() previous_page_number() 메소드 뒤에 ()가 생략된 이유가 무엇인가요?
+
+이렇게 되면 메소드가 아니라 속성을 호출하는것이 아닌가요?
+
+공식 문서에서 정확한 이유는 찾기 어려웠지만,
+
+https://django-book.readthedocs.io/en/latest/chapter04.html#philosophies-and-limitations 에서는 다음과 같이 설명하고 있습니다
+
+    Business logic should be separated from presentation logic. Django’s developers see a template system as a tool that controls presentation and presentation-related logic – and that’s it. The template system shouldn’t support functionality that goes beyond this basic goal.
+
+
+    For that reason, it’s impossible to call Python code directly within Django templates. All “programming” is fundamentally limited to the scope of what template tags can do. It is possible to write custom template tags that do arbitrary things, but the out-of-the-box Django template tags intentionally do not allow for arbitrary Python code execution.
+
+django 개발자의 철학이 반영된 것이라고 생각하시면 좋을 것 같습니당
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
